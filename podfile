@@ -1,0 +1,22 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'DonationTracker' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for DonationTracker
+  pod 'SendGrid-Swift'
+  pod 'DropDown'
+  pod 'Parse'
+  target 'DonationTrackerTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'DonationTrackerUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

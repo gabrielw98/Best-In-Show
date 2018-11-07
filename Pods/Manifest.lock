@@ -1,0 +1,30 @@
+PODS:
+  - Bolts/Tasks (1.9.0)
+  - DropDown (2.3.12)
+  - Parse (1.17.1):
+    - Parse/Core (= 1.17.1)
+  - Parse/Core (1.17.1):
+    - Bolts/Tasks (~> 1.9)
+  - SendGrid-Swift (0.1.2)
+
+DEPENDENCIES:
+  - DropDown
+  - Parse
+  - SendGrid-Swift
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Bolts
+    - DropDown
+    - Parse
+    - SendGrid-Swift
+
+SPEC CHECKSUMS:
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  DropDown: 0bcc278799ec11a3d34ce1aac9367fbbaf5423d9
+  Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
+  SendGrid-Swift: ac2a563f564d95e9c8e069db337279b442bed67e
+
+PODFILE CHECKSUM: 9b28f81ab478c4244d82c2882398a23615cec7d5
+
+COCOAPODS: 1.5.3

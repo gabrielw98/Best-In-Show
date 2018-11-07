@@ -1,0 +1,808 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0060CBE060F33429529BB51F /* Pods_DonationTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4122CA91CDEB254DEC46DF9F /* Pods_DonationTracker.framework */; };
+		8C10C39F218229BC00E2CC28 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C39E218229BC00E2CC28 /* ProfileTableViewCell.swift */; };
+		8C10C3A221822A8700E2CC28 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C3A121822A8700E2CC28 /* ProfileVC.swift */; };
+		8C10C3A421835C7300E2CC28 /* PlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C3A321835C7300E2CC28 /* PlacesVC.swift */; };
+		8C11D978217C2424000FD62E /* LocationInventoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11D977217C2424000FD62E /* LocationInventoryVC.swift */; };
+		8C11D97A217E5EC8000FD62E /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11D979217E5EC8000FD62E /* ItemTableViewCell.swift */; };
+		8C3D965D2187FE5B0072F500 /* PlacesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3D965C2187FE5B0072F500 /* PlacesCollectionViewCell.swift */; };
+		8C3F1BBE216028A70028B7E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F1BBD216028A70028B7E2 /* AppDelegate.swift */; };
+		8C3F1BC0216028A70028B7E2 /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F1BBF216028A70028B7E2 /* RegistrationVC.swift */; };
+		8C3F1BC3216028A70028B7E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C3F1BC1216028A70028B7E2 /* Main.storyboard */; };
+		8C3F1BC5216028A90028B7E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C3F1BC4216028A90028B7E2 /* Assets.xcassets */; };
+		8C3F1BC8216028A90028B7E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C3F1BC6216028A90028B7E2 /* LaunchScreen.storyboard */; };
+		8C3F1BD3216028A90028B7E2 /* DonationTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F1BD2216028A90028B7E2 /* DonationTrackerTests.swift */; };
+		8C3F1BDE216028A90028B7E2 /* DonationTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F1BDD216028A90028B7E2 /* DonationTrackerUITests.swift */; };
+		8C4B10442162ADFC00A3B012 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4B10432162ADFC00A3B012 /* Location.swift */; };
+		8C90079A218909C200577A1C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C900799218909C200577A1C /* DataModel.swift */; };
+		8C90079C218958D200577A1C /* MoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90079B218958D200577A1C /* MoreVC.swift */; };
+		8C90079E2189F00500577A1C /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90079D2189F00500577A1C /* RegisterVC.swift */; };
+		8CB2639E21646B8500ADBE44 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB2639D21646B8500ADBE44 /* MapVC.swift */; };
+		8CF6450421936EF000ADFADA /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CF6450321936EF000ADFADA /* keys.plist */; };
+		A101A674B0E1BF2CEB9A1206 /* Pods_DonationTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB0447E5C24E1E6D4D859B5 /* Pods_DonationTrackerUITests.framework */; };
+		E0D2137EABE31C45CCB01F7A /* Pods_DonationTrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A3E6AA23F57484F3291E72 /* Pods_DonationTrackerTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8C3F1BCF216028A90028B7E2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8C3F1BB2216028A70028B7E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8C3F1BB9216028A70028B7E2;
+			remoteInfo = DonationTracker;
+		};
+		8C3F1BDA216028A90028B7E2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8C3F1BB2216028A70028B7E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8C3F1BB9216028A70028B7E2;
+			remoteInfo = DonationTracker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0BB1869CDBE268E2414FBC92 /* Pods-DonationTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker.release.xcconfig"; sourceTree = "<group>"; };
+		4122CA91CDEB254DEC46DF9F /* Pods_DonationTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DonationTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		499C17B03ACA433F1C5E5D7D /* Pods-DonationTrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTrackerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTrackerTests/Pods-DonationTrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		60274693D510DF7768EDEE79 /* Pods-DonationTrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTrackerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTrackerUITests/Pods-DonationTrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		61C3065C20555E3E4845A39E /* Pods-DonationTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker.debug.xcconfig"; sourceTree = "<group>"; };
+		81D0C0A6F8E899636DFA9EB1 /* Pods-DonationTrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTrackerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTrackerTests/Pods-DonationTrackerTests.release.xcconfig"; sourceTree = "<group>"; };
+		8B4A736DBCEE1CB631165D58 /* Pods-DonationTrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTrackerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTrackerUITests/Pods-DonationTrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8C10C39E218229BC00E2CC28 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		8C10C3A121822A8700E2CC28 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		8C10C3A321835C7300E2CC28 /* PlacesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesVC.swift; sourceTree = "<group>"; };
+		8C11D977217C2424000FD62E /* LocationInventoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInventoryVC.swift; sourceTree = "<group>"; };
+		8C11D979217E5EC8000FD62E /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		8C3D965C2187FE5B0072F500 /* PlacesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesCollectionViewCell.swift; sourceTree = "<group>"; };
+		8C3F1BBA216028A70028B7E2 /* DonationTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DonationTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C3F1BBD216028A70028B7E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8C3F1BBF216028A70028B7E2 /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
+		8C3F1BC2216028A70028B7E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8C3F1BC4216028A90028B7E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8C3F1BC7216028A90028B7E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8C3F1BC9216028A90028B7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C3F1BCE216028A90028B7E2 /* DonationTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DonationTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C3F1BD2216028A90028B7E2 /* DonationTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationTrackerTests.swift; sourceTree = "<group>"; };
+		8C3F1BD4216028A90028B7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C3F1BD9216028A90028B7E2 /* DonationTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DonationTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C3F1BDD216028A90028B7E2 /* DonationTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationTrackerUITests.swift; sourceTree = "<group>"; };
+		8C3F1BDF216028A90028B7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C4B10432162ADFC00A3B012 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		8C900799218909C200577A1C /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		8C90079B218958D200577A1C /* MoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreVC.swift; sourceTree = "<group>"; };
+		8C90079D2189F00500577A1C /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		8CB2639D21646B8500ADBE44 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		8CF6450321936EF000ADFADA /* keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
+		ADB0447E5C24E1E6D4D859B5 /* Pods_DonationTrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DonationTrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1A3E6AA23F57484F3291E72 /* Pods_DonationTrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DonationTrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8C3F1BB7216028A70028B7E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0060CBE060F33429529BB51F /* Pods_DonationTracker.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C3F1BCB216028A90028B7E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0D2137EABE31C45CCB01F7A /* Pods_DonationTrackerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C3F1BD6216028A90028B7E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A101A674B0E1BF2CEB9A1206 /* Pods_DonationTrackerUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8C10C3A021822A5200E2CC28 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8C11D979217E5EC8000FD62E /* ItemTableViewCell.swift */,
+				8C3D965C2187FE5B0072F500 /* PlacesCollectionViewCell.swift */,
+				8C10C39E218229BC00E2CC28 /* ProfileTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8C3F1BB1216028A70028B7E2 = {
+			isa = PBXGroup;
+			children = (
+				8C3F1BBC216028A70028B7E2 /* DonationTracker */,
+				8C3F1BD1216028A90028B7E2 /* DonationTrackerTests */,
+				8C3F1BDC216028A90028B7E2 /* DonationTrackerUITests */,
+				8C3F1BBB216028A70028B7E2 /* Products */,
+				A0868015C32213398CE02059 /* Pods */,
+				9074C3DDC39EEC5F4E6D3EC3 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8C3F1BBB216028A70028B7E2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8C3F1BBA216028A70028B7E2 /* DonationTracker.app */,
+				8C3F1BCE216028A90028B7E2 /* DonationTrackerTests.xctest */,
+				8C3F1BD9216028A90028B7E2 /* DonationTrackerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8C3F1BBC216028A70028B7E2 /* DonationTracker */ = {
+			isa = PBXGroup;
+			children = (
+				8C3F1BBD216028A70028B7E2 /* AppDelegate.swift */,
+				8C10C3A021822A5200E2CC28 /* View */,
+				8C9007972189007600577A1C /* Data Classes */,
+				8C9007982189009800577A1C /* View Controllers */,
+				8C3F1BC1216028A70028B7E2 /* Main.storyboard */,
+				8C3F1BC4216028A90028B7E2 /* Assets.xcassets */,
+				8C3F1BC6216028A90028B7E2 /* LaunchScreen.storyboard */,
+				8C3F1BC9216028A90028B7E2 /* Info.plist */,
+			);
+			path = DonationTracker;
+			sourceTree = "<group>";
+		};
+		8C3F1BD1216028A90028B7E2 /* DonationTrackerTests */ = {
+			isa = PBXGroup;
+			children = (
+				8C3F1BD2216028A90028B7E2 /* DonationTrackerTests.swift */,
+				8C3F1BD4216028A90028B7E2 /* Info.plist */,
+			);
+			path = DonationTrackerTests;
+			sourceTree = "<group>";
+		};
+		8C3F1BDC216028A90028B7E2 /* DonationTrackerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8C3F1BDD216028A90028B7E2 /* DonationTrackerUITests.swift */,
+				8C3F1BDF216028A90028B7E2 /* Info.plist */,
+			);
+			path = DonationTrackerUITests;
+			sourceTree = "<group>";
+		};
+		8C9007972189007600577A1C /* Data Classes */ = {
+			isa = PBXGroup;
+			children = (
+				8C900799218909C200577A1C /* DataModel.swift */,
+				8C4B10432162ADFC00A3B012 /* Location.swift */,
+			);
+			path = "Data Classes";
+			sourceTree = "<group>";
+		};
+		8C9007982189009800577A1C /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8C3F1BBF216028A70028B7E2 /* RegistrationVC.swift */,
+				8CB2639D21646B8500ADBE44 /* MapVC.swift */,
+				8C11D977217C2424000FD62E /* LocationInventoryVC.swift */,
+				8C90079F2189F1D800577A1C /* More */,
+				8C10C3A121822A8700E2CC28 /* ProfileVC.swift */,
+				8C10C3A321835C7300E2CC28 /* PlacesVC.swift */,
+				8CF6450321936EF000ADFADA /* keys.plist */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		8C90079F2189F1D800577A1C /* More */ = {
+			isa = PBXGroup;
+			children = (
+				8C90079B218958D200577A1C /* MoreVC.swift */,
+				8C90079D2189F00500577A1C /* RegisterVC.swift */,
+			);
+			path = More;
+			sourceTree = "<group>";
+		};
+		9074C3DDC39EEC5F4E6D3EC3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4122CA91CDEB254DEC46DF9F /* Pods_DonationTracker.framework */,
+				C1A3E6AA23F57484F3291E72 /* Pods_DonationTrackerTests.framework */,
+				ADB0447E5C24E1E6D4D859B5 /* Pods_DonationTrackerUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A0868015C32213398CE02059 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				61C3065C20555E3E4845A39E /* Pods-DonationTracker.debug.xcconfig */,
+				0BB1869CDBE268E2414FBC92 /* Pods-DonationTracker.release.xcconfig */,
+				499C17B03ACA433F1C5E5D7D /* Pods-DonationTrackerTests.debug.xcconfig */,
+				81D0C0A6F8E899636DFA9EB1 /* Pods-DonationTrackerTests.release.xcconfig */,
+				8B4A736DBCEE1CB631165D58 /* Pods-DonationTrackerUITests.debug.xcconfig */,
+				60274693D510DF7768EDEE79 /* Pods-DonationTrackerUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8C3F1BB9216028A70028B7E2 /* DonationTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C3F1BE2216028A90028B7E2 /* Build configuration list for PBXNativeTarget "DonationTracker" */;
+			buildPhases = (
+				3E2CAF4550A431C54BD1F0BF /* [CP] Check Pods Manifest.lock */,
+				8C3F1BB6216028A70028B7E2 /* Sources */,
+				8C3F1BB7216028A70028B7E2 /* Frameworks */,
+				8C3F1BB8216028A70028B7E2 /* Resources */,
+				42D3F4E660C6DCED94BCDFA4 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DonationTracker;
+			productName = DonationTracker;
+			productReference = 8C3F1BBA216028A70028B7E2 /* DonationTracker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8C3F1BCD216028A90028B7E2 /* DonationTrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C3F1BE5216028A90028B7E2 /* Build configuration list for PBXNativeTarget "DonationTrackerTests" */;
+			buildPhases = (
+				61B5548DD79F08F717F85A48 /* [CP] Check Pods Manifest.lock */,
+				8C3F1BCA216028A90028B7E2 /* Sources */,
+				8C3F1BCB216028A90028B7E2 /* Frameworks */,
+				8C3F1BCC216028A90028B7E2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8C3F1BD0216028A90028B7E2 /* PBXTargetDependency */,
+			);
+			name = DonationTrackerTests;
+			productName = DonationTrackerTests;
+			productReference = 8C3F1BCE216028A90028B7E2 /* DonationTrackerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8C3F1BD8216028A90028B7E2 /* DonationTrackerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C3F1BE8216028A90028B7E2 /* Build configuration list for PBXNativeTarget "DonationTrackerUITests" */;
+			buildPhases = (
+				C222A0539FDCA6237284CACE /* [CP] Check Pods Manifest.lock */,
+				8C3F1BD5216028A90028B7E2 /* Sources */,
+				8C3F1BD6216028A90028B7E2 /* Frameworks */,
+				8C3F1BD7216028A90028B7E2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8C3F1BDB216028A90028B7E2 /* PBXTargetDependency */,
+			);
+			name = DonationTrackerUITests;
+			productName = DonationTrackerUITests;
+			productReference = 8C3F1BD9216028A90028B7E2 /* DonationTrackerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8C3F1BB2216028A70028B7E2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "Gabe Wilson";
+				TargetAttributes = {
+					8C3F1BB9216028A70028B7E2 = {
+						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
+					};
+					8C3F1BCD216028A90028B7E2 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 8C3F1BB9216028A70028B7E2;
+					};
+					8C3F1BD8216028A90028B7E2 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 8C3F1BB9216028A70028B7E2;
+					};
+				};
+			};
+			buildConfigurationList = 8C3F1BB5216028A70028B7E2 /* Build configuration list for PBXProject "DonationTracker" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8C3F1BB1216028A70028B7E2;
+			productRefGroup = 8C3F1BBB216028A70028B7E2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8C3F1BB9216028A70028B7E2 /* DonationTracker */,
+				8C3F1BCD216028A90028B7E2 /* DonationTrackerTests */,
+				8C3F1BD8216028A90028B7E2 /* DonationTrackerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8C3F1BB8216028A70028B7E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CF6450421936EF000ADFADA /* keys.plist in Resources */,
+				8C3F1BC8216028A90028B7E2 /* LaunchScreen.storyboard in Resources */,
+				8C3F1BC5216028A90028B7E2 /* Assets.xcassets in Resources */,
+				8C3F1BC3216028A70028B7E2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C3F1BCC216028A90028B7E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C3F1BD7216028A90028B7E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3E2CAF4550A431C54BD1F0BF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DonationTracker-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		42D3F4E660C6DCED94BCDFA4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
+				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/SendGrid-Swift/SendGrid_Swift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SendGrid_Swift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61B5548DD79F08F717F85A48 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DonationTrackerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C222A0539FDCA6237284CACE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DonationTrackerUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8C3F1BB6216028A70028B7E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C3F1BC0216028A70028B7E2 /* RegistrationVC.swift in Sources */,
+				8C10C39F218229BC00E2CC28 /* ProfileTableViewCell.swift in Sources */,
+				8C90079A218909C200577A1C /* DataModel.swift in Sources */,
+				8CB2639E21646B8500ADBE44 /* MapVC.swift in Sources */,
+				8C10C3A421835C7300E2CC28 /* PlacesVC.swift in Sources */,
+				8C3F1BBE216028A70028B7E2 /* AppDelegate.swift in Sources */,
+				8C10C3A221822A8700E2CC28 /* ProfileVC.swift in Sources */,
+				8C90079C218958D200577A1C /* MoreVC.swift in Sources */,
+				8C90079E2189F00500577A1C /* RegisterVC.swift in Sources */,
+				8C11D978217C2424000FD62E /* LocationInventoryVC.swift in Sources */,
+				8C11D97A217E5EC8000FD62E /* ItemTableViewCell.swift in Sources */,
+				8C4B10442162ADFC00A3B012 /* Location.swift in Sources */,
+				8C3D965D2187FE5B0072F500 /* PlacesCollectionViewCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C3F1BCA216028A90028B7E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C3F1BD3216028A90028B7E2 /* DonationTrackerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C3F1BD5216028A90028B7E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C3F1BDE216028A90028B7E2 /* DonationTrackerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8C3F1BD0216028A90028B7E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8C3F1BB9216028A70028B7E2 /* DonationTracker */;
+			targetProxy = 8C3F1BCF216028A90028B7E2 /* PBXContainerItemProxy */;
+		};
+		8C3F1BDB216028A90028B7E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8C3F1BB9216028A70028B7E2 /* DonationTracker */;
+			targetProxy = 8C3F1BDA216028A90028B7E2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8C3F1BC1216028A70028B7E2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8C3F1BC2216028A70028B7E2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8C3F1BC6216028A90028B7E2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8C3F1BC7216028A90028B7E2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8C3F1BE0216028A90028B7E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8C3F1BE1216028A90028B7E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8C3F1BE3216028A90028B7E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 61C3065C20555E3E4845A39E /* Pods-DonationTracker.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PEB6PV8M5G;
+				INFOPLIST_FILE = DonationTracker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com..DonationTracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8C3F1BE4216028A90028B7E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0BB1869CDBE268E2414FBC92 /* Pods-DonationTracker.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PEB6PV8M5G;
+				INFOPLIST_FILE = DonationTracker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com..DonationTracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8C3F1BE6216028A90028B7E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 499C17B03ACA433F1C5E5D7D /* Pods-DonationTrackerTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PEB6PV8M5G;
+				INFOPLIST_FILE = DonationTrackerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com..DonationTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DonationTracker.app/DonationTracker";
+			};
+			name = Debug;
+		};
+		8C3F1BE7216028A90028B7E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 81D0C0A6F8E899636DFA9EB1 /* Pods-DonationTrackerTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PEB6PV8M5G;
+				INFOPLIST_FILE = DonationTrackerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com..DonationTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DonationTracker.app/DonationTracker";
+			};
+			name = Release;
+		};
+		8C3F1BE9216028A90028B7E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B4A736DBCEE1CB631165D58 /* Pods-DonationTrackerUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PEB6PV8M5G;
+				INFOPLIST_FILE = DonationTrackerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com..DonationTrackerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DonationTracker;
+			};
+			name = Debug;
+		};
+		8C3F1BEA216028A90028B7E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60274693D510DF7768EDEE79 /* Pods-DonationTrackerUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PEB6PV8M5G;
+				INFOPLIST_FILE = DonationTrackerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com..DonationTrackerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DonationTracker;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8C3F1BB5216028A70028B7E2 /* Build configuration list for PBXProject "DonationTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C3F1BE0216028A90028B7E2 /* Debug */,
+				8C3F1BE1216028A90028B7E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8C3F1BE2216028A90028B7E2 /* Build configuration list for PBXNativeTarget "DonationTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C3F1BE3216028A90028B7E2 /* Debug */,
+				8C3F1BE4216028A90028B7E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8C3F1BE5216028A90028B7E2 /* Build configuration list for PBXNativeTarget "DonationTrackerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C3F1BE6216028A90028B7E2 /* Debug */,
+				8C3F1BE7216028A90028B7E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8C3F1BE8216028A90028B7E2 /* Build configuration list for PBXNativeTarget "DonationTrackerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C3F1BE9216028A90028B7E2 /* Debug */,
+				8C3F1BEA216028A90028B7E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8C3F1BB2216028A70028B7E2 /* Project object */;
+}
