@@ -101,7 +101,7 @@ class RegistrationVC: UIViewController, UITextFieldDelegate {
         let user = PFUser()
         user.username = usernameTextField.text
         user.password = passwordTextField.text
-        user.email = "gabewils4@gmail.com"
+        //user.email = "gabewils4@gmail.com"
         user.signUpInBackground(block: { (success, error) in
             if success {
                 print("successfully signed up the user")

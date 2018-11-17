@@ -181,7 +181,14 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             let targetVC = segue.destination as! LocationInventoryVC
             print(self.selectedLocation.objectId, "this is the selected location objectId")
             targetVC.selectedLocation = self.selectedLocation
+        } else if segue.identifier == "toCollectionView" {
+            //let destination = segue.destination as! CollectionVC
         }
+    }
+    
+    
+    @IBAction func collectionViewButton(_ sender: Any) {
+        performSegue(withIdentifier: "toCollectionView", sender: self)
     }
 }
 
