@@ -13,7 +13,9 @@ import Parse
 
 class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDelegate, UISearchBarDelegate, MKMapViewDelegate {
     
+    var chosenFilter = ""
     @IBAction func mapUnwind(segue: UIStoryboardSegue) {
+        print(chosenFilter, "this is the chosen filter")
     }
     
     @IBAction func searchItemAction(_ sender: Any) {
@@ -188,7 +190,14 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             let targetVC = segue.destination as! LocationInventoryVC
             print(self.selectedLocation.objectId, "this is the selected location objectId")
             targetVC.selectedLocation = self.selectedLocation
+        } else if segue.identifier == "toCollectionView" {
+            //let destination = segue.destination as! CollectionVC
         }
+    }
+    
+    
+    @IBAction func collectionViewButton(_ sender: Any) {
+        performSegue(withIdentifier: "toCollectionView", sender: self)
     }
 }
 

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0060CBE060F33429529BB51F /* Pods_DonationTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4122CA91CDEB254DEC46DF9F /* Pods_DonationTracker.framework */; };
+		56034791219E0ADC0056B304 /* CollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56034790219E0ADC0056B304 /* CollectionVC.swift */; };
+		56034793219E29070056B304 /* CollectionViewCellVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56034792219E29070056B304 /* CollectionViewCellVC.swift */; };
 		8C10C39F218229BC00E2CC28 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C39E218229BC00E2CC28 /* ProfileTableViewCell.swift */; };
 		8C10C3A221822A8700E2CC28 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C3A121822A8700E2CC28 /* ProfileVC.swift */; };
 		8C10C3A421835C7300E2CC28 /* PlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C3A321835C7300E2CC28 /* PlacesVC.swift */; };
@@ -53,6 +55,8 @@
 		0BB1869CDBE268E2414FBC92 /* Pods-DonationTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker.release.xcconfig"; sourceTree = "<group>"; };
 		4122CA91CDEB254DEC46DF9F /* Pods_DonationTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DonationTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		499C17B03ACA433F1C5E5D7D /* Pods-DonationTrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTrackerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTrackerTests/Pods-DonationTrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		56034790219E0ADC0056B304 /* CollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionVC.swift; sourceTree = "<group>"; };
+		56034792219E29070056B304 /* CollectionViewCellVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellVC.swift; sourceTree = "<group>"; };
 		60274693D510DF7768EDEE79 /* Pods-DonationTrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTrackerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTrackerUITests/Pods-DonationTrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		61C3065C20555E3E4845A39E /* Pods-DonationTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		81D0C0A6F8E899636DFA9EB1 /* Pods-DonationTrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTrackerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTrackerTests/Pods-DonationTrackerTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -157,6 +161,8 @@
 				8C9007972189007600577A1C /* Data Classes */,
 				8C9007982189009800577A1C /* View Controllers */,
 				8C3F1BC1216028A70028B7E2 /* Main.storyboard */,
+				56034790219E0ADC0056B304 /* CollectionVC.swift */,
+				56034792219E29070056B304 /* CollectionViewCellVC.swift */,
 				8C3F1BC4216028A90028B7E2 /* Assets.xcassets */,
 				8C3F1BC6216028A90028B7E2 /* LaunchScreen.storyboard */,
 				8C3F1BC9216028A90028B7E2 /* Info.plist */,
@@ -477,12 +483,14 @@
 				8C10C39F218229BC00E2CC28 /* ProfileTableViewCell.swift in Sources */,
 				8C90079A218909C200577A1C /* DataModel.swift in Sources */,
 				8CB2639E21646B8500ADBE44 /* MapVC.swift in Sources */,
+				56034791219E0ADC0056B304 /* CollectionVC.swift in Sources */,
 				8C10C3A421835C7300E2CC28 /* PlacesVC.swift in Sources */,
 				8C3F1BBE216028A70028B7E2 /* AppDelegate.swift in Sources */,
 				8C10C3A221822A8700E2CC28 /* ProfileVC.swift in Sources */,
 				8C90079C218958D200577A1C /* MoreVC.swift in Sources */,
 				8C90079E2189F00500577A1C /* RegisterVC.swift in Sources */,
 				8C11D978217C2424000FD62E /* LocationInventoryVC.swift in Sources */,
+				56034793219E29070056B304 /* CollectionViewCellVC.swift in Sources */,
 				8C11D97A217E5EC8000FD62E /* ItemTableViewCell.swift in Sources */,
 				8C4B10442162ADFC00A3B012 /* Location.swift in Sources */,
 				8C3D965D2187FE5B0072F500 /* PlacesCollectionViewCell.swift in Sources */,
@@ -663,14 +671,14 @@
 				CODE_SIGN_ENTITLEMENTS = DonationTracker/DonationTracker.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = PEB6PV8M5G;
+				DEVELOPMENT_TEAM = LB72RBVT2A;
 				INFOPLIST_FILE = DonationTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com..DonationTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = DonationTracker123;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -689,14 +697,14 @@
 				CODE_SIGN_ENTITLEMENTS = DonationTracker/DonationTracker.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = PEB6PV8M5G;
+				DEVELOPMENT_TEAM = LB72RBVT2A;
 				INFOPLIST_FILE = DonationTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com..DonationTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = DonationTracker123;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
