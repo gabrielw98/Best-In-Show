@@ -13,6 +13,11 @@ import Parse
 
 class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDelegate, UISearchBarDelegate, MKMapViewDelegate {
     
+    var chosenFilter = ""
+    @IBAction func mapUnwind(segue: UIStoryboardSegue) {
+        print(chosenFilter, "this is the chosen filter")
+        
+    }
     
     @IBAction func searchItemAction(_ sender: Any) {
         navigationItem.searchController?.searchBar.placeholder = "Search Items"

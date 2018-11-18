@@ -13,4 +13,5 @@ class CollectionViewCellVC: UICollectionViewCell {
     
     @IBOutlet weak var CellImageOutlet: UIImageView!
     
+    @IBOutlet weak var CellLabelOutlet: UILabel!
 }
