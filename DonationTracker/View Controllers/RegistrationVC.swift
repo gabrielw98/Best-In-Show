@@ -8,6 +8,9 @@
 
 import UIKit
 import Parse
+import AWSMobileClient
+import AWSAuthCore
+import AWSPinpoint
 
 class RegistrationVC: UIViewController, UITextFieldDelegate {
 
@@ -28,6 +31,9 @@ class RegistrationVC: UIViewController, UITextFieldDelegate {
         } else { //Sign Up
             signUp()
         }
+    }
+    
+    @IBAction func registrationUnwind(segue: UIStoryboardSegue) {
     }
     
     @IBAction func toggleLoginSignUpAction(_ sender: Any) {
@@ -66,23 +72,39 @@ class RegistrationVC: UIViewController, UITextFieldDelegate {
                 Location().getLocations(query: query, completion: { (locationObjects) in
                     print("adding ", locationObjects.count, "objects")
                     DataModel.locations = locationObjects
-                    let query = PFQuery(className: "_User")
-                    query.whereKey("objectId", equalTo: PFUser.current()?.objectId! as! String)
-                    query.getFirstObjectInBackground { (object, error) in
-                        if let user = object as? PFUser {
-                            if let employeeStatus = user["employeeStatus"] as? String {
-                                print("set the employee status", employeeStatus)
-                                DataModel.employeeStatus = employeeStatus
-                            }
-                        }
-                    }
                 })
+            refreshCurrentUserData()
+        }
+    }
+    
+    func refreshCurrentUserData() {
+        let query = PFQuery(className: "_User")
+        query.whereKey("objectId", equalTo: PFUser.current()?.objectId! as! String)
+        print("query pfuser object id", PFUser.current()?.objectId! as! String)
+        query.getFirstObjectInBackground { (object, error) in
+            print(object, "object")
+            if let user = object as? PFUser {
+                print(user, "user")
+                if let employeeStatus = user["employeeStatus"] as? String {
+                    print("emp status set", employeeStatus)
+                    DataModel.employeeStatus = employeeStatus
+                }
+                if let adminStatus = user["adminStatus"] as? String {
+                    print("admin status set", adminStatus)
+                    DataModel.adminStatus = adminStatus
+                }
+            }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        let credentialsProvider = AWSMobileClient.sharedInstance().getCredentialsProvider()
+        
+        // Get the identity Id from the AWSIdentityManager
+        let identityId = AWSIdentityManager.default().identityId
+        print("AWS identity", identityId)
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -101,7 +123,6 @@ class RegistrationVC: UIViewController, UITextFieldDelegate {
         let user = PFUser()
         user.username = usernameTextField.text
         user.password = passwordTextField.text
-        //user.email = "gabewils4@gmail.com"
         user.signUpInBackground(block: { (success, error) in
             if success {
                 print("successfully signed up the user")
@@ -119,6 +140,8 @@ class RegistrationVC: UIViewController, UITextFieldDelegate {
             if user != nil {
                 // Yes, User Exists
                 self.performSegue(withIdentifier: "showMap", sender: nil)
+                self.usernameTextField.text = ""
+                self.passwordTextField.text = ""
             } else {
                 // No, User Doesn't Exist
             }

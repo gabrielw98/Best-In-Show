@@ -28,6 +28,7 @@
 		8C90079C218958D200577A1C /* MoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90079B218958D200577A1C /* MoreVC.swift */; };
 		8C90079E2189F00500577A1C /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90079D2189F00500577A1C /* RegisterVC.swift */; };
 		8CB2639E21646B8500ADBE44 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB2639D21646B8500ADBE44 /* MapVC.swift */; };
+		8CBFA05B219547B60016B3F5 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 8CBFA05A219547B60016B3F5 /* awsconfiguration.json */; };
 		8CF6450421936EF000ADFADA /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CF6450321936EF000ADFADA /* keys.plist */; };
 		A101A674B0E1BF2CEB9A1206 /* Pods_DonationTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB0447E5C24E1E6D4D859B5 /* Pods_DonationTrackerUITests.framework */; };
 		E0D2137EABE31C45CCB01F7A /* Pods_DonationTrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A3E6AA23F57484F3291E72 /* Pods_DonationTrackerTests.framework */; };
@@ -84,6 +85,8 @@
 		8C90079B218958D200577A1C /* MoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreVC.swift; sourceTree = "<group>"; };
 		8C90079D2189F00500577A1C /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		8CB2639D21646B8500ADBE44 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		8CBFA05A219547B60016B3F5 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = awsconfiguration.json; path = ../../../../Downloads/awsconfiguration.json; sourceTree = "<group>"; };
+		8CBFA05C219612160016B3F5 /* DonationTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DonationTracker.entitlements; sourceTree = "<group>"; };
 		8CF6450321936EF000ADFADA /* keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
 		ADB0447E5C24E1E6D4D859B5 /* Pods_DonationTrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DonationTrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1A3E6AA23F57484F3291E72 /* Pods_DonationTrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DonationTrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,6 +155,7 @@
 		8C3F1BBC216028A70028B7E2 /* DonationTracker */ = {
 			isa = PBXGroup;
 			children = (
+				8CBFA05C219612160016B3F5 /* DonationTracker.entitlements */,
 				8C3F1BBD216028A70028B7E2 /* AppDelegate.swift */,
 				8C10C3A021822A5200E2CC28 /* View */,
 				8C9007972189007600577A1C /* Data Classes */,
@@ -162,6 +166,7 @@
 				8C3F1BC4216028A90028B7E2 /* Assets.xcassets */,
 				8C3F1BC6216028A90028B7E2 /* LaunchScreen.storyboard */,
 				8C3F1BC9216028A90028B7E2 /* Info.plist */,
+				8CBFA05A219547B60016B3F5 /* awsconfiguration.json */,
 			);
 			path = DonationTracker;
 			sourceTree = "<group>";
@@ -312,6 +317,14 @@
 					8C3F1BB9216028A70028B7E2 = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 1000;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					8C3F1BCD216028A90028B7E2 = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -348,6 +361,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CBFA05B219547B60016B3F5 /* awsconfiguration.json in Resources */,
 				8CF6450421936EF000ADFADA /* keys.plist in Resources */,
 				8C3F1BC8216028A90028B7E2 /* LaunchScreen.storyboard in Resources */,
 				8C3F1BC5216028A90028B7E2 /* Assets.xcassets in Resources */,
@@ -397,6 +411,10 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AWSAuthCore/AWSAuthCore.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSMobileClient/AWSMobileClient.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSPinpoint/AWSPinpoint.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
@@ -404,6 +422,10 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSAuthCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSMobileClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSPinpoint.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
@@ -646,6 +668,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = DonationTracker/DonationTracker.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LB72RBVT2A;
 				INFOPLIST_FILE = DonationTracker/Info.plist;
@@ -656,6 +680,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = DonationTracker123;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -669,6 +694,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = DonationTracker/DonationTracker.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LB72RBVT2A;
 				INFOPLIST_FILE = DonationTracker/Info.plist;
@@ -679,6 +706,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = DonationTracker123;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -351,8 +351,8 @@
                         <segue destination="f0h-iE-S6M" kind="show" identifier="showInviteContacts" id="Day-cy-DNa"/>
                         <segue destination="Ol4-iS-TJs" kind="show" identifier="showSubscriptions" id="rIq-Hu-vx2"/>
                         <segue destination="jf3-b0-wav" kind="show" identifier="showPlaces" id="6eT-nT-oR7"/>
-                        <segue destination="YNd-eA-6iI" kind="unwind" identifier="registrationUnwind" unwindAction="registrationUnwindWithSegue:" id="nA5-V0-EaR"/>
                         <segue destination="Dh5-vl-mE7" kind="show" identifier="showMore" id="iGb-Xr-rdD"/>
+                        <segue destination="YNd-eA-6iI" kind="unwind" identifier="registrationUnwind" unwindAction="registrationUnwindWithSegue:" id="XKh-FH-J9w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdD-MD-eh7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -444,6 +444,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="2Ui-8k-euF"/>
                     <connections>
+                        <outlet property="adminButtonOutlet" destination="TAL-Q6-jHc" id="M7g-t8-Mve"/>
                         <outlet property="employeeButtonOutlet" destination="vel-nS-pyO" id="vmh-33-sQq"/>
                         <segue destination="81j-61-poI" kind="popoverPresentation" identifier="showRegisterEmployee" popoverAnchorView="wxN-Ff-fqc" id="tTm-yd-z8l">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -491,6 +492,7 @@
                         <outlet property="sendButtonOutlet" destination="aeJ-fd-SLm" id="EWc-ig-whk"/>
                         <outlet property="tableView" destination="LRH-oO-YFt" id="GxL-48-CMf"/>
                         <segue destination="r9P-DY-Kjx" kind="unwind" identifier="profileUnwindFromRegisterEmployee" unwindAction="profileUnwindWithSegue:" id="jaL-MW-fti"/>
+                        <segue destination="r9P-DY-Kjx" kind="unwind" identifier="profileUnwindFromRegisterAdmin" unwindAction="profileUnwindWithSegue:" id="AJV-CC-Jyv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qjU-px-Sft" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -776,7 +778,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mpf-2e-d72" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4296.8000000000002" y="-422.33883058470769"/>
+            <point key="canvasLocation" x="4289" y="-422"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="riZ-Q1-5xv">
@@ -877,8 +879,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="XjC-bw-MLN"/>
         <segue reference="6eT-nT-oR7"/>
-        <segue reference="Bdy-55-Yha"/>
-        <segue reference="UUd-Dc-85F"/>
+        <segue reference="iGb-Xr-rdD"/>
+        <segue reference="rIq-Hu-vx2"/>
         <segue reference="Day-cy-DNa"/>
     </inferredMetricsTieBreakers>
 </document>

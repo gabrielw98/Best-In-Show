@@ -16,7 +16,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
     var chosenFilter = ""
     @IBAction func mapUnwind(segue: UIStoryboardSegue) {
         print(chosenFilter, "this is the chosen filter")
-        
     }
     
     @IBAction func searchItemAction(_ sender: Any) {
@@ -38,6 +37,11 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             let keys = NSDictionary(contentsOfFile: path)
             print(keys!["sendGridKey"] as! String)
         }
+        var userNotificationTypes : UIUserNotificationType
+        userNotificationTypes = [.alert , .badge , .sound]
+        let notificationSettings = UIUserNotificationSettings.init(types: userNotificationTypes, categories: nil)
+        UIApplication.shared.registerUserNotificationSettings(notificationSettings)
+        UIApplication.shared.registerForRemoteNotifications()
         mapView.delegate = self
         locationServices()
         setupSearchBar()

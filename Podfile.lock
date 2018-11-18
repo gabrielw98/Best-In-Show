@@ -1,4 +1,11 @@
 PODS:
+  - AWSAuthCore (2.6.33):
+    - AWSCore (= 2.6.33)
+  - AWSCore (2.6.33)
+  - AWSMobileClient (2.6.33):
+    - AWSAuthCore (= 2.6.33)
+  - AWSPinpoint (2.6.33):
+    - AWSCore (= 2.6.33)
   - Bolts/Tasks (1.9.0)
   - DropDown (2.3.12)
   - Parse (1.17.1):
@@ -8,23 +15,33 @@ PODS:
   - SendGrid-Swift (0.1.2)
 
 DEPENDENCIES:
+  - AWSMobileClient (~> 2.6.13)
+  - AWSPinpoint (~> 2.6.13)
   - DropDown
   - Parse
   - SendGrid-Swift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AWSAuthCore
+    - AWSCore
+    - AWSMobileClient
+    - AWSPinpoint
     - Bolts
     - DropDown
     - Parse
     - SendGrid-Swift
 
 SPEC CHECKSUMS:
+  AWSAuthCore: 349738e72c5ecbdd6fcf9f153ae01842dd90a725
+  AWSCore: ed83f7e36fb6c0211b04a439d8e564aa23bfe37d
+  AWSMobileClient: 67ab3bf142b02646d37d85d1bf7d11a5cde941ea
+  AWSPinpoint: 0f00472f5cf70b3122a67b04c0f50b613afff02f
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   DropDown: 0bcc278799ec11a3d34ce1aac9367fbbaf5423d9
   Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
   SendGrid-Swift: ac2a563f564d95e9c8e069db337279b442bed67e
 
-PODFILE CHECKSUM: 9b28f81ab478c4244d82c2882398a23615cec7d5
+PODFILE CHECKSUM: 7922e46240b7903cdac93b97757e1186330e8ccf
 
 COCOAPODS: 1.5.3

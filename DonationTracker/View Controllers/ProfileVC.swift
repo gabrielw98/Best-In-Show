@@ -19,6 +19,10 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             //add pending request to Employee
             items.insert("Employee Status Pending...", at: 3)
             tableView.reloadData()
+        } else if segue.identifier == "profileUnwindFromRegisterAdmin" {
+            print("from admin ")
+            items.insert("Admin Status Pending...", at: 3)
+            tableView.reloadData()
         }
     }
     
@@ -34,6 +38,14 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.isScrollEnabled = false
         if DataModel.employeeStatus == "Requested" {
             items.insert("Employee Status Pending...", at: 3)
+        } else if DataModel.employeeStatus == "Registered" {
+            items.insert("Employee Account", at: 3)
+        }
+        
+        if DataModel.adminStatus == "Requested" {
+            items.insert("Admin Status Pending...", at: 3)
+        } else if DataModel.adminStatus == "Registered" {
+            items.insert("Admin Account", at: 3)
         }
         tableView.delegate = self
         tableView.dataSource = self
@@ -58,6 +70,7 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         refreshAlert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (action: UIAlertAction!) in
             PFUser.logOut()
+            print("logging out")
             self.performSegue(withIdentifier: "registrationUnwind", sender: nil)
             
         }))
@@ -103,6 +116,11 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         } else if items[indexPath.row] == "Employee Status Pending..." {
             let verificationAlert = UIAlertController(title: "Notice", message: "Your employee request is currently being reviewed.", preferredStyle: UIAlertControllerStyle.alert)
             //textField.p
+            verificationAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in
+            }))
+            present(verificationAlert, animated: true, completion: nil)
+        } else if items[indexPath.row] == "Admin Status Pending..." {
+            let verificationAlert = UIAlertController(title: "Notice", message: "Your admin request is currently being reviewed. This may take up to 3 business days.", preferredStyle: UIAlertControllerStyle.alert)
             verificationAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in
             }))
             present(verificationAlert, animated: true, completion: nil)
