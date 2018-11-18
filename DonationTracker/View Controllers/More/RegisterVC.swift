@@ -142,7 +142,9 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     self.selectedLocation = location
                     self.items[0][0] = location.name
                     self.items[0][1] = location.address
-                    self.items[1][0] = location.admin.username!
+                    if let username = location.admin.username {
+                            self.items[1][0] = username
+                    }
                     self.tableView.reloadData()
                 }
             }
