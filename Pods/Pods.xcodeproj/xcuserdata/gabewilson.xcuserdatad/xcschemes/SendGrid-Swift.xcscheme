@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "16D2D2B8CF73C63983ED96CCF8DD53C6"
+               BlueprintIdentifier = "47F090982752D458D45D7DADF564FC13"
                BuildableName = "SendGrid_Swift.framework"
                BlueprintName = "SendGrid-Swift"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "16D2D2B8CF73C63983ED96CCF8DD53C6"
+            BlueprintIdentifier = "47F090982752D458D45D7DADF564FC13"
             BuildableName = "SendGrid_Swift.framework"
             BlueprintName = "SendGrid-Swift"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 import Parse
+import AWSCore
+import AWSMobileClient
+import AWSAuthCore
+import AWSPinpoint
 
 class LocationInventoryVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //Clothing, Hat, Kitchen, Electronics, Household, Other starting from 0 - 5
@@ -51,6 +55,8 @@ class LocationInventoryVC: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     override func viewDidLoad() {
+        let identityId = AWSIdentityManager.default().identityId
+        print("AWS identity", identityId)
         setupUI()
     }
     

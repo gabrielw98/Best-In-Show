@@ -8,13 +8,16 @@
 
 import UIKit
 import Parse
+import AWSMobileClient
+import AWSCore
+import AWSPinpoint
 //import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var pinpoint: AWSPinpoint?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -34,12 +37,60 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         Parse.initialize(with: configuration)
+        pinpoint = AWSPinpoint(configuration:AWSPinpointConfiguration.defaultPinpointConfiguration(launchOptions: launchOptions))
+        AWSMobileClient.sharedInstance().interceptApplication(
+            application,
+            didFinishLaunchingWithOptions: launchOptions)
+        AWSDDLog.add(AWSDDTTYLogger.sharedInstance)
+        AWSDDLog.sharedInstance.logLevel = .info
+        if let targetingClient = pinpoint?.targetingClient {
+            let endpoint = targetingClient.currentEndpointProfile()
+            // Create a user and set its userId property
+            let user = AWSPinpointEndpointProfileUser()
+            user.userId = PFUser.current()?.objectId
+            // Assign the user to the endpoint
+            endpoint.user = user
+            // Update the endpoint with the targeting client
+            targetingClient.update(endpoint)
+            print("Assigned user ID \(user.userId ?? "nil") to endpoint \(endpoint.endpointId)")
+        }
         /*if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
             let keys = NSDictionary(contentsOfFile: path)
             GMSPlacesClient.provideAPIKey(keys!["googleKey"] as! String)
         }*/
         
         return true
+    }
+    
+    func application(
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        pinpoint!.notificationManager.interceptDidRegisterForRemoteNotifications(
+            withDeviceToken: deviceToken)
+        let   tokenString = deviceToken.reduce("", {$0 + String(format: "%02X",    $1)})
+        print(tokenString, "my token")
+        
+    }
+    
+    func application(
+        _ application: UIApplication,
+        didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+        fetchCompletionHandler completionHandler:
+        @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        pinpoint!.notificationManager.interceptDidReceiveRemoteNotification(
+            userInfo, fetchCompletionHandler: completionHandler)
+        print("receieved a push!?")
+        if (application.applicationState == .active) {
+            let alert = UIAlertController(title: "Notification Received",
+                                          message: userInfo.description,
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            
+            UIApplication.shared.keyWindow?.rootViewController?.present(
+                alert, animated: true, completion:nil)
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

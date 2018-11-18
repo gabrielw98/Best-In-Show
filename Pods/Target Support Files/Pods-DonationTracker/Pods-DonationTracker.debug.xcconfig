@@ -1,9 +1,9 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Bolts" "${PODS_CONFIGURATION_BUILD_DIR}/DropDown" "${PODS_CONFIGURATION_BUILD_DIR}/Parse" "${PODS_CONFIGURATION_BUILD_DIR}/SendGrid-Swift"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AWSAuthCore" "${PODS_CONFIGURATION_BUILD_DIR}/AWSCore" "${PODS_CONFIGURATION_BUILD_DIR}/AWSMobileClient" "${PODS_CONFIGURATION_BUILD_DIR}/AWSPinpoint" "${PODS_CONFIGURATION_BUILD_DIR}/Bolts" "${PODS_CONFIGURATION_BUILD_DIR}/DropDown" "${PODS_CONFIGURATION_BUILD_DIR}/Parse" "${PODS_CONFIGURATION_BUILD_DIR}/SendGrid-Swift"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Bolts/Bolts.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/DropDown/DropDown.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Parse/Parse.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/SendGrid-Swift/SendGrid_Swift.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -framework "Bolts" -framework "DropDown" -framework "Parse" -framework "SendGrid_Swift"
+OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/AWSAuthCore/AWSAuthCore.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/AWSCore/AWSCore.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/AWSMobileClient/AWSMobileClient.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/AWSPinpoint/AWSPinpoint.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Bolts/Bolts.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/DropDown/DropDown.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Parse/Parse.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/SendGrid-Swift/SendGrid_Swift.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "AWSAuthCore" -framework "AWSCore" -framework "AWSMobileClient" -framework "AWSPinpoint" -framework "Bolts" -framework "DropDown" -framework "Parse" -framework "SendGrid_Swift"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

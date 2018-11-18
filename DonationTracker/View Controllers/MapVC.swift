@@ -13,6 +13,8 @@ import Parse
 
 class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDelegate, UISearchBarDelegate, MKMapViewDelegate {
     
+    @IBAction func mapUnwind(segue: UIStoryboardSegue) {
+    }
     
     @IBAction func searchItemAction(_ sender: Any) {
         navigationItem.searchController?.searchBar.placeholder = "Search Items"
@@ -33,6 +35,11 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             let keys = NSDictionary(contentsOfFile: path)
             print(keys!["sendGridKey"] as! String)
         }
+        var userNotificationTypes : UIUserNotificationType
+        userNotificationTypes = [.alert , .badge , .sound]
+        let notificationSettings = UIUserNotificationSettings.init(types: userNotificationTypes, categories: nil)
+        UIApplication.shared.registerUserNotificationSettings(notificationSettings)
+        UIApplication.shared.registerForRemoteNotifications()
         mapView.delegate = self
         locationServices()
         setupSearchBar()
