@@ -81,7 +81,7 @@ class MoreVC: UIViewController {
         } else if DataModel.adminStatus == "Registered" {
             adminButtonOutlet.backgroundColor = adminButtonOutlet.titleLabel?.textColor
             adminButtonOutlet.setTitleColor(UIColor.white, for: .normal)
-            adminButtonOutlet.backgroundColor = UIColor(red: 173/255, green: 216/255, blue: 30/255, alpha: 1.0)
+            adminButtonOutlet.backgroundColor = UIColor(red: 173/255, green: 216/255, blue: 230/255, alpha: 1.0)
             adminButtonOutlet.setTitle("Admin Status Verified!", for: .normal)
             adminButtonOutlet.layer.masksToBounds = true
             adminButtonOutlet.layer.cornerRadius = 5.0

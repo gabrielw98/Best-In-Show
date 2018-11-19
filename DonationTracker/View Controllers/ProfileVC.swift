@@ -26,6 +26,8 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    var employees = [PFUser]()
+    var requests = [PFUser]()
     var items = ["Places", "Invite Contacts", "Subscriptions", "More", "Log Out"]
     var userLocations = [Location]()
     
@@ -42,10 +44,11 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             items.insert("Employee Account", at: 3)
         }
         
+        print(DataModel.adminStatus, "this is the admin stat")
         if DataModel.adminStatus == "Requested" {
             items.insert("Admin Status Pending...", at: 3)
         } else if DataModel.adminStatus == "Registered" {
-            items.insert("Admin Account", at: 3)
+            items.insert("Employees", at: 3)
         }
         tableView.delegate = self
         tableView.dataSource = self
@@ -124,18 +127,21 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             verificationAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in
             }))
             present(verificationAlert, animated: true, completion: nil)
+        } else if items[indexPath.row] == "Employees" {
+            self.performSegue(withIdentifier: "showEmployees", sender: nil)
         }
     }
+    
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPlaces" {
             let targetVC = segue.destination as! PlacesVC
             targetVC.locations = self.userLocations
-            for location in userLocations {
-                print(location.title, location.address, location.objectId, "LOCATION")
-            }
-            print(targetVC.locations, "passed these locations")
+        } else if segue.identifier == "showEmployees" {
+            let targetVC = segue.destination as! EmployeesVC
         }
+        
     }
     
 }

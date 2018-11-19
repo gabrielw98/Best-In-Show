@@ -38,7 +38,7 @@ class CollectionVC: UIViewController, UICollectionViewDataSource, UICollectionVi
         super.viewDidLoad()
         
         let itemWidth = UIScreen.main.bounds.width/4 - 10
-        let itemHeight = UIScreen.main.bounds.width/4 + 21.5
+        let itemHeight = UIScreen.main.bounds.width/4 + 21.0
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 60, left: 30, bottom: 10, right: 30) // redundant
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)

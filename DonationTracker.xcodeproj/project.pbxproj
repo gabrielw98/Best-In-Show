@@ -28,6 +28,8 @@
 		8C90079A218909C200577A1C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C900799218909C200577A1C /* DataModel.swift */; };
 		8C90079C218958D200577A1C /* MoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90079B218958D200577A1C /* MoreVC.swift */; };
 		8C90079E2189F00500577A1C /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90079D2189F00500577A1C /* RegisterVC.swift */; };
+		8CA7FDE621A1BBAD00DB7189 /* EmployeesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDE521A1BBAD00DB7189 /* EmployeesVC.swift */; };
+		8CA7FDE821A1C42600DB7189 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDE721A1C42600DB7189 /* CustomSegmentedControl.swift */; };
 		8CB2639E21646B8500ADBE44 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB2639D21646B8500ADBE44 /* MapVC.swift */; };
 		8CF6450421936EF000ADFADA /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CF6450321936EF000ADFADA /* keys.plist */; };
 		A101A674B0E1BF2CEB9A1206 /* Pods_DonationTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB0447E5C24E1E6D4D859B5 /* Pods_DonationTrackerUITests.framework */; };
@@ -85,6 +87,8 @@
 		8C900799218909C200577A1C /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		8C90079B218958D200577A1C /* MoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreVC.swift; sourceTree = "<group>"; };
 		8C90079D2189F00500577A1C /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		8CA7FDE521A1BBAD00DB7189 /* EmployeesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesVC.swift; sourceTree = "<group>"; };
+		8CA7FDE721A1C42600DB7189 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		8CB2639D21646B8500ADBE44 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		8CBFA05C219612160016B3F5 /* DonationTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DonationTracker.entitlements; sourceTree = "<group>"; };
 		8CF6450321936EF000ADFADA /* keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 				8C3F1BC1216028A70028B7E2 /* Main.storyboard */,
 				56CCBB8121A365DF001FD665 /* awsconfiguration.json */,
 				56034790219E0ADC0056B304 /* CollectionVC.swift */,
+				8CA7FDE721A1C42600DB7189 /* CustomSegmentedControl.swift */,
 				56034792219E29070056B304 /* CollectionViewCellVC.swift */,
 				8C3F1BC4216028A90028B7E2 /* Assets.xcassets */,
 				8C3F1BC6216028A90028B7E2 /* LaunchScreen.storyboard */,
@@ -202,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				8C3F1BBF216028A70028B7E2 /* RegistrationVC.swift */,
+				8CA7FDE521A1BBAD00DB7189 /* EmployeesVC.swift */,
 				8CB2639D21646B8500ADBE44 /* MapVC.swift */,
 				8C11D977217C2424000FD62E /* LocationInventoryVC.swift */,
 				8C90079F2189F1D800577A1C /* More */,
@@ -487,6 +493,8 @@
 				8C10C3A421835C7300E2CC28 /* PlacesVC.swift in Sources */,
 				8C3F1BBE216028A70028B7E2 /* AppDelegate.swift in Sources */,
 				8C10C3A221822A8700E2CC28 /* ProfileVC.swift in Sources */,
+				8CA7FDE621A1BBAD00DB7189 /* EmployeesVC.swift in Sources */,
+				8CA7FDE821A1C42600DB7189 /* CustomSegmentedControl.swift in Sources */,
 				8C90079C218958D200577A1C /* MoreVC.swift in Sources */,
 				8C90079E2189F00500577A1C /* RegisterVC.swift in Sources */,
 				8C11D978217C2424000FD62E /* LocationInventoryVC.swift in Sources */,

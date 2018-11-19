@@ -102,6 +102,8 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         sendButtonOutlet.isEnabled = false
     }
     
+    
+    
     func configureAdminUI() {
         print(dropButton, "printing the button")
         locationManager.delegate = self
@@ -186,8 +188,8 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     self.selectedLocation = location
                     self.items[0][0] = location.name
                     self.items[0][1] = location.address
-                    if let username = location.admin.username {
-                            self.items[1][0] = username
+                    if let admin = location.admin as? PFUser {
+                        self.items[1][0] = admin.username!
                     }
                     self.tableView.reloadData()
                 }
@@ -555,7 +557,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 enterAction.isEnabled = true
             }
             let lastCharacters = updatedText.suffix(self.suggestedDomain.characters.count)
-            if !(textField.text?.isEmpty)! && updatedText.range(of: self.suggestedDomain) == nil || updatedText.contains(" ") || (textField.text?.characters.count)! > lastCharacters.count && lastCharacters != self.suggestedDomain {
+            if self.identifier == "admin" && !(textField.text?.isEmpty)! && updatedText.range(of: self.suggestedDomain) == nil || updatedText.contains(" ") || (textField.text?.characters.count)! > lastCharacters.count && lastCharacters != self.suggestedDomain {
                 return false
             }
             //Come back dont allow spaces
