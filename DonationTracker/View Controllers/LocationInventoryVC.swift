@@ -62,10 +62,12 @@ class LocationInventoryVC: UIViewController, UITableViewDelegate, UITableViewDat
     
     func setupUI() {
         //Disable the save button
-        for savedLocation in DataModel.locations! {
-            if savedLocation.objectId == self.selectedLocation.objectId {
-                print("disabling the save button")
-                saveButtonOutlet.isEnabled = false
+        if let locations = DataModel.locations {
+            for savedLocation in locations {
+                if savedLocation.objectId == self.selectedLocation.objectId {
+                    print("disabling the save button")
+                    saveButtonOutlet.isEnabled = false
+                }
             }
         }
         if DataModel.currentUserType == userType.employee {
@@ -104,6 +106,8 @@ class LocationInventoryVC: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
+    
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let itemCell = tableView.dequeueReusableCell(withIdentifier: "itemCell") as! ItemTableViewCell
