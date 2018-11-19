@@ -65,7 +65,6 @@ class RegistrationVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         if PFUser.current() != nil {
-            self.performSegue(withIdentifier: "showMap", sender: nil)
             let query = PFQuery(className: "Location")
             print(PFUser.current()!.objectId!, "this is the pfuser id")
             query.whereKey("subscribers", contains: PFUser.current()!.objectId!)
@@ -93,6 +92,7 @@ class RegistrationVC: UIViewController, UITextFieldDelegate {
                     print("admin status set", adminStatus)
                     DataModel.adminStatus = adminStatus
                 }
+                self.performSegue(withIdentifier: "showMap", sender: nil)
             }
         }
     }

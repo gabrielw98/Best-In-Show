@@ -8,12 +8,16 @@
 
 import Foundation
 import UIKit
+import Parse
 
 struct DataModel {
     static var locations: [Location]?
     static var currentUserType = userType.user
     static var employeeStatus = ""
     static var adminStatus = ""
+    
+    static var employees: [PFUser]?
+    static var requests: [PFUser]?
 }
 
 enum userType {
