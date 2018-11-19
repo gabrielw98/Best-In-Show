@@ -98,13 +98,13 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if items[indexPath.row] == "Places" {
-            if DataModel.locations!.isEmpty {
-                //Show alert view
-                print("show alert view")
-            } else {
-                self.userLocations = DataModel.locations!
+            if let locations = DataModel.locations {
+                self.userLocations = locations
                 self.performSegue(withIdentifier: "showPlaces", sender: nil)
+            } else {
+                print("show alert view")
             }
+            
         } else if items[indexPath.row] == "Invite Contacts" {
             showInviteContacts()
         } else if items[indexPath.row] == "Subscriptions" {
