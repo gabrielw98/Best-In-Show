@@ -8,9 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0060CBE060F33429529BB51F /* Pods_DonationTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4122CA91CDEB254DEC46DF9F /* Pods_DonationTracker.framework */; };
-		56034791219E0ADC0056B304 /* CollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56034790219E0ADC0056B304 /* CollectionVC.swift */; };
+		56034791219E0ADC0056B304 /* FilterCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56034790219E0ADC0056B304 /* FilterCategoriesVC.swift */; };
 		56034793219E29070056B304 /* CollectionViewCellVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56034792219E29070056B304 /* CollectionViewCellVC.swift */; };
-		56CCBB8221A365E0001FD665 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 56CCBB8121A365DF001FD665 /* awsconfiguration.json */; };
 		8C10C39F218229BC00E2CC28 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C39E218229BC00E2CC28 /* ProfileTableViewCell.swift */; };
 		8C10C3A221822A8700E2CC28 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C3A121822A8700E2CC28 /* ProfileVC.swift */; };
 		8C10C3A421835C7300E2CC28 /* PlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C3A321835C7300E2CC28 /* PlacesVC.swift */; };
@@ -25,11 +24,17 @@
 		8C3F1BD3216028A90028B7E2 /* DonationTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F1BD2216028A90028B7E2 /* DonationTrackerTests.swift */; };
 		8C3F1BDE216028A90028B7E2 /* DonationTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F1BDD216028A90028B7E2 /* DonationTrackerUITests.swift */; };
 		8C4B10442162ADFC00A3B012 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4B10432162ADFC00A3B012 /* Location.swift */; };
+		8C74790821A4964B00EDC48E /* ImageCaptureVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C74790721A4964B00EDC48E /* ImageCaptureVC.swift */; };
+		8C74790A21A4E1BC00EDC48E /* AddItemDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C74790921A4E1BC00EDC48E /* AddItemDetailsVC.swift */; };
 		8C90079A218909C200577A1C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C900799218909C200577A1C /* DataModel.swift */; };
 		8C90079C218958D200577A1C /* MoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90079B218958D200577A1C /* MoreVC.swift */; };
 		8C90079E2189F00500577A1C /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90079D2189F00500577A1C /* RegisterVC.swift */; };
 		8CA7FDE621A1BBAD00DB7189 /* EmployeesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDE521A1BBAD00DB7189 /* EmployeesVC.swift */; };
 		8CA7FDE821A1C42600DB7189 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDE721A1C42600DB7189 /* CustomSegmentedControl.swift */; };
+		8CA7FDEA21A3718A00DB7189 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 8CA7FDE921A3718A00DB7189 /* awsconfiguration.json */; };
+		8CA7FDEC21A3736E00DB7189 /* ItemFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDEB21A3736E00DB7189 /* ItemFeedVC.swift */; };
+		8CA7FDEE21A373C600DB7189 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDED21A373C600DB7189 /* ItemCell.swift */; };
+		8CA7FDF021A4451000DB7189 /* AddItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDEF21A4451000DB7189 /* AddItemVC.swift */; };
 		8CB2639E21646B8500ADBE44 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB2639D21646B8500ADBE44 /* MapVC.swift */; };
 		8CF6450421936EF000ADFADA /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CF6450321936EF000ADFADA /* keys.plist */; };
 		A101A674B0E1BF2CEB9A1206 /* Pods_DonationTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB0447E5C24E1E6D4D859B5 /* Pods_DonationTrackerUITests.framework */; };
@@ -57,9 +62,8 @@
 		0BB1869CDBE268E2414FBC92 /* Pods-DonationTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker.release.xcconfig"; sourceTree = "<group>"; };
 		4122CA91CDEB254DEC46DF9F /* Pods_DonationTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DonationTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		499C17B03ACA433F1C5E5D7D /* Pods-DonationTrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTrackerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTrackerTests/Pods-DonationTrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		56034790219E0ADC0056B304 /* CollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionVC.swift; sourceTree = "<group>"; };
+		56034790219E0ADC0056B304 /* FilterCategoriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCategoriesVC.swift; sourceTree = "<group>"; };
 		56034792219E29070056B304 /* CollectionViewCellVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellVC.swift; sourceTree = "<group>"; };
-		56CCBB8121A365DF001FD665 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		60274693D510DF7768EDEE79 /* Pods-DonationTrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTrackerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTrackerUITests/Pods-DonationTrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		61C3065C20555E3E4845A39E /* Pods-DonationTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		81D0C0A6F8E899636DFA9EB1 /* Pods-DonationTrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTrackerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTrackerTests/Pods-DonationTrackerTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -84,11 +88,17 @@
 		8C3F1BDD216028A90028B7E2 /* DonationTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationTrackerUITests.swift; sourceTree = "<group>"; };
 		8C3F1BDF216028A90028B7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C4B10432162ADFC00A3B012 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		8C74790721A4964B00EDC48E /* ImageCaptureVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCaptureVC.swift; sourceTree = "<group>"; };
+		8C74790921A4E1BC00EDC48E /* AddItemDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemDetailsVC.swift; sourceTree = "<group>"; };
 		8C900799218909C200577A1C /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		8C90079B218958D200577A1C /* MoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreVC.swift; sourceTree = "<group>"; };
 		8C90079D2189F00500577A1C /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		8CA7FDE521A1BBAD00DB7189 /* EmployeesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesVC.swift; sourceTree = "<group>"; };
 		8CA7FDE721A1C42600DB7189 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		8CA7FDE921A3718A00DB7189 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = awsconfiguration.json; path = ../../../../Downloads/awsconfiguration.json; sourceTree = "<group>"; };
+		8CA7FDEB21A3736E00DB7189 /* ItemFeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFeedVC.swift; sourceTree = "<group>"; };
+		8CA7FDED21A373C600DB7189 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		8CA7FDEF21A4451000DB7189 /* AddItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemVC.swift; sourceTree = "<group>"; };
 		8CB2639D21646B8500ADBE44 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		8CBFA05C219612160016B3F5 /* DonationTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DonationTracker.entitlements; sourceTree = "<group>"; };
 		8CF6450321936EF000ADFADA /* keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
@@ -165,8 +175,8 @@
 				8C9007972189007600577A1C /* Data Classes */,
 				8C9007982189009800577A1C /* View Controllers */,
 				8C3F1BC1216028A70028B7E2 /* Main.storyboard */,
-				56CCBB8121A365DF001FD665 /* awsconfiguration.json */,
-				56034790219E0ADC0056B304 /* CollectionVC.swift */,
+				8CA7FDE921A3718A00DB7189 /* awsconfiguration.json */,
+				56034790219E0ADC0056B304 /* FilterCategoriesVC.swift */,
 				8CA7FDE721A1C42600DB7189 /* CustomSegmentedControl.swift */,
 				56034792219E29070056B304 /* CollectionViewCellVC.swift */,
 				8C3F1BC4216028A90028B7E2 /* Assets.xcassets */,
@@ -198,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				8C900799218909C200577A1C /* DataModel.swift */,
+				8CA7FDED21A373C600DB7189 /* ItemCell.swift */,
 				8C4B10432162ADFC00A3B012 /* Location.swift */,
 			);
 			path = "Data Classes";
@@ -206,13 +217,17 @@
 		8C9007982189009800577A1C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8C10C3A121822A8700E2CC28 /* ProfileVC.swift */,
+				8C10C3A321835C7300E2CC28 /* PlacesVC.swift */,
 				8C3F1BBF216028A70028B7E2 /* RegistrationVC.swift */,
+				8CA7FDEF21A4451000DB7189 /* AddItemVC.swift */,
+				8C74790921A4E1BC00EDC48E /* AddItemDetailsVC.swift */,
+				8C74790721A4964B00EDC48E /* ImageCaptureVC.swift */,
+				8CA7FDEB21A3736E00DB7189 /* ItemFeedVC.swift */,
 				8CA7FDE521A1BBAD00DB7189 /* EmployeesVC.swift */,
 				8CB2639D21646B8500ADBE44 /* MapVC.swift */,
 				8C11D977217C2424000FD62E /* LocationInventoryVC.swift */,
 				8C90079F2189F1D800577A1C /* More */,
-				8C10C3A121822A8700E2CC28 /* ProfileVC.swift */,
-				8C10C3A321835C7300E2CC28 /* PlacesVC.swift */,
 				8CF6450321936EF000ADFADA /* keys.plist */,
 			);
 			path = "View Controllers";
@@ -367,8 +382,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56CCBB8221A365E0001FD665 /* awsconfiguration.json in Resources */,
 				8CF6450421936EF000ADFADA /* keys.plist in Resources */,
+				8CA7FDEA21A3718A00DB7189 /* awsconfiguration.json in Resources */,
 				8C3F1BC8216028A90028B7E2 /* LaunchScreen.storyboard in Resources */,
 				8C3F1BC5216028A90028B7E2 /* Assets.xcassets in Resources */,
 				8C3F1BC3216028A70028B7E2 /* Main.storyboard in Resources */,
@@ -489,8 +504,9 @@
 				8C10C39F218229BC00E2CC28 /* ProfileTableViewCell.swift in Sources */,
 				8C90079A218909C200577A1C /* DataModel.swift in Sources */,
 				8CB2639E21646B8500ADBE44 /* MapVC.swift in Sources */,
-				56034791219E0ADC0056B304 /* CollectionVC.swift in Sources */,
+				56034791219E0ADC0056B304 /* FilterCategoriesVC.swift in Sources */,
 				8C10C3A421835C7300E2CC28 /* PlacesVC.swift in Sources */,
+				8CA7FDEE21A373C600DB7189 /* ItemCell.swift in Sources */,
 				8C3F1BBE216028A70028B7E2 /* AppDelegate.swift in Sources */,
 				8C10C3A221822A8700E2CC28 /* ProfileVC.swift in Sources */,
 				8CA7FDE621A1BBAD00DB7189 /* EmployeesVC.swift in Sources */,
@@ -499,7 +515,11 @@
 				8C90079E2189F00500577A1C /* RegisterVC.swift in Sources */,
 				8C11D978217C2424000FD62E /* LocationInventoryVC.swift in Sources */,
 				56034793219E29070056B304 /* CollectionViewCellVC.swift in Sources */,
+				8C74790A21A4E1BC00EDC48E /* AddItemDetailsVC.swift in Sources */,
+				8C74790821A4964B00EDC48E /* ImageCaptureVC.swift in Sources */,
+				8CA7FDF021A4451000DB7189 /* AddItemVC.swift in Sources */,
 				8C11D97A217E5EC8000FD62E /* ItemTableViewCell.swift in Sources */,
+				8CA7FDEC21A3736E00DB7189 /* ItemFeedVC.swift in Sources */,
 				8C4B10442162ADFC00A3B012 /* Location.swift in Sources */,
 				8C3D965D2187FE5B0072F500 /* PlacesCollectionViewCell.swift in Sources */,
 			);

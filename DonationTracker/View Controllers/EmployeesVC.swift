@@ -86,7 +86,7 @@ class EmployeesVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
             declineButton.setTitleColor(.white, for: .normal)
             declineButton.setTitle("Decline", for: .normal)
             declineButton.addTarget(self, action: #selector(EmployeesVC.declineUser(sender:)), for: .touchUpInside)
-            declineButton.frame = CGRect(x: declineButton.frame.minX + acceptButton.frame.width * 1.2, y: declineButton.frame.minY, width: declineButton.frame.width, height: declineButton.frame.height)
+            declineButton.frame = CGRect(x: declineButton.frame.minX + declineButton.frame.width * 1.2, y: declineButton.frame.minY, width: declineButton.frame.width, height: declineButton.frame.height)
             declineButton.layer.masksToBounds = true
             declineButton.layer.cornerRadius = 10
             declineButton.alpha = 0.5
@@ -146,7 +146,6 @@ class EmployeesVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
                     }
                 }
             }
-            
         })
     }
     

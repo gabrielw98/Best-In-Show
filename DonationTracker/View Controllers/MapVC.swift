@@ -18,6 +18,9 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         print(chosenFilter, "this is the chosen filter")
     }
     
+    @IBAction func addItemAction(_ sender: Any) {
+        self.performSegue(withIdentifier: "showAddItem", sender: nil)
+    }
     @IBAction func searchItemAction(_ sender: Any) {
         navigationItem.searchController?.searchBar.placeholder = "Search Items"
     }

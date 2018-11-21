@@ -18,6 +18,8 @@ struct DataModel {
     
     static var employees: [PFUser]?
     static var requests: [PFUser]?
+    
+    static var currentAddItemPage = "Name"
 }
 
 enum userType {

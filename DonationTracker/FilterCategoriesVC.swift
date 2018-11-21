@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class CollectionVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class FilterCategoriesVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     let array = ["Shoes", "Clothes", "Hats", "Households", "Electronics", "Sports", "Toys", "Books", "Others"];
     var selectedFilter = ""
@@ -40,9 +40,8 @@ class CollectionVC: UIViewController, UICollectionViewDataSource, UICollectionVi
         let itemWidth = UIScreen.main.bounds.width/4 - 10
         let itemHeight = UIScreen.main.bounds.width/4 + 21.0
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 60, left: 30, bottom: 10, right: 30) // redundant
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-        
+        layout.sectionInset = UIEdgeInsets(top: 60, left: 30, bottom: 10, right: 30)
         layout.minimumLineSpacing = 35
         layout.minimumInteritemSpacing = 20
         
