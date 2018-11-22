@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RtF-HI-qqT">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -720,7 +720,7 @@
         <!--Filter Items-->
         <scene sceneID="Igi-Tu-6zW">
             <objects>
-                <viewController id="wq3-ce-NZb" customClass="FilterCategoriesVC" customModule="DonationTracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chooseCategory" id="wq3-ce-NZb" customClass="FilterCategoriesVC" customModule="DonationTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eRM-gB-pHg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1055,17 +1055,54 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qIg-PY-e1V">
+                                <rect key="frame" x="16" y="164" width="343" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                            <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcN-me-FmX">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <color key="backgroundColor" red="0.0" green="0.19440361857414246" blue="0.40630465745925903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <items>
+                                    <barButtonItem title="Add Tag" id="hrF-yg-BNv">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="addTagAction:" destination="IO9-eV-fy6" id="gNc-kK-Tvy"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="230" style="plain" systemItem="fixedSpace" id="G2T-8a-C7B"/>
+                                    <barButtonItem title="Done" id="PuU-yJ-82V">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </barButtonItem>
+                                </items>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="barTintColor" red="0.0" green="0.19440361857414246" blue="0.40630465745925903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </toolbar>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="sTl-Ye-pUg">
+                                <rect key="frame" x="169" y="119" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.0" green="0.19440361857414246" blue="0.40630465745925903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bcN-me-FmX" firstAttribute="bottom" secondItem="YRL-l5-z9V" secondAttribute="bottom" id="AkV-aw-5rJ"/>
+                            <constraint firstItem="bcN-me-FmX" firstAttribute="trailing" secondItem="YRL-l5-z9V" secondAttribute="trailing" id="FSj-lg-sFG"/>
+                            <constraint firstItem="bcN-me-FmX" firstAttribute="leading" secondItem="YRL-l5-z9V" secondAttribute="leading" id="HuR-HG-8OI"/>
+                            <constraint firstItem="bcN-me-FmX" firstAttribute="bottom" secondItem="YRL-l5-z9V" secondAttribute="bottom" id="d9h-QW-t63"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="YRL-l5-z9V"/>
                     </view>
                     <connections>
+                        <outlet property="activityMonitor" destination="sTl-Ye-pUg" id="4yb-dQ-Lg0"/>
+                        <outlet property="scrollView" destination="qIg-PY-e1V" id="1M7-Je-Jjj"/>
                         <outlet property="textField" destination="Dik-9t-UWx" id="4Uv-9m-w9y"/>
+                        <outlet property="toolBar" destination="bcN-me-FmX" id="3w9-jy-Bnp"/>
+                        <outlet property="toolBarBottomConstraint" destination="d9h-QW-t63" id="2mj-lS-4iX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wSY-os-3JC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6021.6000000000004" y="-842.42878560719646"/>
+            <point key="canvasLocation" x="6022" y="-422"/>
         </scene>
         <!--Image CaptureVC-->
         <scene sceneID="VEf-hG-EuH">
@@ -1128,7 +1165,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ULf-6D-hPa" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Smt-w7-bMW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6021.6000000000004" y="-88.605697151424295"/>
+            <point key="canvasLocation" x="6022" y="337"/>
         </scene>
     </scenes>
     <resources>

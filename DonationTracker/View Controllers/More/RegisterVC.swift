@@ -549,9 +549,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             let textRange = Range(range, in: text) {
             let updatedText = text.replacingCharacters(in: textRange,
                                                        with: string)
-            print("new text", updatedText)
             if updatedText == self.suggestedDomain {
-                print("here it's not working!!!!")
                 enterAction.isEnabled = false
             } else {
                 enterAction.isEnabled = true
@@ -560,9 +558,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             if self.identifier == "admin" && !(textField.text?.isEmpty)! && updatedText.range(of: self.suggestedDomain) == nil || updatedText.contains(" ") || (textField.text?.characters.count)! > lastCharacters.count && lastCharacters != self.suggestedDomain {
                 return false
             }
-            //Come back dont allow spaces
-            //dont allow text after domain
-            //implement change domain capability.
+            //Come back implement change domain capability.
         }
         
         return true

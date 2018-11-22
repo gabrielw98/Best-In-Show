@@ -15,11 +15,24 @@ struct DataModel {
     static var currentUserType = userType.user
     static var employeeStatus = ""
     static var adminStatus = ""
+
+    //Add Item data
+    static var category = ""
+    static var name = ""
+    static var price = ""
+    static var tags = [String]()
+    static var employeeWorkPlace = "M8zrpFJD8f"
     
     static var employees: [PFUser]?
     static var requests: [PFUser]?
     
     static var currentAddItemPage = "Name"
+    
+    static func resetAddData() {
+        category = ""
+        name = ""
+        price = ""
+    }
 }
 
 enum userType {

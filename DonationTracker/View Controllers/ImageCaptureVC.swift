@@ -38,16 +38,30 @@ class ImageCaptureVC: UIViewController, AVCapturePhotoCaptureDelegate {
     }
     
     @IBAction func postItemAction(_ sender: Any) {
-        let Item = PFObject(className: "Items")
-        Item["Category"] = "Clothing"
-        Item[""] = ""
-        Item[""] = ""
-        Item[""] = ""
-        Item[""] = ""
+        //AF1 #cool #shoes $14.99
+        //print(DataModel.name, DataModel.tags, DataModel.price)
+        
+        let Item = PFObject(className: "Item")
+        Item["itemCategory"] = "Shoes"
+        Item["name"] = DataModel.name
+        Item["price"] = DataModel.price
+        Item["tags"] = DataModel.tags
+        Item["locationId"] = DataModel.employeeWorkPlace
+        if let imageData = self.imageView.image!.jpegData(.low) {
+            let file = PFFile(name: "img.png", data: imageData)
+            Item["image"] = file
+        }
+        Item.saveInBackground { (success, error) in
+            if success {
+                DataModel.resetAddData()
+                print("Success: Item saved.")
+            }
+        }
         DataModel.currentAddItemPage = "Name"
         self.performSegue(withIdentifier: "mapUnwind", sender: nil)
     }
     override func viewDidLoad() {
+        print(DataModel.name, DataModel.tags, DataModel.price)
         print("in image capture")
         //navigationItem.rightBarButtonItem = nil
         captureButtonOutlet.layer.borderColor = UIColor(red: 135.0/255.0, green: 206.0/255.0, blue: 235.0/255.0, alpha: 1.0).cgColor
@@ -58,7 +72,6 @@ class ImageCaptureVC: UIViewController, AVCapturePhotoCaptureDelegate {
         setupInputOutput()
         setupPreviewLayer()
         runCaptureSession()
-        print(imageView.frame, "before1 ")
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -98,14 +111,11 @@ class ImageCaptureVC: UIViewController, AVCapturePhotoCaptureDelegate {
         let devices = deviceDiscoverySession.devices
         for device in devices {
             if device.position == AVCaptureDevice.Position.back {
-                print("made it")
                 backCamera = device
             } else if device.position == AVCaptureDevice.Position.front {
-                print("made it 2")
                 frontCamera = device
             }
         }
-        print("made it here device")
         currentCamera = backCamera
     }
     
@@ -148,3 +158,18 @@ class ImageCaptureVC: UIViewController, AVCapturePhotoCaptureDelegate {
     
 }
 
+extension UIImage {
+    enum JPEGQuality: CGFloat {
+        case lowest  = 0
+        case low     = 0.25
+        case medium  = 0.5
+        case high    = 0.75
+        case highest = 1
+    }
+    
+    var pngData: Data? { return UIImagePNGRepresentation(self) }
+    
+    func jpegData(_ quality: JPEGQuality) -> Data? {
+        return UIImageJPEGRepresentation(self, quality.rawValue)
+    }
+}
