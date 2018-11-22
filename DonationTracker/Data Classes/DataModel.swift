@@ -25,6 +25,7 @@ struct DataModel {
     
     static var employees: [PFUser]?
     static var requests: [PFUser]?
+    static var items = [Item]()
     
     static var currentAddItemPage = "Name"
     

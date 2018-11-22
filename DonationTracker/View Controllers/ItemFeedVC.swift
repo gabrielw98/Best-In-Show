@@ -13,8 +13,23 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBAction func itemFeedUnwind(segue: UIStoryboardSegue) {
+        viewDidLoad()
+    }
+    
+    var items = [Item]()
+    var fromNewItem = false
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if fromNewItem {
+            collectionView.reloadData()
+            fromNewItem = false
+        }
+    }
+    
     override func viewDidLoad() {
         print("here in the feed")
+        items = DataModel.items
         collectionView.delegate = self
         collectionView.dataSource = self
         if let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -22,15 +37,17 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
         }
         collectionView.reloadData()
         
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        return items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ItemCell
-        cell.priceLabel.text = "Price"
+        cell.priceLabel.text = items[indexPath.row].price
+        cell.imageView.image = items[indexPath.row].image
         cell.priceBackground.alpha = 0.6
         return cell
     }

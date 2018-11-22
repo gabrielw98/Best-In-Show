@@ -36,6 +36,7 @@
 		8CA7FDEE21A373C600DB7189 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDED21A373C600DB7189 /* ItemCell.swift */; };
 		8CA7FDF021A4451000DB7189 /* AddItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDEF21A4451000DB7189 /* AddItemVC.swift */; };
 		8CB2639E21646B8500ADBE44 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB2639D21646B8500ADBE44 /* MapVC.swift */; };
+		8CC7643321A72C0A00E11FB9 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC7643221A72C0A00E11FB9 /* Item.swift */; };
 		8CF6450421936EF000ADFADA /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CF6450321936EF000ADFADA /* keys.plist */; };
 		A101A674B0E1BF2CEB9A1206 /* Pods_DonationTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB0447E5C24E1E6D4D859B5 /* Pods_DonationTrackerUITests.framework */; };
 		E0D2137EABE31C45CCB01F7A /* Pods_DonationTrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A3E6AA23F57484F3291E72 /* Pods_DonationTrackerTests.framework */; };
@@ -101,6 +102,7 @@
 		8CA7FDEF21A4451000DB7189 /* AddItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemVC.swift; sourceTree = "<group>"; };
 		8CB2639D21646B8500ADBE44 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		8CBFA05C219612160016B3F5 /* DonationTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DonationTracker.entitlements; sourceTree = "<group>"; };
+		8CC7643221A72C0A00E11FB9 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		8CF6450321936EF000ADFADA /* keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
 		ADB0447E5C24E1E6D4D859B5 /* Pods_DonationTrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DonationTrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1A3E6AA23F57484F3291E72 /* Pods_DonationTrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DonationTrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,6 +212,7 @@
 				8C900799218909C200577A1C /* DataModel.swift */,
 				8CA7FDED21A373C600DB7189 /* ItemCell.swift */,
 				8C4B10432162ADFC00A3B012 /* Location.swift */,
+				8CC7643221A72C0A00E11FB9 /* Item.swift */,
 			);
 			path = "Data Classes";
 			sourceTree = "<group>";
@@ -506,6 +509,7 @@
 				8CB2639E21646B8500ADBE44 /* MapVC.swift in Sources */,
 				56034791219E0ADC0056B304 /* FilterCategoriesVC.swift in Sources */,
 				8C10C3A421835C7300E2CC28 /* PlacesVC.swift in Sources */,
+				8CC7643321A72C0A00E11FB9 /* Item.swift in Sources */,
 				8CA7FDEE21A373C600DB7189 /* ItemCell.swift in Sources */,
 				8C3F1BBE216028A70028B7E2 /* AppDelegate.swift in Sources */,
 				8C10C3A221822A8700E2CC28 /* ProfileVC.swift in Sources */,

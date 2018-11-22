@@ -50,6 +50,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         setupSearchBar()
     }
     
+    
     func locationServices() {
         // Ask for Authorisation from the User.
         self.locationManager.requestAlwaysAuthorization()

@@ -71,10 +71,45 @@ class RegistrationVC: UIViewController, UITextFieldDelegate {
                 Location().getLocations(query: query, completion: { (locationObjects) in
                     print("adding ", locationObjects.count, "objects")
                     DataModel.locations = locationObjects
+                    if let locations = DataModel.locations {
+                        let query = PFQuery(className: "Item")
+                        let ids = locations.compactMap(){ $0.objectId }
+                        query.whereKey("locationId", containedIn: ids)
+                        query.findObjectsInBackground(block: { (objects, error) in
+                            if let error = error {
+                                print(error)
+                            } else if let objects = objects {
+                                if objects.isEmpty {
+                                    print("No Items Found")
+                                    self.refreshCurrentUserData()
+                                } else {
+                                    for object : PFObject in objects {
+                                        if let image = object["image"] as? PFFile {
+                                            image.getDataInBackground {
+                                                (imageData:Data?, error:Error?) -> Void in
+                                                if error == nil  {
+                                                    if let finalimage = UIImage(data: imageData!) {
+                                                        if object["price"] != nil {
+                                                            print("items found")
+                                                            //Put into sqlite
+                                                            DataModel.items.append(Item(object: object, image: finalimage))
+                                                            if object == objects.last {
+                                                                self.refreshCurrentUserData()
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        })
+                    }
                 })
-            refreshCurrentUserData()
         }
     }
+    
     
     func refreshCurrentUserData() {
         let query = PFQuery(className: "_User")

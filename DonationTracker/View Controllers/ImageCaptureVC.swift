@@ -41,24 +41,33 @@ class ImageCaptureVC: UIViewController, AVCapturePhotoCaptureDelegate {
         //AF1 #cool #shoes $14.99
         //print(DataModel.name, DataModel.tags, DataModel.price)
         
-        let Item = PFObject(className: "Item")
-        Item["itemCategory"] = "Shoes"
-        Item["name"] = DataModel.name
-        Item["price"] = DataModel.price
-        Item["tags"] = DataModel.tags
-        Item["locationId"] = DataModel.employeeWorkPlace
+        let NewItem = PFObject(className: "Item")
+        NewItem["itemCategory"] = "Shoes"
+        NewItem["name"] = DataModel.name
+        NewItem["price"] = DataModel.price
+        NewItem["tags"] = DataModel.tags
+        NewItem["locationId"] = DataModel.employeeWorkPlace
         if let imageData = self.imageView.image!.jpegData(.low) {
             let file = PFFile(name: "img.png", data: imageData)
-            Item["image"] = file
+            NewItem["image"] = file
         }
-        Item.saveInBackground { (success, error) in
+        NewItem.saveInBackground { (success, error) in
             if success {
                 DataModel.resetAddData()
                 print("Success: Item saved.")
             }
         }
+        DataModel.items.insert(Item(object: NewItem, image: self.imageView.image!), at: 0)
         DataModel.currentAddItemPage = "Name"
-        self.performSegue(withIdentifier: "mapUnwind", sender: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let tabbarVC = storyboard.instantiateViewController(withIdentifier: "TabBar") as! UITabBarController
+        if let vcs = tabbarVC.viewControllers,
+            let nc = vcs[1] as? UINavigationController,
+            let itemVC = nc.topViewController as? ItemFeedVC {
+                itemVC.fromNewItem = true
+        }
+        self.present(tabbarVC, animated: false, completion: nil)
+        tabbarVC.selectedIndex = 1
     }
     override func viewDidLoad() {
         print(DataModel.name, DataModel.tags, DataModel.price)

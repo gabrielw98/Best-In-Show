@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RtF-HI-qqT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -229,7 +229,7 @@
         <!--Items-->
         <scene sceneID="VEp-KQ-8fW">
             <objects>
-                <viewController id="n7c-Dl-oGJ" customClass="ItemFeedVC" customModule="DonationTracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ItemFeed" id="n7c-Dl-oGJ" customClass="ItemFeedVC" customModule="DonationTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pFt-d3-9ZW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -251,7 +251,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="191" height="191"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cFs-Xl-8e5">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cFs-Xl-8e5">
                                                     <rect key="frame" x="0.0" y="0.0" width="191" height="191"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" name="selectedTextBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -296,9 +296,11 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="nQV-Yt-FL2" id="QdE-5O-2hp"/>
+                        <segue destination="kDl-yA-xkC" kind="unwind" identifier="itemFeedUnwind" unwindAction="itemFeedUnwindWithSegue:" id="kPo-MC-NAN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OFq-c5-HYx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="kDl-yA-xkC" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3348" y="-1193.2533733133434"/>
         </scene>
@@ -837,7 +839,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="XGW-mq-U7D">
             <objects>
-                <tabBarController id="RtF-HI-qqT" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBar" id="RtF-HI-qqT" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="GuW-1Z-cIK"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Zmp-24-13N">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
@@ -1160,6 +1162,7 @@
                         <outlet property="postItemOutlet" destination="Vp7-kY-XrD" id="11g-NI-8p8"/>
                         <outlet property="retakePhotoOutlet" destination="dNo-Zu-I1S" id="DmW-IS-lp9"/>
                         <segue destination="Smt-w7-bMW" kind="unwind" identifier="mapUnwind" unwindAction="mapUnwindWithSegue:" id="KBF-j5-rNa"/>
+                        <segue destination="Smt-w7-bMW" kind="unwind" identifier="itemFeedUnwind" unwindAction="itemFeedUnwindWithSegue:" id="O5r-2t-JxJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ULf-6D-hPa" userLabel="First Responder" sceneMemberID="firstResponder"/>
