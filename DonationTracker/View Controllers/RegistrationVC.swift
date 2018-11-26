@@ -8,9 +8,6 @@
 
 import UIKit
 import Parse
-import AWSMobileClient
-import AWSAuthCore
-import AWSPinpoint
 
 class RegistrationVC: UIViewController, UITextFieldDelegate {
 
@@ -135,12 +132,7 @@ class RegistrationVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        let credentialsProvider = AWSMobileClient.sharedInstance().getCredentialsProvider()
         
-        // Get the identity Id from the AWSIdentityManager
-        let identityId = AWSIdentityManager.default().identityId
-        print("AWS identity", identityId)
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     func setupUI() {

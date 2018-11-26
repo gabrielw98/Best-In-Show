@@ -8,9 +8,6 @@
 
 import UIKit
 import Parse
-import AWSMobileClient
-import AWSCore
-import AWSPinpoint
 import UserNotifications
 //import GooglePlaces
 
@@ -18,7 +15,6 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var pinpoint: AWSPinpoint?
     
     
 
@@ -41,23 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         Parse.initialize(with: configuration)
-        pinpoint = AWSPinpoint(configuration:AWSPinpointConfiguration.defaultPinpointConfiguration(launchOptions: launchOptions))
-        AWSMobileClient.sharedInstance().interceptApplication(
-            application,
-            didFinishLaunchingWithOptions: launchOptions)
-        AWSDDLog.add(AWSDDTTYLogger.sharedInstance)
-        AWSDDLog.sharedInstance.logLevel = .info
-        if let targetingClient = pinpoint?.targetingClient {
-            let endpoint = targetingClient.currentEndpointProfile()
-            // Create a user and set its userId property
-            let user = AWSPinpointEndpointProfileUser()
-            user.userId = PFUser.current()?.objectId
-            // Assign the user to the endpoint
-            endpoint.user = user
-            // Update the endpoint with the targeting client
-            targetingClient.update(endpoint)
-            print("Assigned user ID \(user.userId ?? "nil") to endpoint \(endpoint.endpointId)")
-        }
+        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .carPlay ]) {
             (granted, error) in
             print("Permission granted: \(granted)")
@@ -115,8 +95,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         fetchCompletionHandler completionHandler:
         @escaping (UIBackgroundFetchResult) -> Void) {
         print("received notification!!")
-        pinpoint!.notificationManager.interceptDidReceiveRemoteNotification(
-            userInfo, fetchCompletionHandler: completionHandler)
         print("receieved a push!?")
         if (application.applicationState == .active) {
             let alert = UIAlertController(title: "Notification Received",
@@ -137,12 +115,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        if let targetingClient = pinpoint?.targetingClient {
-            targetingClient.addAttribute(["science", "politics", "travel"], forKey: "interests")
-            targetingClient.updateEndpointProfile()
-            let endpointId = targetingClient.currentEndpointProfile().endpointId
-            print("Updated custom attributes for endpoint: \(endpointId)")
-        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
