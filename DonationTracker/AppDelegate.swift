@@ -11,6 +11,7 @@ import Parse
 import AWSMobileClient
 import AWSCore
 import AWSPinpoint
+import UserNotifications
 //import GooglePlaces
 
 @UIApplicationMain
@@ -38,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
         }
+        
         Parse.initialize(with: configuration)
         pinpoint = AWSPinpoint(configuration:AWSPinpointConfiguration.defaultPinpointConfiguration(launchOptions: launchOptions))
         AWSMobileClient.sharedInstance().interceptApplication(
@@ -56,6 +58,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             targetingClient.update(endpoint)
             print("Assigned user ID \(user.userId ?? "nil") to endpoint \(endpoint.endpointId)")
         }
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .carPlay ]) {
+            (granted, error) in
+            print("Permission granted: \(granted)")
+            guard granted else { return }
+            self.getNotificationSettings()
+        }
         /*if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
             let keys = NSDictionary(contentsOfFile: path)
             GMSPlacesClient.provideAPIKey(keys!["googleKey"] as! String)
@@ -64,15 +72,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(
-        _ application: UIApplication,
-        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        
-        pinpoint!.notificationManager.interceptDidRegisterForRemoteNotifications(
-            withDeviceToken: deviceToken)
-        let   tokenString = deviceToken.reduce("", {$0 + String(format: "%02X",    $1)})
-        print(tokenString, "my token")
-        
+    func getNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            print("Notification settings: \(settings)")
+            guard settings.authorizationStatus == .authorized else { return }
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+    }
+    
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print(deviceToken.base64EncodedString(), "this is the device token")
+        createInstallationOnParse(deviceTokenData: deviceToken)
+    }
+    
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register: \(error)")
+    }
+    
+    func createInstallationOnParse(deviceTokenData:Data){
+        if let installation = PFInstallation.current(){
+            installation.setDeviceTokenFrom(deviceTokenData)
+            installation.saveInBackground {
+                (success: Bool, error: Error?) in
+                if (success) {
+                    print("You have successfully saved your push installation to Back4App!")
+                } else {
+                    if let myError = error{
+                        print("Error saving parse installation \(myError.localizedDescription)")
+                    }else{
+                        print("Uknown error")
+                    }
+                }
+            }
+        }
     }
     
     func application(
@@ -80,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didReceiveRemoteNotification userInfo: [AnyHashable: Any],
         fetchCompletionHandler completionHandler:
         @escaping (UIBackgroundFetchResult) -> Void) {
-        
+        print("received notification!!")
         pinpoint!.notificationManager.interceptDidReceiveRemoteNotification(
             userInfo, fetchCompletionHandler: completionHandler)
         print("receieved a push!?")
@@ -103,6 +137,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        if let targetingClient = pinpoint?.targetingClient {
+            targetingClient.addAttribute(["science", "politics", "travel"], forKey: "interests")
+            targetingClient.updateEndpointProfile()
+            let endpointId = targetingClient.currentEndpointProfile().endpointId
+            print("Updated custom attributes for endpoint: \(endpointId)")
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

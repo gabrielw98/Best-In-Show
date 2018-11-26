@@ -31,7 +31,6 @@
 		8C90079E2189F00500577A1C /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90079D2189F00500577A1C /* RegisterVC.swift */; };
 		8CA7FDE621A1BBAD00DB7189 /* EmployeesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDE521A1BBAD00DB7189 /* EmployeesVC.swift */; };
 		8CA7FDE821A1C42600DB7189 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDE721A1C42600DB7189 /* CustomSegmentedControl.swift */; };
-		8CA7FDEA21A3718A00DB7189 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 8CA7FDE921A3718A00DB7189 /* awsconfiguration.json */; };
 		8CA7FDEC21A3736E00DB7189 /* ItemFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDEB21A3736E00DB7189 /* ItemFeedVC.swift */; };
 		8CA7FDEE21A373C600DB7189 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDED21A373C600DB7189 /* ItemCell.swift */; };
 		8CA7FDF021A4451000DB7189 /* AddItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDEF21A4451000DB7189 /* AddItemVC.swift */; };
@@ -96,7 +95,6 @@
 		8C90079D2189F00500577A1C /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		8CA7FDE521A1BBAD00DB7189 /* EmployeesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesVC.swift; sourceTree = "<group>"; };
 		8CA7FDE721A1C42600DB7189 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
-		8CA7FDE921A3718A00DB7189 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = awsconfiguration.json; path = ../../../../Downloads/awsconfiguration.json; sourceTree = "<group>"; };
 		8CA7FDEB21A3736E00DB7189 /* ItemFeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFeedVC.swift; sourceTree = "<group>"; };
 		8CA7FDED21A373C600DB7189 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		8CA7FDEF21A4451000DB7189 /* AddItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemVC.swift; sourceTree = "<group>"; };
@@ -177,7 +175,6 @@
 				8C9007972189007600577A1C /* Data Classes */,
 				8C9007982189009800577A1C /* View Controllers */,
 				8C3F1BC1216028A70028B7E2 /* Main.storyboard */,
-				8CA7FDE921A3718A00DB7189 /* awsconfiguration.json */,
 				56034790219E0ADC0056B304 /* FilterCategoriesVC.swift */,
 				8CA7FDE721A1C42600DB7189 /* CustomSegmentedControl.swift */,
 				56034792219E29070056B304 /* CollectionViewCellVC.swift */,
@@ -386,7 +383,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CF6450421936EF000ADFADA /* keys.plist in Resources */,
-				8CA7FDEA21A3718A00DB7189 /* awsconfiguration.json in Resources */,
 				8C3F1BC8216028A90028B7E2 /* LaunchScreen.storyboard in Resources */,
 				8C3F1BC5216028A90028B7E2 /* Assets.xcassets in Resources */,
 				8C3F1BC3216028A70028B7E2 /* Main.storyboard in Resources */,
@@ -710,7 +706,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = DonationTracker..;
+				PRODUCT_BUNDLE_IDENTIFIER = com..DonationTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -736,7 +732,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = DonationTracker..;
+				PRODUCT_BUNDLE_IDENTIFIER = com..DonationTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";

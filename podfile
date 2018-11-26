@@ -7,9 +7,7 @@ target 'DonationTracker' do
 
   # Pods for DonationTracker
   pod 'SendGrid-Swift'
-  pod 'AWSMobileClient', '~> 2.6.13'
   pod 'DropDown'
-  pod 'AWSPinpoint', '~> 2.6.13'
   pod 'Parse'
   target 'DonationTrackerTests' do
     inherit! :search_paths
