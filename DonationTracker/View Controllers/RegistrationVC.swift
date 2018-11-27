@@ -86,7 +86,7 @@ class RegistrationVC: UIViewController, UITextFieldDelegate {
                                                 (imageData:Data?, error:Error?) -> Void in
                                                 if error == nil  {
                                                     if let finalimage = UIImage(data: imageData!) {
-                                                        if object["price"] != nil {
+                                                        if object["itemPrice"] != nil {
                                                             print("items found")
                                                             //Put into sqlite
                                                             DataModel.items.append(Item(object: object, image: finalimage))

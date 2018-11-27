@@ -19,7 +19,7 @@ class Item {
     
     init(object: PFObject, image: UIImage) {
         name = object["name"] as! String
-        price = object["price"] as! String
+        price = object["itemPrice"] as! String
         tags = object["tags"] as! [String]
         category = object["itemCategory"] as! String
         self.image = image

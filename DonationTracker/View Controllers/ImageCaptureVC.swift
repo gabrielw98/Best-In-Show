@@ -44,7 +44,7 @@ class ImageCaptureVC: UIViewController, AVCapturePhotoCaptureDelegate {
         let NewItem = PFObject(className: "Item")
         NewItem["itemCategory"] = "Shoes"
         NewItem["name"] = DataModel.name
-        NewItem["price"] = DataModel.price
+        NewItem["itemPrice"] = DataModel.price
         NewItem["tags"] = DataModel.tags
         NewItem["locationId"] = DataModel.employeeWorkPlace
         if let imageData = self.imageView.image!.jpegData(.low) {
