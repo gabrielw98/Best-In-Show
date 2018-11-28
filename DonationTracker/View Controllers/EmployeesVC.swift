@@ -19,7 +19,6 @@ class EmployeesVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
-        mugs()
         queryRequests()
         createSegmentedControl()
     }
@@ -159,6 +158,11 @@ class EmployeesVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
             if error == nil {
                 // Do something with response
                 print(response, "response")
+                let push = PFPush()
+                push.setMessage("You have been registered as an employee!")
+                push.sendInBackground(block: { (success, error) in
+                    print(success)
+                })
             } else {
                 // Handle with error
                 print(error?.localizedDescription, "Cloud Code Push Error")
@@ -197,10 +201,6 @@ class EmployeesVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
                 print(error?.localizedDescription, "Cloud Code Push Error")
             }
         }
-    }
-    
-    func mugs() {
-        print("mugs<3goob")
     }
     
 }

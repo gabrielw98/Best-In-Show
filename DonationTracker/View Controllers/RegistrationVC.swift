@@ -109,6 +109,7 @@ class RegistrationVC: UIViewController, UITextFieldDelegate {
     
     
     func refreshCurrentUserData() {
+        print("here ans segue")
         let query = PFQuery(className: "_User")
         query.whereKey("objectId", equalTo: PFUser.current()?.objectId! as! String)
         print("query pfuser object id", PFUser.current()?.objectId! as! String)
@@ -166,9 +167,9 @@ class RegistrationVC: UIViewController, UITextFieldDelegate {
         PFUser.logInWithUsername(inBackground: usernameTextField.text!, password: passwordTextField.text!, block: { (user, error) in
             if user != nil {
                 // Yes, User Exists
-                self.performSegue(withIdentifier: "showMap", sender: nil)
                 self.usernameTextField.text = ""
                 self.passwordTextField.text = ""
+                self.refreshCurrentUserData()
             } else {
                 // No, User Doesn't Exist
             }

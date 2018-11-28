@@ -38,6 +38,7 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func setupTableView() {
         tableView.tableFooterView = UIView()
         tableView.isScrollEnabled = false
+        print(DataModel.employeeStatus, "this is the status")
         if DataModel.employeeStatus == "Requested" {
             items.insert("Employee Status Pending...", at: 3)
         } else if DataModel.employeeStatus == "Registered" {
@@ -145,3 +146,4 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
