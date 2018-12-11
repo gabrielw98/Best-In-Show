@@ -61,7 +61,6 @@ class EmployeesVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
             button.setTitleColor(.darkGray, for: .normal)
             button.sizeToFit()
             cell.accessoryView = button
-            print("in here")
         } else if segmentedControl.selectedSegmentIndex == 1 {
             cell.textLabel?.text = requests[indexPath.row].username
             let buttonsView = UIView()
@@ -125,7 +124,7 @@ class EmployeesVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
             } else if let objects = objects {
                 if objects.isEmpty {
                     print("no objects")
-                    self.performSegue(withIdentifier: "showEmployees", sender: nil)
+                    //self.performSegue(withIdentifier: "showEmployees", sender: nil)
                 } else {
                     for object in objects {
                         let user = object["employee"] as! PFUser
@@ -138,6 +137,7 @@ class EmployeesVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
                                     self.employees.append(user)
                                 }
                                 if object == objects.last {
+                                    print("reloading")
                                     self.tableView.reloadData()
                                 }
                             }

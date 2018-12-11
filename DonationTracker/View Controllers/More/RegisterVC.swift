@@ -46,18 +46,40 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             sendAdminRequestEmail()
             if let currentUser = PFUser.current() {
                 currentUser["adminStatus"] = "Requested"
-                //currentUser.add("Requested", forKey: "employeeStatus")
                 currentUser.saveInBackground { (success, error) in
                     if let error = error {
                         print("Error saving the location for user: \(error.localizedDescription)")
                     } else if success {
                         print("Saved Employee status for user.")
                         DataModel.adminStatus = "Requested"
+                        self.saveLocation()
                     }
                 }
             }
         }
-        
+    }
+    
+    func saveLocation() {
+        let location = PFObject(className: "Location")
+        location["name"] = self.selectedLocation.name
+        if switchView.isOn {
+            location["domain"] = self.suggestedDomain
+        } else {
+            location["domain"] = "N/A"
+        }
+        location["admin"] = PFUser.current()!
+        location["address"] = self.selectedLocation.address
+        location["subscribers"] = [PFUser.current()?.objectId]
+        location["latitude"] = self.selectedLocation.locationCoordinate.latitude
+        location["longitude"] = self.selectedLocation.locationCoordinate.longitude
+        location["status"] = "Requested"
+        location["phone"] = self.selectedLocation.phone
+        location["website"] = self.selectedLocation.website
+        location.saveInBackground { (success, error) in
+            if success {
+                print("Location Saved")
+            }
+        }
     }
     
     //Drop Down Fields
@@ -80,6 +102,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var suggestedDomain = ""
     var correctSuggestedDomain = false
     var chosenEmail = ""
+    var switchView = UISwitch(frame: .zero)
     
     //Location Fields
     var recommendedLocations = [Location]()
@@ -92,6 +115,8 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     func setupUI() {
         setupSearchBar()
+        switchView.setOn(false, animated: true)
+        switchView.isOn = false
         self.tableView.dataSource = self
         self.tableView.delegate = self
         if identifier == "admin" {
@@ -102,8 +127,6 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         sendButtonOutlet.isEnabled = false
     }
     
-    
-    
     func configureAdminUI() {
         print(dropButton, "printing the button")
         locationManager.delegate = self
@@ -111,8 +134,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         headers[1] = "Location Email"
-        items = [["Name", "Address"], ["Verify Your Work Email", "Work Email i.e. '@goodwill.org'"]]
-        items[1][1] = "Work Email i.e. '@goodwill.org'"
+        items = [["Name", "Address"], ["Restrict Employee Domain?", "Admin Email"]]
         self.tableView.reloadData()
         dropButton.anchorView = searchController.searchBar
         dropButton.bottomOffset = CGPoint(x: 0, y:(dropButton.anchorView?.plainView.bounds.height)!)
@@ -145,13 +167,36 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 //self.items[1][1] = String(describing: self.suggestDomain(url: locationItem.url!))
                 self.suggestedDomain = String(describing: self.suggestDomain(url: locationItem.url!))
             }
+            self.selectedLocation.phone = locationItem.phoneNumber
+            self.selectedLocation.website = locationItem.url?.absoluteString
+            self.selectedLocation.domain = self.suggestedDomain
+            self.selectedLocation.name = locationItem.name
+            self.selectedLocation.address = addressString
+            self.selectedLocation.locationCoordinate  = PFGeoPoint(latitude: locationItem.placemark.coordinate.latitude, longitude: locationItem.placemark.coordinate.longitude)
             print(locationItem.url?.absoluteString, "this is the absolute string")
             //filter url to get email substring before .com or .org
             //locationItem.url?.absoluteString
-            locationItem.placemark
             self.locationSelected = true
             self.tableView.reloadData()
         }
+    }
+    
+    var isRequired = false
+    @objc func toggleRequireBusinessDomain() {
+        if isRequired {
+            switchView.setOn(false, animated: true)
+            items[1].remove(at: 1)
+            items[1][1] = "Admin Email"
+            tableView.reloadData()
+            isRequired = false
+        } else {
+            switchView.setOn(true, animated: true)
+            items[1].insert("Verify Your Work Domain", at: 1)
+            items[1][2] = "Work Email i.e. '@goodwill.org'"
+            tableView.reloadData()
+            isRequired = true
+        }
+        
     }
     
     func suggestDomain(url: URL) -> String {
@@ -188,6 +233,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     self.selectedLocation = location
                     self.items[0][0] = location.name
                     self.items[0][1] = location.address
+                    //Come back reverse geocode the address to get coordinates...
                     if let admin = location.admin as? PFUser {
                         self.items[1][0] = admin.username!
                     }
@@ -214,7 +260,6 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("count of rows")
         return items[section].count
     }
     
@@ -234,7 +279,12 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             }
         } else if self.identifier == "admin" {
             //COMEBACK
-            if cell.textLabel!.text == "Name" || cell.textLabel!.text == "Address" || cell.textLabel!.text == "Verify Your Work Email" || cell.textLabel!.text == "Work Email i.e. '@goodwill.org'" || cell.textLabel!.text == "Business Domain i.e. '@goodwill.org'"   {
+            if cell.textLabel!.text == "Name" || cell.textLabel!.text == "Address" || cell.textLabel!.text == "Verify Your Work Domain" || cell.textLabel!.text == "Work Email i.e. '@goodwill.org'" || cell.textLabel!.text == "Business Domain i.e. '@goodwill.org'" || cell.textLabel!.text == "Admin Email"   {
+                cell.textLabel?.textColor = UIColor.lightGray
+            }
+            if cell.textLabel?.text == "Restrict Employee Domain?" {
+                switchView.addTarget(self, action: #selector(self.toggleRequireBusinessDomain), for: .valueChanged)
+                cell.accessoryView = switchView
                 cell.textLabel?.textColor = UIColor.lightGray
             }
             
@@ -255,25 +305,20 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 2 && indexPath.row == 0 && enteredCode == "" {
-            var customMessage = ""
-            if selectedLocation.address == "" && selectedLocation.name == "" {
-                customMessage = "You must choose a location before you can be sent a verification code."
-                let verificationAlert = UIAlertController(title: "Notice", message: customMessage, preferredStyle: UIAlertControllerStyle.alert)
-                //textField.p
-                verificationAlert.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action: UIAlertAction!) in
-                }))
-                present(verificationAlert, animated: true, completion: nil)
-            } else {
-                showVerifyEmailAlertView()
-            }
+        var customMessage = ""
+        print(selectedLocation.address, "this location was selected")
+        if !locationSelected {
+            customMessage = "You must choose a location before you can be sent a verification code."
+            let verificationAlert = UIAlertController(title: "Notice", message: customMessage, preferredStyle: UIAlertControllerStyle.alert)
+            verificationAlert.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action: UIAlertAction!) in
+            }))
+            present(verificationAlert, animated: true, completion: nil)
         }
-        if items[indexPath.section][indexPath.row] == "Verify Your Work Email" {
+        if items[indexPath.section][indexPath.row] == "Verify Your Work Domain" {
             let customMessage = "The domain should match your employees' email addresses. \n\nIs '\(self.suggestedDomain)' your domain?"
             let suggestDomainAlertView = UIAlertController(title: "Verify Email Domain", message: customMessage, preferredStyle: UIAlertControllerStyle.alert)
             suggestDomainAlertView.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
                 //reload Location Email Cells
-                self.items[1][1] = "Work Email i.e. '@goodwill.org'"
                 tableView.reloadData()
             }))
             suggestDomainAlertView.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
@@ -283,6 +328,8 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 self.self.showVerifyEmailAlertView()
             }))
             present(suggestDomainAlertView, animated: true, completion: nil)
+        } else if items[indexPath.section][indexPath.row] == "Admin Email" {
+            self.self.showVerifyEmailAlertView()
         }
         if items[indexPath.section][indexPath.row] == "Work Email i.e. '@goodwill.org'" {
             //Come back - change placeholder to show @YourDomain.com
@@ -300,7 +347,11 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
          let refreshAlert = UIAlertController(title: "Verify Email", message: customMessage, preferredStyle: UIAlertControllerStyle.alert)
         refreshAlert.addTextField(configurationHandler: { (textField) in
             let placeHolder = self.identifier == "admin" ? self.suggestedDomain : "Enter your employee email"
-            textField.placeholder = placeHolder
+            if self.switchView.isOn {
+                 textField.placeholder = placeHolder
+            } else {
+                textField.placeholder = "Enter your work email"
+            }
         })
         refreshAlert.textFields![0].delegate = self
         refreshAlert.textFields![0].addTarget(self, action: #selector(RegisterVC.textFieldDidChange(_:)), for: .editingChanged)
@@ -474,7 +525,14 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 if self.identifier == "employee" {
                     self.items[2][0] = code
                 } else {
-                    self.items[1][0] = self.chosenEmail
+                    if self.switchView.isOn {
+                        self.items[1][2] = self.chosenEmail
+                        self.switchView.isEnabled = false
+                    } else {
+                        self.items[1][1] = self.chosenEmail
+                        self.switchView.isEnabled = false
+                    }
+                    
                 }
                 self.enteredCode = code
                 self.tableView.reloadData()
@@ -526,12 +584,14 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             print("in the text did change")
             print("this is the tag", textField.tag)
              if textField.text!.range(of: self.suggestedDomain) == nil && textField.tag == 0 {
-                textField.text = textField.text! + self.suggestedDomain
-                let newPosition = textField.beginningOfDocument
-                let oneAfter = textField.position(from: newPosition, offset: 1)
-                //textField.selectedTextRange = textField.textRange(from: newPosition, to: oneAfter!)
-                //textField.textRange(from: newPosition, to: oneAfter!)
-                textField.selectedTextRange = textField.textRange(from: oneAfter!, to: oneAfter!)
+                if self.switchView.isOn {
+                    textField.text = textField.text! + self.suggestedDomain
+                    let newPosition = textField.beginningOfDocument
+                    let oneAfter = textField.position(from: newPosition, offset: 1)
+                    //textField.selectedTextRange = textField.textRange(from: newPosition, to: oneAfter!)
+                    //textField.textRange(from: newPosition, to: oneAfter!)
+                    textField.selectedTextRange = textField.textRange(from: oneAfter!, to: oneAfter!)
+                }
                 enterAction.isEnabled = true
              } else if textField.tag > 0 {
                 if !(textField.text?.isEmpty)! && Int(textField.text!) == textField.tag {
@@ -544,11 +604,11 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let  char = string.cString(using: String.Encoding.utf8)!
-        let isBackSpace = strcmp(char, "\\b")
         if let text = textField.text,
             let textRange = Range(range, in: text) {
             let updatedText = text.replacingCharacters(in: textRange,
                                                        with: string)
+            print("this is the updated text", updatedText)
             if updatedText == self.suggestedDomain {
                 enterAction.isEnabled = false
             } else {
@@ -556,7 +616,10 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             }
             let lastCharacters = updatedText.suffix(self.suggestedDomain.characters.count)
             if self.identifier == "admin" && !(textField.text?.isEmpty)! && updatedText.range(of: self.suggestedDomain) == nil || updatedText.contains(" ") || (textField.text?.characters.count)! > lastCharacters.count && lastCharacters != self.suggestedDomain {
-                return false
+                print("made it into false", self.switchView.isOn)
+                if self.switchView.isOn {
+                    return false
+                }
             }
             //Come back implement change domain capability.
         }

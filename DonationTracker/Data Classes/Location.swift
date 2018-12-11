@@ -20,6 +20,8 @@ class Location: MKPointAnnotation {
     var locationCoordinate: PFGeoPoint!
     var locations = [Location]()
     var admin: PFUser!
+    var phone: String!
+    var website: String!
     
     var isRegistered: Bool!
     
@@ -64,6 +66,8 @@ class Location: MKPointAnnotation {
                     location.title = object["name"] as? String
                     location.subtitle = object["address"] as? String
                     location.admin = object["admin"] as? PFUser
+                    location.phone = object["phone"] as? String
+                    location.website = object["website"] as? String
                     print(location.admin, "this is the location admin!!")
                     //location fields
                     location.name = location.title

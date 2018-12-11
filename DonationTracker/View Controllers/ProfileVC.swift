@@ -140,7 +140,6 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             let targetVC = segue.destination as! PlacesVC
             targetVC.locations = self.userLocations
         } else if segue.identifier == "showEmployees" {
-            let targetVC = segue.destination as! EmployeesVC
         }
         
     }

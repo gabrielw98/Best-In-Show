@@ -145,6 +145,11 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         })
     }
     
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        self.selectedLocation = view.annotation as? Location
+        self.performSegue(withIdentifier: "showItemFeedVC", sender: nil)
+    }
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             return nil
@@ -183,11 +188,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         self.performSegue(withIdentifier: "showRegisteredLocationDetails", sender: nil)
     }
     
-    @objc func showRegisteredLocationDetails(location: Location) {
-        self.selectedLocation = location
-        print("got to this thing", location.address)
-        self.performSegue(withIdentifier: "showRegisteredLocationDetails", sender: nil)
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showRegisteredLocationDetails" {
@@ -196,6 +196,10 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             targetVC.selectedLocation = self.selectedLocation
         } else if segue.identifier == "toCollectionView" {
             //let destination = segue.destination as! CollectionVC
+        } else if segue.identifier == "showItemFeedVC" {
+            let targetVC = segue.destination as! ItemFeedVC
+            targetVC.selectedLocation = self.selectedLocation
+            targetVC.fromMap = true
         }
     }
     

@@ -381,6 +381,7 @@
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
                         <segue destination="eEk-aJ-lZe" kind="show" identifier="showAddItem" id="bu0-r1-Ctk"/>
+                        <segue destination="n7c-Dl-oGJ" kind="show" identifier="showItemFeedVC" id="D32-8h-peQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1O7-5T-nDK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -494,7 +495,7 @@
                         <segue destination="jf3-b0-wav" kind="show" identifier="showPlaces" id="6eT-nT-oR7"/>
                         <segue destination="Dh5-vl-mE7" kind="show" identifier="showMore" id="iGb-Xr-rdD"/>
                         <segue destination="YNd-eA-6iI" kind="unwind" identifier="registrationUnwind" unwindAction="registrationUnwindWithSegue:" id="XKh-FH-J9w"/>
-                        <segue destination="6o9-Rd-htx" kind="show" identifier="showEmployees" id="mWN-eu-wox"/>
+                        <segue destination="6o9-Rd-htx" kind="show" identifier="showEmployees" id="R7m-hQ-xVf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdD-MD-eh7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1190,5 +1191,6 @@
         <segue reference="iGb-Xr-rdD"/>
         <segue reference="rIq-Hu-vx2"/>
         <segue reference="Day-cy-DNa"/>
+        <segue reference="D32-8h-peQ"/>
     </inferredMetricsTieBreakers>
 </document>
