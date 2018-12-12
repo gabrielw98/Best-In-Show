@@ -24,6 +24,7 @@ class Location: MKPointAnnotation {
     var website: String!
     
     var isRegistered: Bool!
+    var isCurrentUserSubscribed: Bool!
     
     override init() {
         objectId = ""
@@ -80,6 +81,14 @@ class Location: MKPointAnnotation {
                     location.locationCoordinate = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
                     location.objectId = object.objectId
                     location.isRegistered = true
+                    let subscribers = object["subscribers"] as! [String]
+                    print("sub here", subscribers)
+                    if subscribers.contains((PFUser.current()?.objectId)!) {
+                        print("I am a subscriber!", location.objectId)
+                        location.isCurrentUserSubscribed = true
+                    } else {
+                        location.isCurrentUserSubscribed = false
+                    }
                     self.locations.append(location)
                     if object == objects?.last {
                         completion(self.locations)

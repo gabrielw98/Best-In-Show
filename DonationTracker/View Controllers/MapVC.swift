@@ -48,6 +48,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         mapView.delegate = self
         locationServices()
         setupSearchBar()
+        queryAllLocations()
     }
     
     
@@ -71,7 +72,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         mapView.setRegion(coordinateRegion, animated: false)
         mapView.showsUserLocation = true
         locationManager.stopUpdatingLocation()
-        showRegisteredLocations()
     }
     
     func setupSearchBar() {
@@ -108,6 +108,76 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    }
+    
+    func showLocations() {
+        if !(DataModel.locations?.isEmpty)! {
+            for location in DataModel.locations! {
+                
+            }
+        }
+    }
+    
+    func queryAllLocations() {
+        //Come back
+        // This query gets all of the locations the user is subscribed to
+        // Instead of querying all the locations in the map vc,
+        // query all locations in the map vc and for those that the user is subscribed to,
+        // get the items. put them in the DataModel.items to show in ItemsVC.
+        // Otherwise, only show items from locations when the user selects ()
+        // Thus, don't use do an additional query when showing a location that the user
+        // is registered to.
+        let query = PFQuery(className: "Location")
+        Location().getLocations(query: query, completion: { (locationObjects) in
+            DataModel.locations = locationObjects
+            if let locations = DataModel.locations {
+                var ids = [String]()
+                for location in locations {
+                    self.locationDict.updateValue(location, forKey: location.address)
+                    if location.isCurrentUserSubscribed {
+                        ids.append(location.objectId)
+                    }
+                    print("lname", location.name, "last name", locations.last?.name)
+                    if location == locations.last {
+                        let query = PFQuery(className: "Item")
+                        print("these are the ids", ids)
+                        query.whereKey("locationId", containedIn: ids)
+                        query.whereKeyExists("image")
+                        query.findObjectsInBackground(block: { (objects, error) in
+                            if let error = error {
+                                print(error)
+                            } else if let objects = objects {
+                                if objects.isEmpty {
+                                    print("No Items Found")
+                                } else {
+                                    print(objects.count, "this is the count of the objects!")
+                                    for object : PFObject in objects {
+                                        if let image = object["image"] as? PFFile {
+                                            image.getDataInBackground {
+                                                (imageData:Data?, error:Error?) -> Void in
+                                                if error == nil  {
+                                                    if let finalimage = UIImage(data: imageData!) {
+                                                        if object["itemPrice"] != nil {
+                                                            print("items found2")
+                                                            //Put into sqlite
+                                                            DataModel.items.append(Item(object: object, image: finalimage))
+                                                            print(DataModel.items.count)
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        })
+                        self.mapView.addAnnotations(self.locationDict.compactMap(){ $0.1 }  )
+                        self.mapView.showAnnotations(self.locationDict.compactMap(){ $0.1 }, animated: false)
+                        self.mapView.region = MKCoordinateRegion(center: ((self.locationDict[location.address])?.coordinate)!, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+                    }
+                }
+            }
+        })
     }
     
     func showRegisteredLocations() {

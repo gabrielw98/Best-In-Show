@@ -37,7 +37,20 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
             layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         }
         if fromMap {
-            queryItems()
+            if selectedLocation.isCurrentUserSubscribed {
+                self.items = [Item]()
+                for item in DataModel.items {
+                    if item.locationId == self.selectedLocation.objectId {
+                        self.items.append(item)
+                        collectionView.reloadData()
+                    }
+                }
+                if self.items.isEmpty {
+                    self.showNoItemsLabel()
+                }
+            } else {
+                queryItems()
+            }
         } else {
             items = DataModel.items
             collectionView.reloadData()
@@ -64,7 +77,7 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
                             if error == nil  {
                                 if let finalimage = UIImage(data: imageData!) {
                                     if object["itemPrice"] != nil {
-                                        print("items found")
+                                        print("items found3")
                                         //Put into sqlite
                                         DataModel.items.append(Item(object: object, image: finalimage))
                                         if object == objects!.last {
