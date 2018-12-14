@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import GooglePlaces
 import YelpAPI
+import Parse
 
 class PlacesVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -20,7 +21,17 @@ class PlacesVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     override func viewDidLoad() {
         print("made it to view did load")
-       collectionView?.isPagingEnabled = true
+        PFCloud.callFunction(inBackground: "newPush", withParameters: [:]){
+            (response, error) in
+            if error == nil {
+                // Do something with response
+                print(response, "response")
+            } else {
+                // Handle with error
+                print(error?.localizedDescription, "Cloud Code Push Error")
+            }
+        }
+        collectionView?.isPagingEnabled = true
         if let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }

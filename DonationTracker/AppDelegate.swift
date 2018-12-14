@@ -16,8 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         UIApplication.shared.statusBarStyle = .lightContent
@@ -76,6 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func createInstallationOnParse(deviceTokenData:Data){
         if let installation = PFInstallation.current(){
             installation.setDeviceTokenFrom(deviceTokenData)
+            installation.setObject(PFUser.current()!, forKey: "user")
             installation.saveInBackground {
                 (success: Bool, error: Error?) in
                 if (success) {
