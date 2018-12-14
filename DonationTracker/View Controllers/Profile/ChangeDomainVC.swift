@@ -25,21 +25,33 @@ class ChangeDomainVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var doneOutlet: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
     
+    var editedNumber = ""
     var editedDomain = ""
     var isEditingPhone = false
     
     override func viewDidLoad() {
         textField.delegate = self
-        if editedDomain != "" {
-            self.textField.text = editedDomain
+        if isEditingPhone {
+            self.textField.keyboardType = .numberPad
+            self.textField.placeholder = self.editedNumber
+        } else {
+            if editedDomain != "" {
+                self.textField.text = editedDomain
+            }
         }
+        
         textField.becomeFirstResponder()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "registrationUnwindFromDomainChange" {
             let destinationVC = segue.destination as! RegisterVC
-            destinationVC.suggestedDomain = textField.text!
+            if isEditingPhone {
+                destinationVC.selectedLocation.phone = textField.text
+            } else {
+                destinationVC.suggestedDomain = textField.text!
+            }
+            
         }
     }
     
@@ -54,19 +66,29 @@ class ChangeDomainVC: UIViewController, UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if let text = textField.text,
             let textRange = Range(range, in: text) {
+            var requiredText = self.isEditingPhone ? "+1" : "@"
             var updatedText = text.replacingCharacters(in: textRange, with: string)
-            if (textField.text?.isEmpty)! && updatedText != "@" {
-                updatedText = "@"
+            if (textField.text?.isEmpty)! && updatedText != requiredText {
+                updatedText = requiredText
                 textField.text = updatedText
             }
-            if updatedText.contains(" ") || !updatedText.contains("@") || updatedText.characters.first != "@" {
+            if updatedText.contains(" ") || !updatedText.contains(requiredText) || updatedText[..<requiredText.endIndex] != requiredText {
                 return false
             }
-            if isValidDomain(text: updatedText) {
-                self.doneOutlet.isEnabled = true
+            if isEditingPhone {
+                if updatedText.characters.count > 11 {
+                    self.doneOutlet.isEnabled = true
+                } else {
+                    self.doneOutlet.isEnabled = false
+                }
             } else {
-                self.doneOutlet.isEnabled = false
+                if isValidDomain(text: updatedText) {
+                    self.doneOutlet.isEnabled = true
+                } else {
+                    self.doneOutlet.isEnabled = false
+                }
             }
+            
         }
         
         return true

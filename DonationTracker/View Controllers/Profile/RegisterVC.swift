@@ -84,10 +84,17 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     @IBAction func registerAdminEmployeeUnwind(segue: UIStoryboardSegue) {
         if segue.identifier == "registrationUnwindFromDomainChange" {
-            print("new domain", self.suggestedDomain)
-            self.selectedLocation.domain = self.suggestedDomain
-            items[1][1] = self.suggestedDomain
-            tableView.reloadData()
+            if fromEditingPhoneNumber {
+                fromEditingPhoneNumber = false
+                items[2][0] = selectedLocation.phone!
+                tableView.reloadData()
+            } else {
+                print("new domain", self.suggestedDomain)
+                self.selectedLocation.domain = self.suggestedDomain
+                items[1][1] = self.suggestedDomain
+                tableView.reloadData()
+            }
+            
             
         }
     }
@@ -113,7 +120,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var correctSuggestedDomain = false
     var chosenEmail = ""
     var switchView = UISwitch(frame: .zero)
-    
+    var businessImageView = UIImageView(frame: .zero)
     
     
     //Location Fields
@@ -122,13 +129,10 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var selectedLocation = Location()
     var queriedBusinessImage = UIImage()
     var yelpClient: YLPClient?
+    var fromEditingPhoneNumber = false
 
     override func viewDidLoad() {
         setupUI()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        print("should show change domain", self.suggestedDomain)
     }
     
     func setupUI() {
@@ -193,23 +197,21 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             self.selectedLocation.domain = self.suggestedDomain
             self.selectedLocation.name = locationItem.name
             self.selectedLocation.address = addressString
-            let filteredPhone = "+" + locations.last!.phone.onlyDigits()
+            let filteredPhone = "+" + self.selectedLocation.phone.onlyDigits()
             print(filteredPhone, "filtered phone number")
+            self.getLocationImage(phoneNumber: filteredPhone)
             self.selectedLocation.locationCoordinate  = PFGeoPoint(latitude: locationItem.placemark.coordinate.latitude, longitude: locationItem.placemark.coordinate.longitude)
             print(locationItem.url?.absoluteString, "this is the absolute string")
-            //filter url to get email substring before .com or .org
-            //locationItem.url?.absoluteString
             self.locationSelected = true
             self.tableView.reloadData()
         }
     }
     
-    func getLocationImage(phoneNumber: String) -> UIImage {
+    func getLocationImage(phoneNumber: String) {
         if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
             let keys = NSDictionary(contentsOfFile: path)
             self.yelpClient = YLPClient.init(apiKey: keys!["yelpKey"] as! String)
-            
-            yelpClient?.business(withPhoneNumber: filteredPhone, completionHandler: { (results, error) in
+            yelpClient?.business(withPhoneNumber: phoneNumber, completionHandler: { (results, error) in
                 if error == nil {
                     print("Count of returned businesses from Yelp API call:", results?.businesses.count)
                     if let business = results?.businesses.first {
@@ -218,8 +220,9 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         {
                             print("made it inside ")
                             let image: UIImage = UIImage(data: data)!
-                            self.placeImage = image
-                            return image
+                            self.queriedBusinessImage = image
+                            self.tableView.reloadData()
+                            return
                         }
                     }
                 } else {
@@ -227,6 +230,9 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 }
             })
         }
+        print("Using default image")
+        self.queriedBusinessImage = UIImage(named: "DefaultLocation")!
+        tableView.reloadData()
     }
     
     var isRequired = false
@@ -321,9 +327,6 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         //cell.accessoryType = .detailButton
         cell.textLabel?.text = items[indexPath.section][indexPath.row]
         cell.selectionStyle = .none
-        if selectedLocation.address != "" && selectedLocation.name != "" && indexPath.section == 2 {
-            cell.selectionStyle = .gray
-        }
         if self.identifier == "employee" {
             if locationSelected && (indexPath.section != 2 || enteredCode != "") {
                 cell.textLabel?.textColor = UIColor.black
@@ -332,7 +335,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             }
         } else if self.identifier == "admin" {
             //COMEBACK
-            if cell.textLabel!.text == "Name" || cell.textLabel!.text == "Address" || cell.textLabel!.text == "Verify Your Work Domain" || cell.textLabel!.text == "Work Email i.e. '@goodwill.org'" || cell.textLabel!.text == "Business Domain i.e. '@goodwill.org'" || cell.textLabel!.text == "Admin Email"   {
+            if cell.textLabel!.text == "Name" || cell.textLabel!.text == "Address" || cell.textLabel!.text == "Verify Your Work Domain" || cell.textLabel!.text == "Work Email i.e. '@goodwill.org'" || cell.textLabel!.text == "Business Domain i.e. '@goodwill.org'" || cell.textLabel!.text == "Admin Email" || cell.textLabel?.text == "Phone Number"   {
                 cell.textLabel?.textColor = UIColor.lightGray
             }
             if cell.textLabel?.text == "Restrict Employee Domain?" {
@@ -341,7 +344,12 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 cell.textLabel?.textColor = UIColor.lightGray
             }
             if indexPath.section == 2 {
-                cell.accessoryView = self.queriedBusinessImage
+                print("cell for row for image")
+                
+                let imageView = UIImageView(image: self.queriedBusinessImage)
+                imageView.frame = CGRect(x: cell.frame.maxX - 60.0, y: cell.frame.minY + 5, width: 30.0, height: 30.0)
+                imageView.contentMode = .scaleAspectFill
+                cell.accessoryView = imageView
             }
             
             if locationSelected && indexPath.section == 0 {
@@ -360,6 +368,21 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         return ""
     }
     
+    func didPresentSearchController(_ currentSearchController: UISearchController) {
+        print("presented search controller")
+        currentSearchController.delegate = self
+        currentSearchController.searchBar.delegate = self
+        currentSearchController.searchBar.becomeFirstResponder()
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        print("should begin typing...")
+        DispatchQueue.main.async {
+            searchBar.becomeFirstResponder()
+        }
+        return true
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var customMessage = ""
         print(selectedLocation.address, "this location was selected")
@@ -367,10 +390,13 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             customMessage = "You must choose a location before you can be sent a verification code."
             let verificationAlert = UIAlertController(title: "Notice", message: customMessage, preferredStyle: UIAlertControllerStyle.alert)
             verificationAlert.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action: UIAlertAction!) in
+                self.searchController.delegate = self
                 self.searchController.isActive = true
+                self.searchController.definesPresentationContext = true
                 //programmatically open up the search controller
             }))
             present(verificationAlert, animated: true, completion: nil)
+            return
         }
         if items[indexPath.section][indexPath.row] == "Verify Your Work Domain" {
             let customMessage = "The domain should match your employees' email addresses. \n\nIs '\(selectedLocation.domain!)' your domain?"
@@ -391,6 +417,10 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         } else if items[indexPath.section][indexPath.row] == "Admin Email" {
             self.self.showVerifyEmailAlertView()
         } else if items[indexPath.section][indexPath.row] == self.suggestedDomain {
+            self.fromEditingPhoneNumber = false
+            self.performSegue(withIdentifier: "showChangeDomain", sender: nil)
+        } else if indexPath.section == 2 {
+            self.fromEditingPhoneNumber = true
             self.performSegue(withIdentifier: "showChangeDomain", sender: nil)
         }
         if items[indexPath.section][indexPath.row] == "Work Email i.e. '@goodwill.org'" {
@@ -401,10 +431,10 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     func showVerifyEmailAlertView() {
         var customMessage = ""
-        if selectedLocation.domain != nil {
+        if selectedLocation.domain != nil && switchView.isOn {
             customMessage = "Your work email must end in '\(String(describing: selectedLocation.domain!))' \nRemember to check your spam."
         } else {
-            customMessage = self.identifier == "admin" ? "Enter your work email" : "Enter your employee email"
+            customMessage = self.identifier == "admin" ? "Enter the email you would like to use for your admin account" : "Enter your employee email"
         }
          let refreshAlert = UIAlertController(title: "Verify Email", message: customMessage, preferredStyle: UIAlertControllerStyle.alert)
         refreshAlert.addTextField(configurationHandler: { (textField) in
@@ -583,7 +613,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             let textField = verificationAlert.textFields![0]
             if textField.text == code {
                 print("SUCCESS: Entered the correct code!") //COMEBACK
-                self.headers[2] = "Verified \u{2713}"
+                self.headers[1] = "Verified \u{2713}"
                 if self.identifier == "employee" {
                     self.items[2][0] = code
                 } else {
@@ -711,6 +741,8 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             let navController = segue.destination as! UINavigationController
             let target = navController.topViewController as! ChangeDomainVC
             target.editedDomain = self.suggestedDomain
+            target.editedNumber = self.selectedLocation.phone
+            target.isEditingPhone = self.fromEditingPhoneNumber
         }
     }
 }
