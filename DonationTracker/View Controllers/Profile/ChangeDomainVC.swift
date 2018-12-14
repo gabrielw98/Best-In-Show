@@ -25,8 +25,15 @@ class ChangeDomainVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var doneOutlet: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
     
+    var editedDomain = ""
+    var isEditingPhone = false
+    
     override func viewDidLoad() {
         textField.delegate = self
+        if editedDomain != "" {
+            self.textField.text = editedDomain
+        }
+        textField.becomeFirstResponder()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -34,6 +41,10 @@ class ChangeDomainVC: UIViewController, UITextFieldDelegate {
             let destinationVC = segue.destination as! RegisterVC
             destinationVC.suggestedDomain = textField.text!
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        textField.resignFirstResponder()
     }
     
     func isValidDomain(text: String) -> Bool {

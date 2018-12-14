@@ -27,26 +27,9 @@ class PlacesVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
             layout.scrollDirection = .horizontal
         }
         collectionView?.backgroundColor = UIColor(red: 173/255, green: 216/255, blue: 230/255, alpha: 1)
-        getLocationImage()
     }
     
-    func getLocationImage() {
-        if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
-            let keys = NSDictionary(contentsOfFile: path)
-            self.yelpClient = YLPClient.init(apiKey: keys!["yelpKey"] as! String)
-            let filteredPhone = "+" + locations[0].phone.onlyDigits()
-            print(filteredPhone, "filtered phone number")
-            yelpClient!.business(withPhoneNumber: locations[0].phone) { (results, error) in
-                if error == nil {
-                    if let business = results?.businesses.first {
-                        print("Top business: \(business.name), id: \(business.identifier)")
-                    }
-                } else {
-                    print("Yelp Api Error:", error!)
-                }
-            }
-        }
-    }
+    
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

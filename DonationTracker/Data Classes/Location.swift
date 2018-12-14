@@ -65,8 +65,8 @@ class Location: MKPointAnnotation {
                 print(objects?.count, "found this many objects")
                 for object in objects! {
                     let location = Location()
-                    location.coordinate.latitude = object["latitude"] as! Double
-                    location.coordinate.longitude = object["longitude"] as! Double
+                    location.coordinate.latitude = (object["coordinate"] as! PFGeoPoint).latitude
+                    location.coordinate.longitude = (object["coordinate"] as! PFGeoPoint).longitude
                     location.title = object["name"] as? String
                     location.subtitle = object["address"] as? String
                     location.admin = object["admin"] as? PFUser

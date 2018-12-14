@@ -11,6 +11,7 @@ import UIKit
 import Parse
 import DropDown
 import SendGrid_Swift
+import YelpAPI
 import MapKit
 
 class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate, UISearchBarDelegate, UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate {
@@ -82,8 +83,12 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     @IBAction func registerAdminEmployeeUnwind(segue: UIStoryboardSegue) {
-        if segue.identifier == "registerAdminEmployeeUnwindFromDomainChange" {
+        if segue.identifier == "registrationUnwindFromDomainChange" {
             print("new domain", self.suggestedDomain)
+            self.selectedLocation.domain = self.suggestedDomain
+            items[1][1] = self.suggestedDomain
+            tableView.reloadData()
+            
         }
     }
     
@@ -109,10 +114,14 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var chosenEmail = ""
     var switchView = UISwitch(frame: .zero)
     
+    
+    
     //Location Fields
     var recommendedLocations = [Location]()
     var locationSelected = false
     var selectedLocation = Location()
+    var queriedBusinessImage = UIImage()
+    var yelpClient: YLPClient?
 
     override func viewDidLoad() {
         setupUI()
@@ -143,7 +152,8 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         headers[1] = "Location Email"
-        items = [["Name", "Address"], ["Restrict Employee Domain?", "Admin Email"]]
+        headers[2] = "Details"
+        items = [["Name", "Address"], ["Restrict Employee Domain?", "Admin Email"], ["Phone Number"]]
         self.tableView.reloadData()
         dropButton.anchorView = searchController.searchBar
         dropButton.bottomOffset = CGPoint(x: 0, y:(dropButton.anchorView?.plainView.bounds.height)!)
@@ -176,17 +186,46 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 //self.items[1][1] = String(describing: self.suggestDomain(url: locationItem.url!))
                 self.suggestedDomain = String(describing: self.suggestDomain(url: locationItem.url!))
             }
+            
             self.selectedLocation.phone = locationItem.phoneNumber
+            self.items[2][0] = locationItem.phoneNumber!
             self.selectedLocation.website = locationItem.url?.absoluteString
             self.selectedLocation.domain = self.suggestedDomain
             self.selectedLocation.name = locationItem.name
             self.selectedLocation.address = addressString
+            let filteredPhone = "+" + locations.last!.phone.onlyDigits()
+            print(filteredPhone, "filtered phone number")
             self.selectedLocation.locationCoordinate  = PFGeoPoint(latitude: locationItem.placemark.coordinate.latitude, longitude: locationItem.placemark.coordinate.longitude)
             print(locationItem.url?.absoluteString, "this is the absolute string")
             //filter url to get email substring before .com or .org
             //locationItem.url?.absoluteString
             self.locationSelected = true
             self.tableView.reloadData()
+        }
+    }
+    
+    func getLocationImage(phoneNumber: String) -> UIImage {
+        if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
+            let keys = NSDictionary(contentsOfFile: path)
+            self.yelpClient = YLPClient.init(apiKey: keys!["yelpKey"] as! String)
+            
+            yelpClient?.business(withPhoneNumber: filteredPhone, completionHandler: { (results, error) in
+                if error == nil {
+                    print("Count of returned businesses from Yelp API call:", results?.businesses.count)
+                    if let business = results?.businesses.first {
+                        print("Top business: \(business.name), id: \(business.identifier)")
+                        if let data = try? Data(contentsOf: business.imageURL!)
+                        {
+                            print("made it inside ")
+                            let image: UIImage = UIImage(data: data)!
+                            self.placeImage = image
+                            return image
+                        }
+                    }
+                } else {
+                    print("Yelp Api Error:", error!)
+                }
+            })
         }
     }
     
@@ -218,7 +257,12 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             let endIndex = urlString.endIndex(of: ".com")
             domain = String(urlString[startIndex!..<endIndex!])
         } else if urlString.range(of:".org") != nil {
-            let startIndex = urlString.endIndex(of: "www.")
+            var startIndex: String.Index!
+            if !urlString.contains("www") {
+                startIndex = urlString.endIndex(of: "http://")
+            } else {
+                startIndex = urlString.endIndex(of: "www.")
+            }
             let endIndex = urlString.endIndex(of: ".org")
             print(startIndex, "start index", endIndex, "endIndex")
             domain = String(urlString[startIndex!..<endIndex!])
@@ -296,6 +340,9 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 cell.accessoryView = switchView
                 cell.textLabel?.textColor = UIColor.lightGray
             }
+            if indexPath.section == 2 {
+                cell.accessoryView = self.queriedBusinessImage
+            }
             
             if locationSelected && indexPath.section == 0 {
                 cell.textLabel?.textColor = UIColor.black
@@ -326,10 +373,11 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             present(verificationAlert, animated: true, completion: nil)
         }
         if items[indexPath.section][indexPath.row] == "Verify Your Work Domain" {
-            let customMessage = "The domain should match your employees' email addresses. \n\nIs '\(self.suggestedDomain)' your domain?"
+            let customMessage = "The domain should match your employees' email addresses. \n\nIs '\(selectedLocation.domain!)' your domain?"
             let suggestDomainAlertView = UIAlertController(title: "Verify Email Domain", message: customMessage, preferredStyle: UIAlertControllerStyle.alert)
             suggestDomainAlertView.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
                 //reload Location Email Cells
+                self.suggestedDomain = ""
                 self.performSegue(withIdentifier: "showChangeDomain", sender: nil)
                 tableView.reloadData()
             }))
@@ -342,6 +390,8 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             present(suggestDomainAlertView, animated: true, completion: nil)
         } else if items[indexPath.section][indexPath.row] == "Admin Email" {
             self.self.showVerifyEmailAlertView()
+        } else if items[indexPath.section][indexPath.row] == self.suggestedDomain {
+            self.performSegue(withIdentifier: "showChangeDomain", sender: nil)
         }
         if items[indexPath.section][indexPath.row] == "Work Email i.e. '@goodwill.org'" {
             //Come back - change placeholder to show @YourDomain.com
@@ -653,6 +703,14 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         if locations.first != nil {
             print("location:: (location)", locations.first, "this is the current location")
             self.currentLocation = locations.first
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showChangeDomain" {
+            let navController = segue.destination as! UINavigationController
+            let target = navController.topViewController as! ChangeDomainVC
+            target.editedDomain = self.suggestedDomain
         }
     }
 }
