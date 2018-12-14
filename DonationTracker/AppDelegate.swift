@@ -12,9 +12,13 @@ import UserNotifications
 import GooglePlaces
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert,.sound])
+    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -37,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         Parse.initialize(with: configuration)
-        
+        UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .carPlay ]) {
             (granted, error) in
             print("Permission granted: \(granted)")
@@ -95,16 +99,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didReceiveRemoteNotification userInfo: [AnyHashable: Any],
         fetchCompletionHandler completionHandler:
         @escaping (UIBackgroundFetchResult) -> Void) {
-        print("received notification!!")
-        print("receieved a push!?")
+        print("Received a push")
         if (application.applicationState == .active) {
-            let alert = UIAlertController(title: "Notification Received",
-                                          message: userInfo.description,
-                                          preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            
-            UIApplication.shared.keyWindow?.rootViewController?.present(
-                alert, animated: true, completion:nil)
+            print("Received a push while the app is active")
         }
     }
 

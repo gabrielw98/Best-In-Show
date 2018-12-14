@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 import Parse
+import UserNotifications
 
 class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDelegate, UISearchBarDelegate, MKMapViewDelegate {
     
@@ -76,6 +77,9 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
     var isLocationSearch = true
     
     override func viewDidLoad() {
+        //showPush()
+        //cloudPush()
+        UIApplication.shared.applicationIconBadgeNumber = 0
         if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
             let keys = NSDictionary(contentsOfFile: path)
             print(keys!["sendGridKey"] as! String)
@@ -89,6 +93,39 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         locationServices()
         setupSearchBar()
         queryAllLocations()
+    }
+    
+    func cloudPush() {
+        PFCloud.callFunction(inBackground: "pushToUser", withParameters: ["recipientId":"4GLzZP49bv", "message": "Message from \(PFUser.current()!.username!)"]){
+            (response, error) in
+            if error == nil {
+                // Do something with response
+                print(response, "response")
+            } else {
+                // Handle with error
+                print(error?.localizedDescription, "Cloud Code Push Error")
+            }
+        }
+    }
+    
+    func showPush() {
+        let content = UNMutableNotificationContent()
+        content.title = NSString.localizedUserNotificationString(forKey: "Entered the map view", arguments: nil)
+        content.body = NSString.localizedUserNotificationString(forKey: "Check out some of the stores with great deals!",
+                                                                arguments: nil)
+        
+        // Configure the trigger for a 7am wakeup.
+        var dateInfo = DateComponents()
+        dateInfo.nanosecond = 10
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo, repeats: false)
+        
+        // Create the request object.
+        let request = UNNotificationRequest(identifier: "Local Notification", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { (error) in
+            if error == nil {
+                print("Push from here.")
+            }
+        }
     }
     
     
