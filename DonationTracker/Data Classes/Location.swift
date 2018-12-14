@@ -23,6 +23,9 @@ class Location: MKPointAnnotation {
     var phone: String!
     var website: String!
     
+    var searchLocations = [Location]()
+    var filteredItems = [Item]()
+    
     var isRegistered: Bool!
     var isCurrentUserSubscribed: Bool!
     

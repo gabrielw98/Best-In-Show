@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RtF-HI-qqT">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -352,7 +352,7 @@
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="searchItem" id="OHP-U3-tTx">
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="searchItemAction:" destination="Pi0-Hf-SdA" id="jh8-Nq-aJ1"/>
                                 </connections>
@@ -376,6 +376,8 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="xpu-Ra-ucP" id="gxZ-8m-qFm"/>
+                        <outlet property="searchItemOutlet" destination="OHP-U3-tTx" id="Q98-OO-nhO"/>
+                        <outlet property="searchLocationOutlet" destination="X30-jT-vJO" id="WZx-Pj-BZ3"/>
                         <segue destination="5I2-j6-MsD" kind="show" identifier="showRegisteredLocationDetails" id="gBh-MQ-WA4"/>
                         <segue destination="TEi-L2-qx0" kind="popoverPresentation" identifier="toCollectionView" popoverAnchorView="xpu-Ra-ucP" id="Ns5-0K-Ory">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -636,12 +638,91 @@
                         <outlet property="tableView" destination="LRH-oO-YFt" id="GxL-48-CMf"/>
                         <segue destination="r9P-DY-Kjx" kind="unwind" identifier="profileUnwindFromRegisterEmployee" unwindAction="profileUnwindWithSegue:" id="jaL-MW-fti"/>
                         <segue destination="r9P-DY-Kjx" kind="unwind" identifier="profileUnwindFromRegisterAdmin" unwindAction="profileUnwindWithSegue:" id="AJV-CC-Jyv"/>
+                        <segue destination="bok-n6-zJ2" kind="popoverPresentation" identifier="showChangeDomain" popoverAnchorView="8uS-d5-ORt" id="yqw-ET-ARg">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qjU-px-Sft" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="r9P-DY-Kjx" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4289" y="3975"/>
+        </scene>
+        <!--Change Domain-->
+        <scene sceneID="IJ8-hD-5Zu">
+            <objects>
+                <viewController id="LDa-JV-NUj" customClass="ChangeDomainVC" customModule="DonationTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oEa-IK-c9I">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oEV-T5-cbU">
+                                <rect key="frame" x="16" y="306" width="343" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Domain (i.e @workplace.com)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bTi-ZT-tjV">
+                                <rect key="frame" x="16" y="273" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="acC-WY-Xsg"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Change Domain" id="qhp-aC-xPl">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ZpJ-5z-Cny">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <segue destination="NoY-ay-vTW" kind="unwind" identifier="cancelUnwind" unwindAction="registerAdminEmployeeUnwindWithSegue:" id="W89-FY-lzA"/>
+                            </connections>
+                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem enabled="NO" systemItem="done" id="9Ma-im-KoJ">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="doneAction:" destination="LDa-JV-NUj" id="bHh-gp-hYd"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Info" id="sFC-Yc-y6n">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="infoAction:" destination="LDa-JV-NUj" id="nBc-Lk-tSp"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="doneOutlet" destination="9Ma-im-KoJ" id="EsK-Qx-JPe"/>
+                        <outlet property="textField" destination="bTi-ZT-tjV" id="gtg-0o-LFv"/>
+                        <segue destination="NoY-ay-vTW" kind="unwind" identifier="registrationUnwindFromDomainChange" unwindAction="registerAdminEmployeeUnwindWithSegue:" id="gth-Cy-W74"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fL7-lZ-0Nl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="NoY-ay-vTW" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="6087" y="3975"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="aRc-QH-gVC">
+            <objects>
+                <navigationController id="bok-n6-zJ2" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Y8X-ao-azi">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="LDa-JV-NUj" kind="relationship" relationship="rootViewController" id="pde-a6-RVO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2lM-Ez-b3w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5230" y="3975"/>
         </scene>
         <!--Places-->
         <scene sceneID="xYG-Nc-HoR">

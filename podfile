@@ -8,6 +8,10 @@ target 'DonationTracker' do
   # Pods for DonationTracker
   pod 'SendGrid-Swift'
   pod 'DropDown'
+  pod 'GooglePlaces'
+  pod 'GooglePlacePicker'
+  pod 'GoogleMaps'
+  pod 'YelpAPI'
   pod 'Parse'
   target 'DonationTrackerTests' do
     inherit! :search_paths

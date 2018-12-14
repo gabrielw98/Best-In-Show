@@ -18,6 +18,12 @@ class Item {
     var image = UIImage()
     var locationId = ""
     
+    var locationItemsDict = [Location:Item]()
+    
+    init() {
+        
+    }
+    
     init(object: PFObject, image: UIImage) {
         name = object["name"] as! String
         price = object["itemPrice"] as! String
@@ -27,4 +33,34 @@ class Item {
         self.image = image
     }
     
+    func getItemsByPerLocationDictionary(query: PFQuery<PFObject>, completion: @escaping (_ result: [Location: Item])->()) {
+        query.findObjectsInBackground {
+            (objects:[PFObject]?, error:Error?) -> Void in
+            if let error = error {
+                print("Error: " + error.localizedDescription)
+            } else {
+                if objects?.count == 0 || objects?.count == nil {
+                    return
+                }
+                for object in objects! {
+                    if let image = object["image"] as? PFFile {
+                        image.getDataInBackground {
+                            (imageData:Data?, error:Error?) -> Void in
+                            if error == nil  {
+                                if let finalimage = UIImage(data: imageData!) {
+                                    if object["itemPrice"] != nil {
+                                        //Come back take the ppoint and make it into a Location Object.
+                                        self.locationItemsDict.updateValue(Item(object: object, image: finalimage), forKey: object["location"] as! Location)
+                                        if object == objects!.last {
+                                            completion(self.locationItemsDict)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

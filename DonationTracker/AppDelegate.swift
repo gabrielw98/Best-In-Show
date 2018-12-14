@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 import UserNotifications
-//import GooglePlaces
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = UIColor(red: 0, green: 51/255, blue: 102/255, alpha: 1)
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+        
         let configuration = ParseClientConfiguration {
             
             if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
@@ -32,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 $0.applicationId = (keys!["parseAppId"] as! String)
                 $0.clientKey = (keys!["parseClientKey"] as! String)
                 $0.server = keys!["parseServer"] as! String
+                GMSPlacesClient.provideAPIKey(keys!["googlePlacesKey"] as! String)
             }
             
         }

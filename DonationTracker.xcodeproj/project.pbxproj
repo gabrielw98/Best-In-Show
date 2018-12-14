@@ -23,6 +23,8 @@
 		8C3F1BC8216028A90028B7E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C3F1BC6216028A90028B7E2 /* LaunchScreen.storyboard */; };
 		8C3F1BD3216028A90028B7E2 /* DonationTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F1BD2216028A90028B7E2 /* DonationTrackerTests.swift */; };
 		8C3F1BDE216028A90028B7E2 /* DonationTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F1BDD216028A90028B7E2 /* DonationTrackerUITests.swift */; };
+		8C49CD5C21C1BD58003C73CC /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49CD5B21C1BD58003C73CC /* Utilities.swift */; };
+		8C49CD5E21C331A9003C73CC /* ChangeDomainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49CD5D21C331A9003C73CC /* ChangeDomainVC.swift */; };
 		8C4B10442162ADFC00A3B012 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4B10432162ADFC00A3B012 /* Location.swift */; };
 		8C74790821A4964B00EDC48E /* ImageCaptureVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C74790721A4964B00EDC48E /* ImageCaptureVC.swift */; };
 		8C74790A21A4E1BC00EDC48E /* AddItemDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C74790921A4E1BC00EDC48E /* AddItemDetailsVC.swift */; };
@@ -87,6 +89,8 @@
 		8C3F1BD9216028A90028B7E2 /* DonationTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DonationTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C3F1BDD216028A90028B7E2 /* DonationTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationTrackerUITests.swift; sourceTree = "<group>"; };
 		8C3F1BDF216028A90028B7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C49CD5B21C1BD58003C73CC /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		8C49CD5D21C331A9003C73CC /* ChangeDomainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeDomainVC.swift; sourceTree = "<group>"; };
 		8C4B10432162ADFC00A3B012 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		8C74790721A4964B00EDC48E /* ImageCaptureVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCaptureVC.swift; sourceTree = "<group>"; };
 		8C74790921A4E1BC00EDC48E /* AddItemDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemDetailsVC.swift; sourceTree = "<group>"; };
@@ -203,11 +207,43 @@
 			path = DonationTrackerUITests;
 			sourceTree = "<group>";
 		};
+		8C49CD5F21C331B6003C73CC /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				8C90079D2189F00500577A1C /* RegisterVC.swift */,
+				8CA7FDE521A1BBAD00DB7189 /* EmployeesVC.swift */,
+				8C10C3A321835C7300E2CC28 /* PlacesVC.swift */,
+				8C10C3A121822A8700E2CC28 /* ProfileVC.swift */,
+				8C49CD5D21C331A9003C73CC /* ChangeDomainVC.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		8C49CD6021C3323B003C73CC /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				8CA7FDEB21A3736E00DB7189 /* ItemFeedVC.swift */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
+		8C49CD6121C33259003C73CC /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				8CB2639D21646B8500ADBE44 /* MapVC.swift */,
+				8CA7FDEF21A4451000DB7189 /* AddItemVC.swift */,
+				8C74790921A4E1BC00EDC48E /* AddItemDetailsVC.swift */,
+				8C74790721A4964B00EDC48E /* ImageCaptureVC.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		8C9007972189007600577A1C /* Data Classes */ = {
 			isa = PBXGroup;
 			children = (
 				8C900799218909C200577A1C /* DataModel.swift */,
 				8CA7FDED21A373C600DB7189 /* ItemCell.swift */,
+				8C49CD5B21C1BD58003C73CC /* Utilities.swift */,
 				8C4B10432162ADFC00A3B012 /* Location.swift */,
 				8CC7643221A72C0A00E11FB9 /* Item.swift */,
 			);
@@ -217,16 +253,9 @@
 		8C9007982189009800577A1C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8C10C3A121822A8700E2CC28 /* ProfileVC.swift */,
-				8C10C3A321835C7300E2CC28 /* PlacesVC.swift */,
-				8C3F1BBF216028A70028B7E2 /* RegistrationVC.swift */,
-				8CA7FDEF21A4451000DB7189 /* AddItemVC.swift */,
-				8C74790921A4E1BC00EDC48E /* AddItemDetailsVC.swift */,
-				8C74790721A4964B00EDC48E /* ImageCaptureVC.swift */,
-				8CA7FDEB21A3736E00DB7189 /* ItemFeedVC.swift */,
-				8CA7FDE521A1BBAD00DB7189 /* EmployeesVC.swift */,
-				8CB2639D21646B8500ADBE44 /* MapVC.swift */,
-				8C11D977217C2424000FD62E /* LocationInventoryVC.swift */,
+				8C49CD5F21C331B6003C73CC /* Profile */,
+				8C49CD6121C33259003C73CC /* Map */,
+				8C49CD6021C3323B003C73CC /* Items */,
 				8C90079F2189F1D800577A1C /* More */,
 				8CF6450321936EF000ADFADA /* keys.plist */,
 			);
@@ -236,8 +265,9 @@
 		8C90079F2189F1D800577A1C /* More */ = {
 			isa = PBXGroup;
 			children = (
+				8C3F1BBF216028A70028B7E2 /* RegistrationVC.swift */,
+				8C11D977217C2424000FD62E /* LocationInventoryVC.swift */,
 				8C90079B218958D200577A1C /* MoreVC.swift */,
-				8C90079D2189F00500577A1C /* RegisterVC.swift */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -277,6 +307,7 @@
 				8C3F1BB7216028A70028B7E2 /* Frameworks */,
 				8C3F1BB8216028A70028B7E2 /* Resources */,
 				42D3F4E660C6DCED94BCDFA4 /* [CP] Embed Pods Frameworks */,
+				151F33F0F27D1044392CCB58 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -406,6 +437,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		151F33F0F27D1044392CCB58 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3E2CAF4550A431C54BD1F0BF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -431,25 +484,19 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AWSAuthCore/AWSAuthCore.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSMobileClient/AWSMobileClient.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSPinpoint/AWSPinpoint.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/SendGrid-Swift/SendGrid_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/YelpAPI/YelpAPI.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSAuthCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSMobileClient.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSPinpoint.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SendGrid_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YelpAPI.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -505,6 +552,7 @@
 				8CB2639E21646B8500ADBE44 /* MapVC.swift in Sources */,
 				56034791219E0ADC0056B304 /* FilterCategoriesVC.swift in Sources */,
 				8C10C3A421835C7300E2CC28 /* PlacesVC.swift in Sources */,
+				8C49CD5C21C1BD58003C73CC /* Utilities.swift in Sources */,
 				8CC7643321A72C0A00E11FB9 /* Item.swift in Sources */,
 				8CA7FDEE21A373C600DB7189 /* ItemCell.swift in Sources */,
 				8C3F1BBE216028A70028B7E2 /* AppDelegate.swift in Sources */,
@@ -512,6 +560,7 @@
 				8CA7FDE621A1BBAD00DB7189 /* EmployeesVC.swift in Sources */,
 				8CA7FDE821A1C42600DB7189 /* CustomSegmentedControl.swift in Sources */,
 				8C90079C218958D200577A1C /* MoreVC.swift in Sources */,
+				8C49CD5E21C331A9003C73CC /* ChangeDomainVC.swift in Sources */,
 				8C90079E2189F00500577A1C /* RegisterVC.swift in Sources */,
 				8C11D978217C2424000FD62E /* LocationInventoryVC.swift in Sources */,
 				56034793219E29070056B304 /* CollectionViewCellVC.swift in Sources */,
