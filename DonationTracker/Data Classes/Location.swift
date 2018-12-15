@@ -22,6 +22,7 @@ class Location: MKPointAnnotation {
     var admin: PFUser!
     var phone: String!
     var website: String!
+    var businessImage = UIImage()
     
     var searchLocations = [Location]()
     var filteredItems = [Item]()
@@ -92,10 +93,30 @@ class Location: MKPointAnnotation {
                     } else {
                         location.isCurrentUserSubscribed = false
                     }
-                    self.locations.append(location)
-                    if object == objects?.last {
-                        completion(self.locations)
+                    if let image = object["image"] as? PFFile {
+                        image.getDataInBackground {
+                            (imageData:Data?, error:Error?) -> Void in
+                            if error == nil  {
+                                if let finalimage = UIImage(data: imageData!) {
+                                    print("now with image data")
+                                    location.businessImage = finalimage
+                                    self.locations.append(location)
+                                    if object == objects?.last {
+                                        print("now returning data")
+                                        completion(self.locations)
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        location.businessImage = UIImage(named: "AppIconLocation")!
+                        self.locations.append(location)
+                        if object == objects?.last {
+                            print("now returning data")
+                            completion(self.locations)
+                        }
                     }
+                    
                 }
             }
         }

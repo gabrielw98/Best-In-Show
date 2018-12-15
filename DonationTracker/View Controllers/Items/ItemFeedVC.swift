@@ -134,8 +134,6 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
     
-    
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }

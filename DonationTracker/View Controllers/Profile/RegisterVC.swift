@@ -75,6 +75,12 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         location["status"] = "Requested"
         location["phone"] = self.selectedLocation.phone
         location["website"] = self.selectedLocation.website
+        if self.queriedBusinessImage != UIImage(named: "DefaultLocation") {
+            if let imageData = self.queriedBusinessImage.jpegData(.lowest) {
+                let file = PFFile(name: "img.png", data: imageData)
+                location["image"] = file
+            }
+        }
         location.saveInBackground { (success, error) in
             if success {
                 print("Location Saved")
@@ -434,7 +440,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         if selectedLocation.domain != nil && switchView.isOn {
             customMessage = "Your work email must end in '\(String(describing: selectedLocation.domain!))' \nRemember to check your spam."
         } else {
-            customMessage = self.identifier == "admin" ? "Enter the email you would like to use for your admin account" : "Enter your employee email"
+            customMessage = self.identifier == "admin" ? "Enter an email address for you admin account" : "Enter your employee email"
         }
          let refreshAlert = UIAlertController(title: "Verify Email", message: customMessage, preferredStyle: UIAlertControllerStyle.alert)
         refreshAlert.addTextField(configurationHandler: { (textField) in
@@ -442,7 +448,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             if self.switchView.isOn {
                  textField.placeholder = placeHolder
             } else {
-                textField.placeholder = "Enter your work email"
+                textField.placeholder = "donationtracker@gmail.com"
             }
         })
         refreshAlert.textFields![0].delegate = self
