@@ -103,7 +103,9 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if items[indexPath.row] == "Places" {
             if let locations = DataModel.locations {
-                self.userLocations = locations
+                self.userLocations = locations.filter({ (location) -> Bool in
+                    location.isCurrentUserSubscribed
+                })
                 self.performSegue(withIdentifier: "showPlaces", sender: nil)
             } else {
                 let noPlacesAlert = UIAlertController(title: "No Saved Locations", message: "Go to the map to follow a store?", preferredStyle: UIAlertControllerStyle.alert)
@@ -145,6 +147,7 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             let targetVC = segue.destination as! PlacesVC
             targetVC.locations = self.userLocations
         } else if segue.identifier == "showEmployees" {
+            
         }
         
     }

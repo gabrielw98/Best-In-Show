@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 import Parse
-//import GooglePlaces
+import UIKit
 
 class Location: MKPointAnnotation {
     
@@ -29,8 +29,12 @@ class Location: MKPointAnnotation {
     
     var isRegistered: Bool!
     var isCurrentUserSubscribed: Bool!
+
+    var itemCollectionView: UICollectionView!
+    var items = [Item]()
     
     override init() {
+        super.init()
         objectId = ""
         address = ""
         name = ""
@@ -39,6 +43,7 @@ class Location: MKPointAnnotation {
     }
     
     init(address: String, name: String, objectId: String, locationCoordinate: PFGeoPoint) {
+        super.init()
         self.objectId = objectId
         self.address = address
         self.name = name
@@ -122,7 +127,6 @@ class Location: MKPointAnnotation {
         }
     }
     
-    
     func getLocationNames(locationsToFilter: [Location]) -> [String] {
         var names = [String]()
         for location in locationsToFilter {
@@ -130,8 +134,4 @@ class Location: MKPointAnnotation {
         }
         return names
     }
-    
-    
-    
-    
 }

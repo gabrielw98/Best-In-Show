@@ -15,6 +15,7 @@ struct DataModel {
     static var currentUserType = userType.user
     static var employeeStatus = ""
     static var adminStatus = ""
+    static var itemsPerLocation = [Location:[Item]]()
 
     //Add Item data
     static var category = ""
@@ -33,6 +34,33 @@ struct DataModel {
         category = ""
         name = ""
         price = ""
+    }
+    
+    static func createItemsPerLocationDict() {
+        //Come back - make this more efficient n^2
+        for location in locations! {
+            for item in self.items {
+                if item.locationId == location.objectId {
+                    if var itemsAtLocation = itemsPerLocation[location] { //filled item array
+                        itemsAtLocation.append(item)
+                        self.itemsPerLocation.updateValue(itemsAtLocation, forKey: location)
+                    } else { //empty item array
+                        self.itemsPerLocation.updateValue([Item](), forKey: location)
+                        itemsPerLocation[location]?.append(item)
+                    }
+                }
+            }
+        }
+        print("dict")
+        for key in itemsPerLocation.keys {
+            for item in itemsPerLocation[key]! {
+                print(key.name + ":", item.name)
+            }
+        }
+    }
+    
+    static func getItemsFromLocation(location: Location) -> [Item] {
+        return itemsPerLocation[location]!
     }
 }
 

@@ -384,6 +384,7 @@
                         </segue>
                         <segue destination="eEk-aJ-lZe" kind="show" identifier="showAddItem" id="bu0-r1-Ctk"/>
                         <segue destination="n7c-Dl-oGJ" kind="show" identifier="showItemFeedVC" id="D32-8h-peQ"/>
+                        <segue destination="oj1-TV-iLO" kind="show" identifier="showPlaces" id="Wen-dL-0F1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1O7-5T-nDK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -870,6 +871,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionLayoutOutlet" destination="gmZ-cT-YNQ" id="Gze-V3-gDu"/>
+                        <segue destination="eEk-aJ-lZe" kind="show" identifier="showAddItem" id="1FF-Nw-7pA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lHh-8J-PMm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1060,7 +1062,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yBj-kU-do2">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yBj-kU-do2">
                                     <size key="itemSize" width="375" height="603"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -1068,7 +1070,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cellId" id="nrc-yL-20l" customClass="PlacesCollectionViewCell" customModule="DonationTracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                        <rect key="frame" x="0.0" y="-24.5" width="375" height="603"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
@@ -1080,7 +1082,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Y6J-4s-kon">
-                                                    <rect key="frame" x="0.0" y="267" width="375" height="285"/>
+                                                    <rect key="frame" x="0.0" y="227" width="375" height="356"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uMo-mT-Ltn">
@@ -1111,7 +1113,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="atG-Oh-nKA">
-                                                                        <rect key="frame" x="0.0" y="142" width="190" height="29"/>
+                                                                        <rect key="frame" x="0.0" y="137" width="190" height="29"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1128,14 +1130,14 @@
                                                     </cells>
                                                 </collectionView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ytr-hD-uT5">
-                                                    <rect key="frame" x="20" y="158" width="335" height="41"/>
+                                                    <rect key="frame" x="20" y="160" width="335" height="41"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yUV-xr-GEn">
-                                                    <rect key="frame" x="127" y="30" width="120" height="120"/>
+                                                    <rect key="frame" x="127" y="40" width="120" height="120"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FMZ-vx-Qxu">
@@ -1149,8 +1151,9 @@
                                         </view>
                                         <connections>
                                             <outlet property="addressLabel" destination="FMZ-vx-Qxu" id="Fre-GK-Bqw"/>
+                                            <outlet property="collectionView" destination="Y6J-4s-kon" id="jGD-g9-TWi"/>
                                             <outlet property="imageView" destination="yUV-xr-GEn" id="5fy-yG-383"/>
-                                            <outlet property="itemCollectionView" destination="Y6J-4s-kon" id="bVR-Rv-Ovo"/>
+                                            <outlet property="itemCollectionView" destination="Y6J-4s-kon" id="Iii-gj-YNq"/>
                                             <outlet property="titleLabel" destination="Ytr-hD-uT5" id="zkz-Q4-4Va"/>
                                         </connections>
                                     </collectionViewCell>
@@ -1393,10 +1396,11 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="XjC-bw-MLN"/>
-        <segue reference="eyJ-FL-m8N"/>
+        <segue reference="Wen-dL-0F1"/>
         <segue reference="iGb-Xr-rdD"/>
         <segue reference="rIq-Hu-vx2"/>
         <segue reference="Day-cy-DNa"/>
+        <segue reference="1FF-Nw-7pA"/>
         <segue reference="D32-8h-peQ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -28,7 +28,8 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
     }
     
     @IBAction func addItemAction(_ sender: Any) {
-        self.performSegue(withIdentifier: "showAddItem", sender: nil)
+        self.mapToNewItemCategory = true
+        self.performSegue(withIdentifier: "toCollectionView", sender: nil)
     }
     @IBAction func searchItemAction(_ sender: Any) {
         if isLocationSearch {
@@ -75,6 +76,10 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
     var searchController: UISearchController!
     var selectedLocation: Location!
     var isLocationSearch = true
+    
+    //Filter Fields
+    var mapToFilterItemCategory = false
+    var mapToNewItemCategory = false
     
     override func viewDidLoad() {
         //showPush()
@@ -288,6 +293,9 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
                                                             //Put into sqlite
                                                             DataModel.items.append(Item(object: object, image: finalimage))
                                                             print(DataModel.items.count)
+                                                            if DataModel.items.count == objects.count {
+                                                                DataModel.createItemsPerLocationDict()
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -307,8 +315,10 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        self.selectedLocation = view.annotation as? Location
-        self.performSegue(withIdentifier: "showItemFeedVC", sender: nil)
+        if mapView.selectedAnnotations[0] is MKUserLocation == false {
+            self.selectedLocation = view.annotation as? Location
+            self.performSegue(withIdentifier: "showPlaces", sender: nil)
+        }
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -357,15 +367,28 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             targetVC.selectedLocation = self.selectedLocation
         } else if segue.identifier == "toCollectionView" {
             //let destination = segue.destination as! CollectionVC
+            let navController = segue.destination as! UINavigationController
+            let target = navController.topViewController as! FilterCategoriesVC
+            target.mapToNewItemCategory = self.mapToNewItemCategory
+            target.mapToFilterItemCategory = self.mapToFilterItemCategory
+            
         } else if segue.identifier == "showItemFeedVC" {
             let targetVC = segue.destination as! ItemFeedVC
             targetVC.selectedLocation = self.selectedLocation
+            targetVC.fromMap = true
+        } else if segue.identifier == "showPlaces" {
+            let targetVC = segue.destination as! PlacesVC
+            if let shownLocations = DataModel.locations {
+                targetVC.locations = shownLocations
+                targetVC.selectedLocationIndex = shownLocations.firstIndex(of: selectedLocation)!
+            }
             targetVC.fromMap = true
         }
     }
     
     
     @IBAction func collectionViewButton(_ sender: Any) {
+        self.mapToNewItemCategory = true
         performSegue(withIdentifier: "toCollectionView", sender: self)
     }
 }

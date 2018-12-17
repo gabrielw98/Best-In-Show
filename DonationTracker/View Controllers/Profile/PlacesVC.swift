@@ -21,16 +21,40 @@ class PlacesVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     var placeImage = UIImage()
     var yelpClient: YLPClient?
     
+    var fromMap = false
+    var selectedLocationIndex = 0
+    
     override func viewDidLoad() {
-        print("made it to view did load", locations.count)
-        placeHeaderCollectionView.delegate = self
-        placeHeaderCollectionView.dataSource = self
-        placeHeaderCollectionView?.isPagingEnabled = true
-        if let layout = placeHeaderCollectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
+        createItemCollectionViews()
+    }
+    
+    func createItemCollectionViews() {
+        var index = 0
+        for location in locations {
+            let cell = placeHeaderCollectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: IndexPath(item: index, section: 0)) as! PlacesCollectionViewCell
+            
+            print("index", index)
+            if let items = DataModel.itemsPerLocation[location] {
+                locations[index].items = items
+                cell.items = items
+                cell.itemCollectionView.awakeFromNib()
+                cell.itemCollectionView.reloadData()
+            }
+            if location == locations.last {
+                print("made it to view did load", locations.count)
+                placeHeaderCollectionView.delegate = self
+                placeHeaderCollectionView.dataSource = self
+                placeHeaderCollectionView?.isPagingEnabled = true
+                if let layout = placeHeaderCollectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+                    layout.scrollDirection = .horizontal
+                }
+                placeHeaderCollectionView?.backgroundColor = UIColor(red: 173/255, green: 216/255, blue: 230/255, alpha: 1)
+            }
+            index += 1
         }
-        placeHeaderCollectionView?.backgroundColor = UIColor(red: 173/255, green: 216/255, blue: 230/255, alpha: 1)
-        placeHeaderCollectionView.reloadData()
+        if fromMap {
+            placeHeaderCollectionView.scrollToItem(at: IndexPath(item: selectedLocationIndex, section: 0), at: .centeredHorizontally, animated: false)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -38,17 +62,35 @@ class PlacesVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print(indexPath.row, "index row")
-        let cell = placeHeaderCollectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! PlacesCollectionViewCell
+        var newIndex: IndexPath!
+        var indexChanged = false
+        if indexPath.item > 1 && indexPath.item != locations.count - 1 {
+            indexChanged = true
+            newIndex = IndexPath(item: indexPath.item - 1, section: 0)
+        } else {
+            newIndex = indexPath
+        }
+        let cell = placeHeaderCollectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: newIndex) as! PlacesCollectionViewCell
+        if indexChanged {
+            
+        }
         cell.imageView.layer.cornerRadius = cell.imageView.frame.height/8
         cell.imageView.layer.masksToBounds = true
         cell.imageView.backgroundColor = self.navigationController?.navigationBar.barTintColor
         cell.imageView.layer.borderWidth = 3.0
         cell.imageView.layer.borderColor = UIColor(red: 135.0/255.0, green: 206.0/255.0, blue: 235.0/255.0, alpha: 1.0).cgColor
-        cell.imageView.image = locations[indexPath.item].businessImage
+        cell.imageView.image = locations[newIndex.item].businessImage
         cell.imageView.contentMode = .scaleAspectFill
-        cell.titleLabel.text = locations[indexPath.item].name
-        cell.addressLabel.text = locations[indexPath.item].address
+        cell.titleLabel.text = locations[newIndex.item].name
+        cell.addressLabel.text = locations[newIndex.item].address
+        print(newIndex.item, "index item")
+        if !locations[newIndex.item].items.isEmpty {
+            cell.itemCollectionView.isHidden = false
+            cell.items = locations[newIndex.item].items
+            cell.itemCollectionView.reloadData()
+        } else {
+            cell.itemCollectionView.isHidden = true
+        }
         cell.contentView.layer.cornerRadius = 30.0
         cell.contentView.layer.borderWidth = 1.0
         cell.contentView.layer.borderColor = UIColor.clear.cgColor
@@ -60,19 +102,6 @@ class PlacesVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
         cell.layer.masksToBounds = false;
         cell.layer.shadowPath = UIBezierPath(roundedRect:cell.bounds, cornerRadius:cell.contentView.layer.cornerRadius).cgPath
         cell.frame.origin.y = (self.navigationController?.navigationBar.frame.maxY)!
-        for item in DataModel.items {
-            if item.locationId == locations[indexPath.item].objectId {
-                cell.items.append(item)
-                print(item.name, "found this item at this location:", locations[indexPath.row].name)
-            }
-            if item === DataModel.items.last {
-                print("reloading")
-                cell.itemCollectionView.reloadData()
-            }
-        }
-        /*let cellMaxY = cell.frame.maxY
-        let viewMaxY = placeHeaderCollectionView.frame.maxY
-        cell.frame.origin.y = cell.frame.origin.y + (viewMaxY - cellMaxY)*/
         return cell
     }
     

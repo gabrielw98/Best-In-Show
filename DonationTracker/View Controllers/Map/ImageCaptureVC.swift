@@ -42,7 +42,7 @@ class ImageCaptureVC: UIViewController, AVCapturePhotoCaptureDelegate {
         //print(DataModel.name, DataModel.tags, DataModel.price)
         
         let NewItem = PFObject(className: "Item")
-        NewItem["itemCategory"] = "Shoes"
+        NewItem["itemCategory"] = DataModel.category
         NewItem["name"] = DataModel.name
         NewItem["itemPrice"] = DataModel.price
         NewItem["tags"] = DataModel.tags

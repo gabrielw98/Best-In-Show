@@ -179,7 +179,6 @@
 				8C9007972189007600577A1C /* Data Classes */,
 				8C9007982189009800577A1C /* View Controllers */,
 				8C3F1BC1216028A70028B7E2 /* Main.storyboard */,
-				56034790219E0ADC0056B304 /* FilterCategoriesVC.swift */,
 				8CA7FDE721A1C42600DB7189 /* CustomSegmentedControl.swift */,
 				56034792219E29070056B304 /* CollectionViewCellVC.swift */,
 				8C3F1BC4216028A90028B7E2 /* Assets.xcassets */,
@@ -230,6 +229,7 @@
 		8C49CD6121C33259003C73CC /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				56034790219E0ADC0056B304 /* FilterCategoriesVC.swift */,
 				8CB2639D21646B8500ADBE44 /* MapVC.swift */,
 				8CA7FDEF21A4451000DB7189 /* AddItemVC.swift */,
 				8C74790921A4E1BC00EDC48E /* AddItemDetailsVC.swift */,

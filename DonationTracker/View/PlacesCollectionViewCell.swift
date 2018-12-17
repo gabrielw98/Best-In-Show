@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-//import GooglePlaces
 
 class PlacesCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     

@@ -9,7 +9,6 @@
 import UIKit
 import Parse
 import UserNotifications
-import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -35,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 $0.applicationId = (keys!["parseAppId"] as! String)
                 $0.clientKey = (keys!["parseClientKey"] as! String)
                 $0.server = keys!["parseServer"] as! String
-                GMSPlacesClient.provideAPIKey(keys!["googlePlacesKey"] as! String)
             }
             
         }

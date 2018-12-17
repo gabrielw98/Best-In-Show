@@ -265,13 +265,18 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         print("url string", urlString)
         if urlString.range(of:".com") != nil {
             print("exists")
-            let startIndex = urlString.endIndex(of: "www.")
+            var startIndex: String.Index!
+            if !urlString.contains("www") {
+                startIndex = urlString.endIndex(of: "//")
+            } else {
+                startIndex = urlString.endIndex(of: "www.")
+            }
             let endIndex = urlString.endIndex(of: ".com")
             domain = String(urlString[startIndex!..<endIndex!])
         } else if urlString.range(of:".org") != nil {
             var startIndex: String.Index!
             if !urlString.contains("www") {
-                startIndex = urlString.endIndex(of: "http://")
+                startIndex = urlString.endIndex(of: "//")
             } else {
                 startIndex = urlString.endIndex(of: "www.")
             }

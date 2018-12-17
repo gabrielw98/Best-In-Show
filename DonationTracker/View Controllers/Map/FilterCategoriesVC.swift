@@ -14,6 +14,9 @@ class FilterCategoriesVC: UIViewController, UICollectionViewDataSource, UICollec
     let array = ["Shoes", "Clothes", "Hats", "Households", "Electronics", "Sports", "Toys", "Books", "Others"];
     var selectedFilter = ""
     
+    var mapToFilterItemCategory = false
+    var mapToNewItemCategory = false
+    
     @IBOutlet weak var collectionLayoutOutlet: UICollectionView!
     
     
@@ -63,7 +66,12 @@ class FilterCategoriesVC: UIViewController, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! CollectionViewCellVC
         self.selectedFilter = cell.CellLabelOutlet.text!
-        self.performSegue(withIdentifier: "mapUnwind", sender: nil)
+        if mapToFilterItemCategory {
+            self.performSegue(withIdentifier: "mapUnwind", sender: nil)
+        } else if mapToNewItemCategory {
+            self.performSegue(withIdentifier: "showAddItem", sender: nil)
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,8 +79,14 @@ class FilterCategoriesVC: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let targetVC = segue.destination as! MapVC
-        targetVC.chosenFilter = self.selectedFilter
+        if segue.identifier == "mapUnwind" {
+            let targetVC = segue.destination as! MapVC
+            targetVC.chosenFilter = self.selectedFilter
+        } else if segue.identifier == "showAddItem" {
+            let navController = segue.destination as! UINavigationController
+            let target = navController.topViewController as! AddItemVC
+            DataModel.category = self.selectedFilter
+        }
     }
     
     
