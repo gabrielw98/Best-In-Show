@@ -28,6 +28,8 @@ struct DataModel {
     static var requests: [PFUser]?
     static var items = [Item]()
     
+    static var placesRef = PlacesVC()
+    
     static var currentAddItemPage = "Name"
     
     static func resetAddData() {

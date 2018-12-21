@@ -10,6 +10,7 @@
 		0060CBE060F33429529BB51F /* Pods_DonationTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4122CA91CDEB254DEC46DF9F /* Pods_DonationTracker.framework */; };
 		56034791219E0ADC0056B304 /* FilterCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56034790219E0ADC0056B304 /* FilterCategoriesVC.swift */; };
 		56034793219E29070056B304 /* CollectionViewCellVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56034792219E29070056B304 /* CollectionViewCellVC.swift */; };
+		8C04B9AE21CC54A500235D67 /* ItemDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C04B9AD21CC54A500235D67 /* ItemDetailsVC.swift */; };
 		8C10C39F218229BC00E2CC28 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C39E218229BC00E2CC28 /* ProfileTableViewCell.swift */; };
 		8C10C3A221822A8700E2CC28 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C3A121822A8700E2CC28 /* ProfileVC.swift */; };
 		8C10C3A421835C7300E2CC28 /* PlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C3A321835C7300E2CC28 /* PlacesVC.swift */; };
@@ -70,6 +71,7 @@
 		61C3065C20555E3E4845A39E /* Pods-DonationTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		81D0C0A6F8E899636DFA9EB1 /* Pods-DonationTrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTrackerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTrackerTests/Pods-DonationTrackerTests.release.xcconfig"; sourceTree = "<group>"; };
 		8B4A736DBCEE1CB631165D58 /* Pods-DonationTrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTrackerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTrackerUITests/Pods-DonationTrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8C04B9AD21CC54A500235D67 /* ItemDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsVC.swift; sourceTree = "<group>"; };
 		8C10C39E218229BC00E2CC28 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		8C10C3A121822A8700E2CC28 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		8C10C3A321835C7300E2CC28 /* PlacesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesVC.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				8CA7FDEB21A3736E00DB7189 /* ItemFeedVC.swift */,
+				8C04B9AD21CC54A500235D67 /* ItemDetailsVC.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -307,7 +310,6 @@
 				8C3F1BB7216028A70028B7E2 /* Frameworks */,
 				8C3F1BB8216028A70028B7E2 /* Resources */,
 				42D3F4E660C6DCED94BCDFA4 /* [CP] Embed Pods Frameworks */,
-				151F33F0F27D1044392CCB58 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -437,28 +439,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		151F33F0F27D1044392CCB58 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker-resources.sh",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
-				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
-				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3E2CAF4550A431C54BD1F0BF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -552,6 +532,7 @@
 				8CB2639E21646B8500ADBE44 /* MapVC.swift in Sources */,
 				56034791219E0ADC0056B304 /* FilterCategoriesVC.swift in Sources */,
 				8C10C3A421835C7300E2CC28 /* PlacesVC.swift in Sources */,
+				8C04B9AE21CC54A500235D67 /* ItemDetailsVC.swift in Sources */,
 				8C49CD5C21C1BD58003C73CC /* Utilities.swift in Sources */,
 				8CC7643321A72C0A00E11FB9 /* Item.swift in Sources */,
 				8CA7FDEE21A373C600DB7189 /* ItemCell.swift in Sources */,

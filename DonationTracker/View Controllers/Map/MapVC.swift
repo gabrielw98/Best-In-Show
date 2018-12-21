@@ -17,14 +17,21 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
     var chosenFilter = ""
     @IBAction func mapUnwind(segue: UIStoryboardSegue) {
         print(chosenFilter, "this is the chosen filter")
-        let query = PFQuery(className: "Item")
-        query.whereKey("itemCategory", equalTo: chosenFilter)
-        Item().getItemsByPerLocationDictionary(query: query, completion: { (itemsPerLocationDict) in
-            for grouping in itemsPerLocationDict {
-                print("Here", grouping)
-                //for each location put it into the map
-            }
-        })
+        if self.chosenFilter != "" {
+            let query = PFQuery(className: "Item")
+            query.whereKey("itemCategory", equalTo: chosenFilter)
+            Item().getItemsByPerLocationDictionary(query: query, completion: { (itemsPerLocationDict) in
+                self.populateMapWithLocationDict(dict: itemsPerLocationDict)
+            })
+        }
+    }
+    
+    func populateMapWithLocationDict(dict: [Location:[Item]]) {
+        mapView.removeAnnotations(mapView.annotations)
+        self.mapView.addAnnotations(dict.keys.compactMap(){$0} )
+        self.mapView.showAnnotations(dict.keys.compactMap() {$0}, animated: false)
+        print(dict.keys.compactMap(){$0}[0].name!, "centering map around this location")
+        self.mapView.region = MKCoordinateRegion(center: (dict.keys.compactMap(){$0}[0].coordinate), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
     }
     
     @IBAction func addItemAction(_ sender: Any) {
@@ -334,8 +341,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
         }
         if let location = annotation as? Location {
-            print("Made this location here", location.subtitle!, location.isRegistered!)
-            if location.isRegistered {
                 print("found a registered ")
                 annotationView.markerTintColor = UIColor(red: 135.0/255.0, green: 206.0/255.0, blue: 235.0/255.0, alpha: 1.0)
                 annotationView.canShowCallout = true
@@ -343,7 +348,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
                 annotationView.rightCalloutAccessoryView = infoButton
                 infoButton.buttonIdentifier = location.subtitle
                 infoButton.addTarget(self, action: #selector(MapVC.showLocation(sender:)), for: UIControlEvents.touchUpInside)
-            }
         }
         return annotationView
     }
@@ -378,17 +382,25 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             targetVC.fromMap = true
         } else if segue.identifier == "showPlaces" {
             let targetVC = segue.destination as! PlacesVC
-            if let shownLocations = DataModel.locations {
-                targetVC.locations = shownLocations
-                targetVC.selectedLocationIndex = shownLocations.firstIndex(of: selectedLocation)!
+            if self.chosenFilter == "" {
+                if let shownLocations = DataModel.locations {
+                    targetVC.locations = shownLocations
+                    targetVC.selectedLocationIndex = shownLocations.firstIndex(of: selectedLocation)!
+                }
+            } else {
+                let selectedAnnotation = mapView.selectedAnnotations[0] as! Location
+                let annotationLocations = mapView.annotations as! [Location]
+                targetVC.selectedLocationIndex = annotationLocations.firstIndex(of: selectedAnnotation)!
+                targetVC.locations = annotationLocations
             }
             targetVC.fromMap = true
+            
         }
     }
     
     
     @IBAction func collectionViewButton(_ sender: Any) {
-        self.mapToNewItemCategory = true
+        self.mapToFilterItemCategory = true
         performSegue(withIdentifier: "toCollectionView", sender: self)
     }
 }

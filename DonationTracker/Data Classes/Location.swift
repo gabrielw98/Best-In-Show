@@ -42,6 +42,23 @@ class Location: MKPointAnnotation {
         isRegistered = false
     }
     
+    init(object: PFObject, image: UIImage) {
+        super.init()
+        objectId = object.objectId
+        address = object["address"] as? String
+        name = object["name"] as? String
+        domain = object["domain"] as? String
+        locationCoordinate = object["coordinate"] as? PFGeoPoint
+        admin = object["admin"] as? PFUser
+        phone = object["phone"] as? String
+        website = object["website"] as? String
+        businessImage = image
+        self.coordinate.latitude = locationCoordinate.latitude
+        self.coordinate.longitude = locationCoordinate.longitude
+        self.title = name
+        self.subtitle = address
+    }
+    
     init(address: String, name: String, objectId: String, locationCoordinate: PFGeoPoint) {
         super.init()
         self.objectId = objectId

@@ -16,6 +16,7 @@ class FilterCategoriesVC: UIViewController, UICollectionViewDataSource, UICollec
     
     var mapToFilterItemCategory = false
     var mapToNewItemCategory = false
+    var itemFieldFilter = false
     
     @IBOutlet weak var collectionLayoutOutlet: UICollectionView!
     
@@ -39,7 +40,9 @@ class FilterCategoriesVC: UIViewController, UICollectionViewDataSource, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if mapToNewItemCategory {
+            self.title = "Item Category"
+        }
         let itemWidth = UIScreen.main.bounds.width/4 - 10
         let itemHeight = UIScreen.main.bounds.width/4 + 21.0
         let layout = UICollectionViewFlowLayout()
@@ -65,11 +68,15 @@ class FilterCategoriesVC: UIViewController, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! CollectionViewCellVC
+        
         self.selectedFilter = cell.CellLabelOutlet.text!
+        print("selected this filter", self.selectedFilter)
         if mapToFilterItemCategory {
             self.performSegue(withIdentifier: "mapUnwind", sender: nil)
         } else if mapToNewItemCategory {
             self.performSegue(withIdentifier: "showAddItem", sender: nil)
+        } else if itemFieldFilter {
+            self.performSegue(withIdentifier: "itemFeedFilterUnwind", sender: nil)
         }
         
     }
@@ -86,6 +93,9 @@ class FilterCategoriesVC: UIViewController, UICollectionViewDataSource, UICollec
             let navController = segue.destination as! UINavigationController
             let target = navController.topViewController as! AddItemVC
             DataModel.category = self.selectedFilter
+        } else if segue.identifier == "itemFeedFilterUnwind" {
+            let target = segue.destination as! ItemFeedVC
+            target.selectedFilter = self.selectedFilter
         }
     }
     

@@ -18,7 +18,7 @@ class Item {
     var image = UIImage()
     var locationId = ""
     
-    var locationItemsDict = [Location:Item]()
+    var locationItemsDict = [Location:[Item]]()
     
     init() {
         
@@ -33,7 +33,9 @@ class Item {
         self.image = image
     }
     
-    func getItemsByPerLocationDictionary(query: PFQuery<PFObject>, completion: @escaping (_ result: [Location: Item])->()) {
+    func getItemsByPerLocationDictionary(query: PFQuery<PFObject>, completion: @escaping (_ result: [Location: [Item]])->()) {
+        locationItemsDict.removeAll()
+        query.includeKey("location")
         query.findObjectsInBackground {
             (objects:[PFObject]?, error:Error?) -> Void in
             if let error = error {
@@ -42,6 +44,7 @@ class Item {
                 if objects?.count == 0 || objects?.count == nil {
                     return
                 }
+                print(objects?.count, "objects count")
                 for object in objects! {
                     if let image = object["image"] as? PFFile {
                         image.getDataInBackground {
@@ -49,10 +52,38 @@ class Item {
                             if error == nil  {
                                 if let finalimage = UIImage(data: imageData!) {
                                     if object["itemPrice"] != nil {
-                                        //Come back take the ppoint and make it into a Location Object.
-                                        self.locationItemsDict.updateValue(Item(object: object, image: finalimage), forKey: object["location"] as! Location)
-                                        if object == objects!.last {
-                                            completion(self.locationItemsDict)
+                                        //Come back take the point and make it into a Location Object.
+                                        var location: Location!
+                                        if let image = (object["location"] as! PFObject)["image"] as? PFFile {
+                                            image.getDataInBackground {
+                                                (imageData:Data?, error:Error?) -> Void in
+                                                location = Location(object: object["location"] as! PFObject, image: UIImage(named: "AppIconLocation")!)
+                                                self.populateItemsPerLocationDict(item: Item(object: object, image: finalimage), location: location)
+                                                var itemCount = 0
+                                                for itemArray in self.locationItemsDict.values {
+                                                    itemCount += itemArray.count
+                                                }
+                                                if itemCount == objects!.count {
+                                                    print("done1", self.locationItemsDict.count)
+                                                    for key in self.locationItemsDict.keys {
+                                                        for item in self.locationItemsDict[key]! {
+                                                            print("key:", key.name, "item:", item.name, item.category)
+                                                        }
+                                                    }
+                                                    completion(self.locationItemsDict)
+                                                }
+                                            }
+                                        } else {
+                                            location = Location(object: object["location"] as! PFObject, image: UIImage(named: "AppIconLocation")!)
+                                            self.populateItemsPerLocationDict(item: Item(object: object, image: finalimage), location: location)
+                                            if self.locationItemsDict.values.count == objects!.count {
+                                                print("done2", self.locationItemsDict.count)
+                                                for key in self.locationItemsDict.keys {
+                                                    for item in self.locationItemsDict[key]! {
+                                                        print("key:", key.name!, "item:", item.name, item.category)
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -63,4 +94,29 @@ class Item {
             }
         }
     }
+    
+    func populateItemsPerLocationDict(item: Item, location: Location) {
+        print("inside populate")
+        var items = self.locationItemsDict[location]
+        if items == nil {
+            items = [item]
+            printItems(items: items!)
+            print(item.name, location.name!)
+            self.locationItemsDict.updateValue(items!, forKey: location)
+        } else {
+            items?.append(item)
+            for item in items! {
+                print("item:", item.name)
+            }
+            self.locationItemsDict.updateValue(items!, forKey: location)
+        }
+    }
+    
+    func printItems(items: [Item]) {
+        for item in items {
+            print(item.name)
+        }
+    }
 }
+
+

@@ -12,9 +12,33 @@ import Parse
 
 class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    
+    @IBOutlet weak var filterOutlet: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBAction func filterAction(_ sender: Any) {
+        if filterOutlet.image == UIImage(named: "FilterMinus") {
+            filterOutlet.image = UIImage(named: "Filter")
+            self.navigationItem.title = ""
+            self.selectedFilter = ""
+            self.collectionView.reloadData()
+        } else {
+            self.performSegue(withIdentifier: "showFilterVC", sender: nil)
+        }
+        
+    }
+    
     
     @IBAction func itemFeedUnwind(segue: UIStoryboardSegue) {
+        print("filtering by", self.selectedFilter)
+        
+        if segue.identifier == "itemFeedFilterUnwind" {
+            
+            filterOutlet.image = UIImage(named: "FilterMinus")
+            filteredItems.removeAll()
+            filteredItems = items.filter { (Item) -> Bool in
+                Item.category == selectedFilter
+            }
+        }
         viewDidLoad()
     }
     
@@ -23,11 +47,21 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     var selectedLocation = Location()
     var fromMap = false
     
+    //Filter Fields
+    var filteredItems = [Item]()
+    var selectedFilter = ""
+    
+    var selectedItem = Item()
+    
     override func viewDidAppear(_ animated: Bool) {
         if fromNewItem {
             collectionView.reloadData()
             fromNewItem = false
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.title = self.selectedFilter
     }
     
     override func viewDidLoad() {
@@ -123,15 +157,35 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
+        if self.selectedFilter == "" {
+            return items.count
+        } else {
+            return filteredItems.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ItemCell
-        cell.priceLabel.text = items[indexPath.row].price
-        cell.imageView.image = items[indexPath.row].image
+        if self.selectedFilter == "" {
+            cell.priceLabel.text = items[indexPath.row].price
+            cell.imageView.image = items[indexPath.row].image
+        } else { //show filtered items
+            cell.priceLabel.text = filteredItems[indexPath.row].price
+            cell.imageView.image = filteredItems[indexPath.row].image
+        }
+        
         cell.priceBackground.alpha = 0.6
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if self.selectedFilter == "" {
+            selectedItem = items[indexPath.item]
+        } else {
+            selectedItem = filteredItems[indexPath.item]
+        }
+        self.performSegue(withIdentifier: "showDetails", sender: nil)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -143,6 +197,20 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
         let space: CGFloat = (flowayout?.minimumInteritemSpacing ?? 0.0) + (flowayout?.sectionInset.left ?? 0.0) + (flowayout?.sectionInset.right ?? 0.0)
         let size:CGFloat = (collectionView.frame.size.width - space) / 2.0
         return CGSize(width: size, height: size)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showFilterVC" {
+            let navController = segue.destination as! UINavigationController
+            let target = navController.topViewController as! FilterCategoriesVC
+            target.itemFieldFilter = true
+        } else if segue.identifier == "showDetails" {
+            let target = segue.destination as! ItemDetailsVC
+            target.name = self.selectedItem.name
+            target.image = self.selectedItem.image
+            target.price = self.selectedItem.price
+            target.tags = self.selectedItem.tags
+        }
     }
     
 }

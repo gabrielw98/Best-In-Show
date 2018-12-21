@@ -47,6 +47,13 @@ class ImageCaptureVC: UIViewController, AVCapturePhotoCaptureDelegate {
         NewItem["itemPrice"] = DataModel.price
         NewItem["tags"] = DataModel.tags
         NewItem["locationId"] = DataModel.employeeWorkPlace
+        var results = DataModel.locations?.filter({ (Workplace) -> Bool in
+            Workplace.objectId == DataModel.employeeWorkPlace
+        })
+        if let location = results![0] as? Location {
+            let locationPointer = PFObject(withoutDataWithClassName: "Location", objectId: location.objectId)
+            NewItem["location"] = locationPointer
+        }
         if let imageData = self.imageView.image!.jpegData(.low) {
             let file = PFFile(name: "img.png", data: imageData)
             NewItem["image"] = file

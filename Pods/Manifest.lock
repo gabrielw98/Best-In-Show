@@ -1,16 +1,6 @@
 PODS:
   - Bolts/Tasks (1.9.0)
   - DropDown (2.3.12)
-  - GoogleMaps (2.7.0):
-    - GoogleMaps/Maps (= 2.7.0)
-  - GoogleMaps/Base (2.7.0)
-  - GoogleMaps/Maps (2.7.0):
-    - GoogleMaps/Base
-  - GooglePlacePicker (2.7.0):
-    - GoogleMaps (= 2.7.0)
-    - GooglePlaces (= 2.7.0)
-  - GooglePlaces (2.7.0):
-    - GoogleMaps/Base (= 2.7.0)
   - Parse (1.17.1):
     - Parse/Core (= 1.17.1)
   - Parse/Core (1.17.1):
@@ -20,9 +10,6 @@ PODS:
 
 DEPENDENCIES:
   - DropDown
-  - GoogleMaps
-  - GooglePlacePicker
-  - GooglePlaces
   - Parse
   - SendGrid-Swift
   - YelpAPI
@@ -31,9 +18,6 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Bolts
     - DropDown
-    - GoogleMaps
-    - GooglePlacePicker
-    - GooglePlaces
     - Parse
     - SendGrid-Swift
     - YelpAPI
@@ -41,13 +25,10 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   DropDown: 0bcc278799ec11a3d34ce1aac9367fbbaf5423d9
-  GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
-  GooglePlacePicker: 59ea44db173c58486ad6123993e81feefcbce9c3
-  GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
   SendGrid-Swift: ac2a563f564d95e9c8e069db337279b442bed67e
   YelpAPI: 9ae0ee45b998d306c1aff9b2d966dc23121f191e
 
-PODFILE CHECKSUM: 1cc7e00999cbff64ed110ee8c557f957efb6603e
+PODFILE CHECKSUM: 3115ac04d7f5e22f19eca1fd72cc0b83868ccbe8
 
 COCOAPODS: 1.5.3
