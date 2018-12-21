@@ -9,11 +9,13 @@
 import Foundation
 import UIKit
 
-class ChangeDomainVC: UIViewController, UITextFieldDelegate {
+class ChangeDomainVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBAction func doneAction(_ sender: Any) {
         if !(textField.text?.isEmpty)! {
             self.performSegue(withIdentifier: "registrationUnwindFromDomainChange", sender: nil)
+        } else {
+            self.performSegue(withIdentifier: "registrationUnwindFromImageChange", sender: nil)
         }
     }
     @IBAction func infoAction(_ sender: Any) {
@@ -22,18 +24,30 @@ class ChangeDomainVC: UIViewController, UITextFieldDelegate {
         //Describe what it means to have business domain.
     }
     
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var doneOutlet: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var separatorLabel: UILabel!
     
     var editedNumber = ""
     var editedDomain = ""
     var isEditingPhone = false
+    var businessImage = UIImage()
+    var imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         textField.delegate = self
         if isEditingPhone {
+            self.navigationItem.title = "New Phone Number"
             self.textField.keyboardType = .numberPad
             self.textField.placeholder = self.editedNumber
+            self.textField.center.y = imageView.frame.minY - self.textField.frame.height
+            self.separatorLabel.center.y = imageView.frame.minY - self.textField.frame.height
+            self.separatorLabel.center.y = self.separatorLabel.center.y + separatorLabel.frame.height + textField.frame.height/2
+            imageView.image = businessImage
+            imageView.isUserInteractionEnabled = true
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imagePressed))
+            imageView.addGestureRecognizer(tapGesture)
         } else {
             if editedDomain != "" {
                 self.textField.text = editedDomain
@@ -41,6 +55,24 @@ class ChangeDomainVC: UIViewController, UITextFieldDelegate {
         }
         
         textField.becomeFirstResponder()
+    }
+    
+    @objc func imagePressed() {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+            imagePicker.delegate = self
+            imagePicker.sourceType = .savedPhotosAlbum
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        print("in did dismiss")
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imageView.image = image
+        }
+        doneOutlet.isEnabled = true
+        picker.dismiss(animated: true, completion: nil);
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -51,7 +83,10 @@ class ChangeDomainVC: UIViewController, UITextFieldDelegate {
             } else {
                 destinationVC.suggestedDomain = textField.text!
             }
-            
+            destinationVC.queriedBusinessImage = imageView.image!
+        } else if segue.identifier == "registrationUnwindFromImageChange" {
+            let destinationVC = segue.destination as! RegisterVC
+            destinationVC.queriedBusinessImage = imageView.image!
         }
     }
     

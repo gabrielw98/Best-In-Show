@@ -432,20 +432,12 @@
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
-                        <rightBarButtonItems>
-                            <barButtonItem image="AddItem" id="8kd-TD-03d">
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="addItemAction:" destination="Pi0-Hf-SdA" id="PR7-tI-qnY"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="Filter" id="Gps-UO-3KH">
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="collectionViewButton:" destination="Pi0-Hf-SdA" id="O65-o7-ziL"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" image="AddItem" id="8kd-TD-03d">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addItemAction:" destination="Pi0-Hf-SdA" id="PR7-tI-qnY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -747,6 +739,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N2N-OM-vHw">
+                                <rect key="frame" x="0.0" y="150" width="375" height="243"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oEV-T5-cbU">
                                 <rect key="frame" x="16" y="306" width="343" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -790,14 +786,17 @@
                     </navigationItem>
                     <connections>
                         <outlet property="doneOutlet" destination="9Ma-im-KoJ" id="EsK-Qx-JPe"/>
+                        <outlet property="imageView" destination="N2N-OM-vHw" id="i1h-ea-roQ"/>
+                        <outlet property="separatorLabel" destination="oEV-T5-cbU" id="K68-sT-1O5"/>
                         <outlet property="textField" destination="bTi-ZT-tjV" id="gtg-0o-LFv"/>
                         <segue destination="NoY-ay-vTW" kind="unwind" identifier="registrationUnwindFromDomainChange" unwindAction="registerAdminEmployeeUnwindWithSegue:" id="gth-Cy-W74"/>
+                        <segue destination="NoY-ay-vTW" kind="unwind" identifier="registrationUnwindFromImageChange" unwindAction="registerAdminEmployeeUnwindWithSegue:" id="xTf-Qj-dAG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fL7-lZ-0Nl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="NoY-ay-vTW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6087" y="3975"/>
+            <point key="canvasLocation" x="6085.6000000000004" y="3974.6626686656673"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aRc-QH-gVC">
@@ -1493,7 +1492,7 @@
         <segue reference="iGb-Xr-rdD"/>
         <segue reference="rIq-Hu-vx2"/>
         <segue reference="eGP-TQ-RFY"/>
-        <segue reference="1FF-Nw-7pA"/>
+        <segue reference="bu0-r1-Ctk"/>
         <segue reference="v4l-OE-xWl"/>
         <segue reference="D32-8h-peQ"/>
     </inferredMetricsTieBreakers>

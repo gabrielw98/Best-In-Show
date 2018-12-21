@@ -100,8 +100,9 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 items[1][1] = self.suggestedDomain
                 tableView.reloadData()
             }
-            
-            
+        } else if segue.identifier == "registrationUnwindFromImageChange" {
+            fromEditingPhoneNumber = false
+            tableView.reloadData()
         }
     }
     
@@ -222,13 +223,15 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     print("Count of returned businesses from Yelp API call:", results?.businesses.count)
                     if let business = results?.businesses.first {
                         print("Top business: \(business.name), id: \(business.identifier)")
-                        if let data = try? Data(contentsOf: business.imageURL!)
-                        {
-                            print("made it inside ")
-                            let image: UIImage = UIImage(data: data)!
-                            self.queriedBusinessImage = image
-                            self.tableView.reloadData()
-                            return
+                        if let url = business.imageURL {
+                            if let data = try? Data(contentsOf: url)
+                            {
+                                print("made it inside ")
+                                let image: UIImage = UIImage(data: data)!
+                                self.queriedBusinessImage = image
+                                self.tableView.reloadData()
+                                return
+                            }
                         }
                     }
                 } else {
@@ -380,14 +383,12 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     func didPresentSearchController(_ currentSearchController: UISearchController) {
-        print("presented search controller")
         currentSearchController.delegate = self
         currentSearchController.searchBar.delegate = self
         currentSearchController.searchBar.becomeFirstResponder()
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        print("should begin typing...")
         DispatchQueue.main.async {
             searchBar.becomeFirstResponder()
         }
@@ -754,6 +755,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             target.editedDomain = self.suggestedDomain
             target.editedNumber = self.selectedLocation.phone
             target.isEditingPhone = self.fromEditingPhoneNumber
+            target.businessImage = self.queriedBusinessImage
         }
     }
 }

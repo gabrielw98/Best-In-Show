@@ -11,6 +11,7 @@
 		56034791219E0ADC0056B304 /* FilterCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56034790219E0ADC0056B304 /* FilterCategoriesVC.swift */; };
 		56034793219E29070056B304 /* CollectionViewCellVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56034792219E29070056B304 /* CollectionViewCellVC.swift */; };
 		8C04B9AE21CC54A500235D67 /* ItemDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C04B9AD21CC54A500235D67 /* ItemDetailsVC.swift */; };
+		8C04B9B021CC786D00235D67 /* ContactPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C04B9AF21CC786D00235D67 /* ContactPickerVC.swift */; };
 		8C10C39F218229BC00E2CC28 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C39E218229BC00E2CC28 /* ProfileTableViewCell.swift */; };
 		8C10C3A221822A8700E2CC28 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C3A121822A8700E2CC28 /* ProfileVC.swift */; };
 		8C10C3A421835C7300E2CC28 /* PlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C3A321835C7300E2CC28 /* PlacesVC.swift */; };
@@ -72,6 +73,7 @@
 		81D0C0A6F8E899636DFA9EB1 /* Pods-DonationTrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTrackerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTrackerTests/Pods-DonationTrackerTests.release.xcconfig"; sourceTree = "<group>"; };
 		8B4A736DBCEE1CB631165D58 /* Pods-DonationTrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTrackerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTrackerUITests/Pods-DonationTrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8C04B9AD21CC54A500235D67 /* ItemDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsVC.swift; sourceTree = "<group>"; };
+		8C04B9AF21CC786D00235D67 /* ContactPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPickerVC.swift; sourceTree = "<group>"; };
 		8C10C39E218229BC00E2CC28 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		8C10C3A121822A8700E2CC28 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		8C10C3A321835C7300E2CC28 /* PlacesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesVC.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				8C10C3A321835C7300E2CC28 /* PlacesVC.swift */,
 				8C10C3A121822A8700E2CC28 /* ProfileVC.swift */,
 				8C49CD5D21C331A9003C73CC /* ChangeDomainVC.swift */,
+				8C04B9AF21CC786D00235D67 /* ContactPickerVC.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				8C11D978217C2424000FD62E /* LocationInventoryVC.swift in Sources */,
 				56034793219E29070056B304 /* CollectionViewCellVC.swift in Sources */,
 				8C74790A21A4E1BC00EDC48E /* AddItemDetailsVC.swift in Sources */,
+				8C04B9B021CC786D00235D67 /* ContactPickerVC.swift in Sources */,
 				8C74790821A4964B00EDC48E /* ImageCaptureVC.swift in Sources */,
 				8CA7FDF021A4451000DB7189 /* AddItemVC.swift in Sources */,
 				8C11D97A217E5EC8000FD62E /* ItemTableViewCell.swift in Sources */,

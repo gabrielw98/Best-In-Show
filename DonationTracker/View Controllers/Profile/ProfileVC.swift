@@ -9,8 +9,9 @@
 import Foundation
 import UIKit
 import Parse
+import ContactsUI
 
-class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource, CNContactPickerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBAction func profileUnwind(segue: UIStoryboardSegue) {
@@ -56,13 +57,47 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.reloadData()
     }
     
+    func setupContactPicker() {
+        let entityType = CNEntityType.contacts
+        let authStatus = CNContactStore.authorizationStatus(for: entityType)
+        if authStatus == CNAuthorizationStatus.notDetermined {
+            let contactStore = CNContactStore.init()
+            contactStore.requestAccess(for: entityType) { (success, error) in
+                if error == nil {
+                    self.openContacts()
+                } else {
+                    print("Error: Not authorized to see contacts.")
+                }
+            }
+        } else if authStatus == CNAuthorizationStatus.authorized {
+            self.openContacts()
+        }
+    }
+    
+    func openContacts() {
+        UISearchBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().tintColor = UIColor.white
+        let titleDict: NSDictionary = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [NSAttributedStringKey : Any]
+        let contactPicker = CNContactPickerViewController.init()
+        contactPicker.delegate = self
+        self.navigationController?.navigationItem.searchController?.searchBar.setTextColor(color: UIColor.white)
+        self.present(contactPicker, animated: true, completion: nil)
+    }
+    
+    func contactPickerDidCancel(_ picker: CNContactPickerViewController) {
+        picker.dismiss(animated: true) {
+            print("worked")
+        }
+    }
+    
     func showSubscriptions() {
         print("showing subscriptions")
         self.performSegue(withIdentifier: "showSubscriptions", sender: nil)
     }
     
     func showInviteContacts() {
-        self.performSegue(withIdentifier: "showInviteContacts", sender: nil)
+        setupContactPicker()
     }
     
     func showMore() {
@@ -152,5 +187,14 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
+}
+
+public extension UISearchBar {
+    
+    public func setTextColor(color: UIColor) {
+        let svs = subviews.flatMap { $0.subviews }
+        guard let tf = (svs.filter { $0 is UITextField }).first as? UITextField else { return }
+        tf.textColor = color
+    }
 }
 
