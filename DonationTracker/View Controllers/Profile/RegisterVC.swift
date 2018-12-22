@@ -193,19 +193,29 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 addressString = addressString + pm.postalCode! + " "
             }
             self.items[0][1] = addressString
+            let query = PFQuery(className: "Location")
+            query.whereKey("address", equalTo: addressString)
+            query.getFirstObjectInBackground { (object, error) in
+                if object != nil {
+                    print(object, "got this thing here!!!", object!["name"] as! String)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self.showAlreadyExistsAlert()
+                    }
+                }
+            }
             if locationItem.url != nil {
                 //self.items[1][1] = String(describing: self.suggestDomain(url: locationItem.url!))
                 self.suggestedDomain = String(describing: self.suggestDomain(url: locationItem.url!))
             }
-            
             self.selectedLocation.phone = locationItem.phoneNumber
-            self.items[2][0] = locationItem.phoneNumber!
             self.selectedLocation.website = locationItem.url?.absoluteString
             self.selectedLocation.domain = self.suggestedDomain
             self.selectedLocation.name = locationItem.name
             self.selectedLocation.address = addressString
             let filteredPhone = "+" + self.selectedLocation.phone.onlyDigits()
             print(filteredPhone, "filtered phone number")
+            self.selectedLocation.phone = filteredPhone
+            self.items[2][0] = filteredPhone
             self.getLocationImage(phoneNumber: filteredPhone)
             self.selectedLocation.locationCoordinate  = PFGeoPoint(latitude: locationItem.placemark.coordinate.latitude, longitude: locationItem.placemark.coordinate.longitude)
             print(locationItem.url?.absoluteString, "this is the absolute string")
@@ -213,6 +223,16 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             self.tableView.reloadData()
         }
     }
+    
+    func showAlreadyExistsAlert() {
+        let alreadyExistsAlert = UIAlertController(title: "Notice", message: "The location you selected is already registered.", preferredStyle: UIAlertControllerStyle.alert)
+        alreadyExistsAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in
+            print("Reset the tableview here.")
+            self.performSegue(withIdentifier: "profileUnwindFromCancel", sender: nil)
+        }))
+        present(alreadyExistsAlert, animated: true, completion: nil)
+    }
+    
     
     func getLocationImage(phoneNumber: String) {
         if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
@@ -358,8 +378,6 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 cell.textLabel?.textColor = UIColor.lightGray
             }
             if indexPath.section == 2 {
-                print("cell for row for image")
-                
                 let imageView = UIImageView(image: self.queriedBusinessImage)
                 imageView.frame = CGRect(x: cell.frame.maxX - 60.0, y: cell.frame.minY + 5, width: 30.0, height: 30.0)
                 imageView.contentMode = .scaleAspectFill
@@ -410,6 +428,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             present(verificationAlert, animated: true, completion: nil)
             return
         }
+        print(items[indexPath.section][indexPath.row], "this is the title")
         if items[indexPath.section][indexPath.row] == "Verify Your Work Domain" {
             let customMessage = "The domain should match your employees' email addresses. \n\nIs '\(selectedLocation.domain!)' your domain?"
             let suggestDomainAlertView = UIAlertController(title: "Verify Email Domain", message: customMessage, preferredStyle: UIAlertControllerStyle.alert)
@@ -434,11 +453,27 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         } else if indexPath.section == 2 {
             self.fromEditingPhoneNumber = true
             self.performSegue(withIdentifier: "showChangeDomain", sender: nil)
+        } else if items[indexPath.section][indexPath.row] == "Restrict Employee Domain?" {
+            print("inside here....", switchView.isOn)
+            if !switchView.isOn {
+                showRestrictDomainInfoAlertView()
+            }
         }
         if items[indexPath.section][indexPath.row] == "Work Email i.e. '@goodwill.org'" {
             //Come back - change placeholder to show @YourDomain.com
              self.self.showVerifyEmailAlertView()
         }
+    }
+    
+    func showRestrictDomainInfoAlertView() {
+        let restrictDominaInfoAlert = UIAlertController(title: "Restrict Domain \u{24D8}", message: "By restricting the domain, you are requiring all employees who register to use their work email with the domain you provide.", preferredStyle: UIAlertControllerStyle.alert)
+        restrictDominaInfoAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        }))
+        restrictDominaInfoAlert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { (action: UIAlertAction!) in
+            self.toggleRequireBusinessDomain()
+        }))
+        
+        present(restrictDominaInfoAlert, animated: true, completion: nil)
     }
     
     func showVerifyEmailAlertView() {
@@ -527,7 +562,6 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             if self.currentLocation != nil {
             request.region = MKCoordinateRegion(center: self.currentLocation.coordinate, span: MKCoordinateSpanMake(0.05, 0.05))
             }
-            
             let search = MKLocalSearch(request: request)
             
             search.start { response, _ in
@@ -535,7 +569,11 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     return
                 }
                 self.matchingItems = response.mapItems
-                self.data = response.mapItems.map { $0.name! }
+                var mutableResponse: [MKMapItem] = response.mapItems
+                mutableResponse = mutableResponse.filter({ (Business) -> Bool in
+                    Business.name != nil && Business.placemark.subLocality != nil && Business.phoneNumber != nil
+                })
+                self.data = mutableResponse.map { $0.name! + ": " + $0.placemark.subLocality! }
                 print(self.data, "this is the starting data")
                 if searchText.isEmpty {
                     self.dropButton.reloadAllComponents()

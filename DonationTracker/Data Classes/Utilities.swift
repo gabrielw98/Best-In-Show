@@ -45,4 +45,12 @@ extension String {
             }
         }
     }
+    
+    func removeOccurences(text: String, characters: [String]) -> String {
+        var editedText = text
+        for character in characters {
+            editedText = editedText.replacingOccurrences(of: character, with: "", options: NSString.CompareOptions.literal, range: nil)
+        }
+        return editedText
+    }
 }

@@ -724,6 +724,7 @@
                         <segue destination="bok-n6-zJ2" kind="popoverPresentation" identifier="showChangeDomain" popoverAnchorView="8uS-d5-ORt" id="yqw-ET-ARg">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
+                        <segue destination="r9P-DY-Kjx" kind="unwind" identifier="profileUnwindFromCancel" unwindAction="profileUnwindWithSegue:" id="pub-wO-AZg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qjU-px-Sft" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -769,20 +770,12 @@
                                 <segue destination="NoY-ay-vTW" kind="unwind" identifier="cancelUnwind" unwindAction="registerAdminEmployeeUnwindWithSegue:" id="W89-FY-lzA"/>
                             </connections>
                         </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem enabled="NO" systemItem="done" id="9Ma-im-KoJ">
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="doneAction:" destination="LDa-JV-NUj" id="bHh-gp-hYd"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Info" id="sFC-Yc-y6n">
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="infoAction:" destination="LDa-JV-NUj" id="nBc-Lk-tSp"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="done" id="9Ma-im-KoJ">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="doneAction:" destination="LDa-JV-NUj" id="bHh-gp-hYd"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="doneOutlet" destination="9Ma-im-KoJ" id="EsK-Qx-JPe"/>

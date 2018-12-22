@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import YelpAPI
 
 class ChangeDomainVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -34,6 +35,7 @@ class ChangeDomainVC: UIViewController, UITextFieldDelegate, UIImagePickerContro
     var isEditingPhone = false
     var businessImage = UIImage()
     var imagePicker = UIImagePickerController()
+    var yelpClient: YLPClient?
     
     override func viewDidLoad() {
         textField.delegate = self
@@ -80,10 +82,10 @@ class ChangeDomainVC: UIViewController, UITextFieldDelegate, UIImagePickerContro
             let destinationVC = segue.destination as! RegisterVC
             if isEditingPhone {
                 destinationVC.selectedLocation.phone = textField.text
+                destinationVC.queriedBusinessImage = imageView.image!
             } else {
                 destinationVC.suggestedDomain = textField.text!
             }
-            destinationVC.queriedBusinessImage = imageView.image!
         } else if segue.identifier == "registrationUnwindFromImageChange" {
             let destinationVC = segue.destination as! RegisterVC
             destinationVC.queriedBusinessImage = imageView.image!
@@ -112,7 +114,11 @@ class ChangeDomainVC: UIViewController, UITextFieldDelegate, UIImagePickerContro
             }
             if isEditingPhone {
                 if updatedText.characters.count > 11 {
-                    self.doneOutlet.isEnabled = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                        self.getNewYelpBusinessImage()
+                        self.doneOutlet.isEnabled = true
+                    }
+                    
                 } else {
                     self.doneOutlet.isEnabled = false
                 }
@@ -123,10 +129,43 @@ class ChangeDomainVC: UIViewController, UITextFieldDelegate, UIImagePickerContro
                     self.doneOutlet.isEnabled = false
                 }
             }
-            
         }
-        
         return true
     }
     
+    func getNewYelpBusinessImage() {
+        if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
+            let keys = NSDictionary(contentsOfFile: path)
+            self.yelpClient = YLPClient.init(apiKey: keys!["yelpKey"] as! String)
+            yelpClient?.business(withPhoneNumber: textField.text!, completionHandler: { (results, error) in
+                if error == nil {
+                    print("Count of returned businesses from Yelp API call:", results?.businesses.count)
+                    if let business = results?.businesses.first {
+                        print("Top business: \(business.name), id: \(business.identifier)")
+                        if let url = business.imageURL {
+                            if let data = try? Data(contentsOf: url)
+                            {
+                                print("made it inside ")
+                                let image: UIImage = UIImage(data: data)!
+                                DispatchQueue.main.async {
+                                    let newImageAlertView = UIAlertController(title: "Notice", message: "DonationTracker has found a new business image for this phone number. \nWould you like to use it?", preferredStyle: UIAlertControllerStyle.alert)
+                                    newImageAlertView.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
+                                        print("canceled")
+                                    }))
+                                    newImageAlertView.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+                                        self.imageView.image = image
+                                    }))
+                                    self.present(newImageAlertView, animated: true)
+                                }
+                                
+                                return
+                            }
+                        }
+                    }
+                } else {
+                    print("Yelp Api Error:", error!)
+                }
+            })
+        }
+    }
 }
