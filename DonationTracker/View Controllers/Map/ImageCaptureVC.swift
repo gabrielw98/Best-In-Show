@@ -62,6 +62,15 @@ class ImageCaptureVC: UIViewController, AVCapturePhotoCaptureDelegate {
             if success {
                 DataModel.resetAddData()
                 print("Success: Item saved.")
+                let channels = DataModel.tags;
+                let push = PFPush()
+                push.setChannels(channels)
+                push.setMessage("New item arrived "  + results![0].name)
+                push.sendInBackground(block: { (success, error) in
+                    if error == nil {
+                        print("Success: Sent push notification to \(DataModel.tags) follower.")
+                    }
+                })
             }
         }
         DataModel.items.insert(Item(object: NewItem, image: self.imageView.image!), at: 0)

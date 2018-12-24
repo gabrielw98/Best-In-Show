@@ -197,6 +197,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             query.whereKey("address", equalTo: addressString)
             query.getFirstObjectInBackground { (object, error) in
                 if object != nil {
+                    self.tableView.allowsSelection = false
                     print(object, "got this thing here!!!", object!["name"] as! String)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                         self.showAlreadyExistsAlert()
@@ -571,9 +572,9 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 self.matchingItems = response.mapItems
                 var mutableResponse: [MKMapItem] = response.mapItems
                 mutableResponse = mutableResponse.filter({ (Business) -> Bool in
-                    Business.name != nil && Business.placemark.subLocality != nil && Business.phoneNumber != nil
+                    Business.name != nil && Business.placemark.thoroughfare != nil
                 })
-                self.data = mutableResponse.map { $0.name! + ": " + $0.placemark.subLocality! }
+                self.data = mutableResponse.map { $0.name! + ": " + ($0.placemark.thoroughfare ?? "") }
                 print(self.data, "this is the starting data")
                 if searchText.isEmpty {
                     self.dropButton.reloadAllComponents()

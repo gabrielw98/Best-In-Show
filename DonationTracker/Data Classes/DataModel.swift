@@ -64,6 +64,12 @@ struct DataModel {
     static func getItemsFromLocation(location: Location) -> [Item] {
         return itemsPerLocation[location]!
     }
+    
+    static func getSubscribedLocations() -> [Location] {
+        return (locations?.filter({ (Location) -> Bool in
+            Location.isCurrentUserSubscribed
+        }))!
+    }
 }
 
 enum userType {

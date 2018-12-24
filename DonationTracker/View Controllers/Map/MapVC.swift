@@ -31,7 +31,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         self.mapView.addAnnotations(dict.keys.compactMap(){$0} )
         self.mapView.showAnnotations(dict.keys.compactMap() {$0}, animated: false)
         print(dict.keys.compactMap(){$0}[0].name!, "centering map around this location")
-        self.mapView.region = MKCoordinateRegion(center: (dict.keys.compactMap(){$0}[0].coordinate), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
     }
     
     @IBAction func addItemAction(_ sender: Any) {
@@ -43,6 +42,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             navigationItem.searchController = self.searchController
             isLocationSearch = false
             navigationItem.searchController = searchController
+            
             self.searchController.isActive = true
             navigationItem.searchController?.searchBar.placeholder = "Search Items"
             searchItemOutlet.tintColor = UIColor.white
@@ -58,12 +58,17 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
     }
     
     @IBAction func searchLocationAction(_ sender: Any) {
+        print("isLocationSearch?", isLocationSearch)
         if !isLocationSearch {
             navigationItem.searchController = self.searchController
             isLocationSearch = true
             navigationItem.searchController = searchController
-            self.searchController.isActive = true
             navigationItem.searchController?.searchBar.placeholder = "Search Locations"
+            //Come back
+            DispatchQueue.main.async {
+                self.searchController.isActive = true
+                self.searchController.searchBar.becomeFirstResponder()
+            }
             searchLocationOutlet.tintColor = UIColor.white
             searchItemOutlet.tintColor = UIColor.lightGray
         } else {
@@ -191,7 +196,16 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             }
             navigationItem.hidesSearchBarWhenScrolling = false
             self.searchController = sc
-            navigationItem.searchController = self.searchController
+            //navigationItem.searchController = self.searchController
+            isLocationSearch = false
+            navigationItem.searchController = nil
+        }
+    }
+    
+    func didPresentSearchController(_ searchController: UISearchController) {
+        self.definesPresentationContext = true
+        DispatchQueue.main.async {
+            searchController.searchBar.becomeFirstResponder()
         }
     }
     
@@ -204,14 +218,20 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             // annotations should be white or navy blue.
             let query = PFQuery(className: "Locations")
             query.whereKey("name", matchesRegex: self.searchController.searchBar.text!)
-            Location().getLocations(query: query, completion: { (locationObjects) in
+            let map = self.mapView
+            Location().getLocationsInMapScope(mapView: map!, completion: { (surroundingLocations) in
+                print(surroundingLocations.count, "this is the count of surrounding locations")
                 self.locationDict.removeAll()
-                for searchLocation in locationObjects {
+                for searchLocation in surroundingLocations {
                     self.locationDict.updateValue(searchLocation, forKey: searchLocation.address)
-                    if searchLocation == locationObjects.last {
+                    print(searchLocation.name!, "named!!")
+                    if searchLocation == surroundingLocations.last {
                         self.mapView.addAnnotations(self.locationDict.compactMap(){ $0.1 }  )
                         self.mapView.showAnnotations(self.locationDict.compactMap(){ $0.1 }, animated: false)
-                        self.mapView.region = MKCoordinateRegion(center: ((self.locationDict[searchLocation.address])?.coordinate)!, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+                        self.searchController.dismiss(animated: true
+                            , completion: {
+                                print("dismissed")
+                        })
                     }
                 }
             })
@@ -249,7 +269,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
                 if location == locations.last {
                     self.mapView.addAnnotations(self.locationDict.compactMap(){ $0.1 }  )
                     self.mapView.showAnnotations(self.locationDict.compactMap(){ $0.1 }, animated: false)
-                    self.mapView.region = MKCoordinateRegion(center: ((self.locationDict[location.address])?.coordinate)!, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
                 }
             }
         }
@@ -314,7 +333,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
                         })
                         self.mapView.addAnnotations(self.locationDict.compactMap(){ $0.1 }  )
                         self.mapView.showAnnotations(self.locationDict.compactMap(){ $0.1 }, animated: false)
-                        self.mapView.region = MKCoordinateRegion(center: ((self.locationDict[location.address])?.coordinate)!, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
                     }
                 }
             }
@@ -341,13 +359,20 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
         }
         if let location = annotation as? Location {
-                print("found a registered ")
+            print("found a registered ")
+            if (DataModel.locations?.contains(location))! && location.registrationStatus == "Requested" {
+                annotationView.markerTintColor = UIColor.lightGray
+            } else if (DataModel.getSubscribedLocations().contains(location)) {
                 annotationView.markerTintColor = UIColor(red: 135.0/255.0, green: 206.0/255.0, blue: 235.0/255.0, alpha: 1.0)
-                annotationView.canShowCallout = true
-                let infoButton = Sender(type: .infoLight)
-                annotationView.rightCalloutAccessoryView = infoButton
-                infoButton.buttonIdentifier = location.subtitle
-                infoButton.addTarget(self, action: #selector(MapVC.showLocation(sender:)), for: UIControlEvents.touchUpInside)
+            } else if (DataModel.locations?.contains(location))!  {
+                annotationView.markerTintColor = UIColor(red: 0, green: 51/255, blue: 102/255, alpha: 1)
+            }
+            
+            annotationView.canShowCallout = true
+            let infoButton = Sender(type: .infoLight)
+            annotationView.rightCalloutAccessoryView = infoButton
+            infoButton.buttonIdentifier = location.subtitle
+            infoButton.addTarget(self, action: #selector(MapVC.showLocation(sender:)), for: UIControlEvents.touchUpInside)
         }
         return annotationView
     }

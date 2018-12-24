@@ -38,6 +38,7 @@ class ChangeDomainVC: UIViewController, UITextFieldDelegate, UIImagePickerContro
     var yelpClient: YLPClient?
     
     override func viewDidLoad() {
+        textField.tintColor = UIColor.lightGray
         textField.delegate = self
         if isEditingPhone {
             self.navigationItem.title = "New Phone Number"

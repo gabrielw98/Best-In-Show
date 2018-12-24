@@ -8,8 +8,9 @@
 
 import UIKit
 import Parse
+import UserNotifications
 
-class RegistrationVC: UIViewController, UITextFieldDelegate {
+class RegistrationVC: UIViewController, UITextFieldDelegate, UNUserNotificationCenterDelegate {
 
     @IBOutlet weak var submitLoginSignUpOutlet: UIButton!
     @IBOutlet weak var loginSignUpOutlet: UIButton!
@@ -112,13 +113,47 @@ class RegistrationVC: UIViewController, UITextFieldDelegate {
         user.signUpInBackground(block: { (success, error) in
             if success {
                 print("successfully signed up the user")
+                self.setupNotification()
             }
-            /*if let error = error {
-                print(error.localizedDescription)
-            } else if success {
-                print("User has been signed up")
-            }*/
         })
+    }
+    
+    
+    //Come back here francis' device
+    func setupNotification() {
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .carPlay ]) {
+            (granted, error) in
+            print("Permission granted: \(granted)")
+            guard granted else { return }
+            self.getNotificationSettings()
+        }
+    }
+    func getNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            print("Notification settings: \(settings)")
+            guard settings.authorizationStatus == .authorized else { return }
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+    }
+    
+    func createInstallationOnParse(deviceTokenData:Data){
+        if let installation = PFInstallation.current(){
+            installation.setDeviceTokenFrom(deviceTokenData)
+            installation.setObject(PFUser.current()!, forKey: "user")
+            installation.saveInBackground {
+                (success: Bool, error: Error?) in
+                if (success) {
+                    print("You have successfully saved your push installation to Back4App!")
+                } else {
+                    if let myError = error{
+                        print("Error saving parse installation \(myError.localizedDescription)")
+                    }else{
+                        print("Uknown error")
+                    }
+                }
+            }
+        }
     }
     
     func login() {

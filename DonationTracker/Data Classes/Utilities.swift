@@ -8,9 +8,10 @@
 
 import Foundation
 import UIKit
-
+import Parse
 
 class Utilities {
+
     
 }
 

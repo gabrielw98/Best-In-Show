@@ -12,6 +12,10 @@
 		56034793219E29070056B304 /* CollectionViewCellVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56034792219E29070056B304 /* CollectionViewCellVC.swift */; };
 		8C04B9AE21CC54A500235D67 /* ItemDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C04B9AD21CC54A500235D67 /* ItemDetailsVC.swift */; };
 		8C04B9B021CC786D00235D67 /* ContactPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C04B9AF21CC786D00235D67 /* ContactPickerVC.swift */; };
+		8C04B9B221D0949400235D67 /* RecommendationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C04B9B121D0949300235D67 /* RecommendationVC.swift */; };
+		8C04B9B421D095A300235D67 /* SubscriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C04B9B321D095A300235D67 /* SubscriptionTableViewCell.swift */; };
+		8C04B9B621D0A2E200235D67 /* NewSubscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C04B9B521D0A2E200235D67 /* NewSubscriptionVC.swift */; };
+		8C04B9B821D15A4F00235D67 /* SubscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C04B9B721D15A4F00235D67 /* SubscriptionVC.swift */; };
 		8C10C39F218229BC00E2CC28 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C39E218229BC00E2CC28 /* ProfileTableViewCell.swift */; };
 		8C10C3A221822A8700E2CC28 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C3A121822A8700E2CC28 /* ProfileVC.swift */; };
 		8C10C3A421835C7300E2CC28 /* PlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C3A321835C7300E2CC28 /* PlacesVC.swift */; };
@@ -74,6 +78,10 @@
 		8B4A736DBCEE1CB631165D58 /* Pods-DonationTrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DonationTrackerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DonationTrackerUITests/Pods-DonationTrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8C04B9AD21CC54A500235D67 /* ItemDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsVC.swift; sourceTree = "<group>"; };
 		8C04B9AF21CC786D00235D67 /* ContactPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPickerVC.swift; sourceTree = "<group>"; };
+		8C04B9B121D0949300235D67 /* RecommendationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationVC.swift; sourceTree = "<group>"; };
+		8C04B9B321D095A300235D67 /* SubscriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionTableViewCell.swift; sourceTree = "<group>"; };
+		8C04B9B521D0A2E200235D67 /* NewSubscriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSubscriptionVC.swift; sourceTree = "<group>"; };
+		8C04B9B721D15A4F00235D67 /* SubscriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionVC.swift; sourceTree = "<group>"; };
 		8C10C39E218229BC00E2CC28 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		8C10C3A121822A8700E2CC28 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		8C10C3A321835C7300E2CC28 /* PlacesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesVC.swift; sourceTree = "<group>"; };
@@ -148,6 +156,7 @@
 				8C11D979217E5EC8000FD62E /* ItemTableViewCell.swift */,
 				8C3D965C2187FE5B0072F500 /* PlacesCollectionViewCell.swift */,
 				8C10C39E218229BC00E2CC28 /* ProfileTableViewCell.swift */,
+				8C04B9B321D095A300235D67 /* SubscriptionTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -214,6 +223,8 @@
 			isa = PBXGroup;
 			children = (
 				8C90079D2189F00500577A1C /* RegisterVC.swift */,
+				8C04B9B521D0A2E200235D67 /* NewSubscriptionVC.swift */,
+				8C04B9B721D15A4F00235D67 /* SubscriptionVC.swift */,
 				8CA7FDE521A1BBAD00DB7189 /* EmployeesVC.swift */,
 				8C10C3A321835C7300E2CC28 /* PlacesVC.swift */,
 				8C10C3A121822A8700E2CC28 /* ProfileVC.swift */,
@@ -259,6 +270,7 @@
 		8C9007982189009800577A1C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8CE5087021D15EAC008E84BF /* Recommendation */,
 				8C49CD5F21C331B6003C73CC /* Profile */,
 				8C49CD6121C33259003C73CC /* Map */,
 				8C49CD6021C3323B003C73CC /* Items */,
@@ -276,6 +288,14 @@
 				8C90079B218958D200577A1C /* MoreVC.swift */,
 			);
 			path = More;
+			sourceTree = "<group>";
+		};
+		8CE5087021D15EAC008E84BF /* Recommendation */ = {
+			isa = PBXGroup;
+			children = (
+				8C04B9B121D0949300235D67 /* RecommendationVC.swift */,
+			);
+			path = Recommendation;
 			sourceTree = "<group>";
 		};
 		9074C3DDC39EEC5F4E6D3EC3 /* Frameworks */ = {
@@ -546,15 +566,19 @@
 				8C90079C218958D200577A1C /* MoreVC.swift in Sources */,
 				8C49CD5E21C331A9003C73CC /* ChangeDomainVC.swift in Sources */,
 				8C90079E2189F00500577A1C /* RegisterVC.swift in Sources */,
+				8C04B9B821D15A4F00235D67 /* SubscriptionVC.swift in Sources */,
 				8C11D978217C2424000FD62E /* LocationInventoryVC.swift in Sources */,
 				56034793219E29070056B304 /* CollectionViewCellVC.swift in Sources */,
+				8C04B9B621D0A2E200235D67 /* NewSubscriptionVC.swift in Sources */,
 				8C74790A21A4E1BC00EDC48E /* AddItemDetailsVC.swift in Sources */,
 				8C04B9B021CC786D00235D67 /* ContactPickerVC.swift in Sources */,
+				8C04B9B221D0949400235D67 /* RecommendationVC.swift in Sources */,
 				8C74790821A4964B00EDC48E /* ImageCaptureVC.swift in Sources */,
 				8CA7FDF021A4451000DB7189 /* AddItemVC.swift in Sources */,
 				8C11D97A217E5EC8000FD62E /* ItemTableViewCell.swift in Sources */,
 				8CA7FDEC21A3736E00DB7189 /* ItemFeedVC.swift in Sources */,
 				8C4B10442162ADFC00A3B012 /* Location.swift in Sources */,
+				8C04B9B421D095A300235D67 /* SubscriptionTableViewCell.swift in Sources */,
 				8C3D965D2187FE5B0072F500 /* PlacesCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

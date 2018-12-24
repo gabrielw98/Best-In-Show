@@ -14,6 +14,25 @@ import Parse
 class PlacesVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var placeHeaderCollectionView: UICollectionView!
+    @IBOutlet weak var followOutlet: UIBarButtonItem!
+
+    @IBAction func followAction(_ sender: Any) {
+                let currentLocation = locations[self.cellIndex]
+        print("saving this object id!!", currentLocation.objectId)
+        print("already contains this location", DataModel.locations?.contains(currentLocation))
+
+        let locationToUpdate = PFObject(withoutDataWithClassName: "Location", objectId: currentLocation.objectId)
+        locationToUpdate.add(PFUser.current()!.objectId!, forKey: "subscribers")
+        locationToUpdate.saveInBackground { (success, error) in
+            if success {
+                print("Saved the current user as a subscriber")
+                if let pulledLocations = DataModel.locations {
+                    pulledLocations[(DataModel.locations?.firstIndex(of: currentLocation))!].isCurrentUserSubscribed = true
+                }
+                
+            }
+        }
+    }
     
     var locations = [Location]()
     var images = [UIImage]()
@@ -24,6 +43,12 @@ class PlacesVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     var fromMap = false
     var selectedLocationIndex = 0
     var selectedItem = Item()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if !fromMap {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+    }
     
     override func viewDidLoad() {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
@@ -112,6 +137,11 @@ class PlacesVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
         if fromMap {
             newIndex = IndexPath(item: self.selectedLocationIndex, section: 0)
             print(self.selectedLocationIndex, "using this index", locations[self.selectedLocationIndex].name, locations.count)
+            if locations[selectedLocationIndex].isCurrentUserSubscribed {
+                followOutlet.isEnabled = false
+            } else {
+                followOutlet.isEnabled = true
+            }
         } else {
             newIndex = IndexPath(item: self.cellIndex, section: 0)
             print(self.cellIndex, "using this index", locations[self.cellIndex].name)
