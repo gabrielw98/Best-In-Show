@@ -35,6 +35,8 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAddVC))
     }
     
+    
+    
     @objc func showAddVC() {
         self.performSegue(withIdentifier: "showAdd", sender: nil)
     }
@@ -45,7 +47,6 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let remove = UITableViewRowAction(style: .destructive, title: "Remove") { action, index in
-            print("more button tapped")
             self.removeTag(index: index.row)
         }
         remove.backgroundColor = UIColor.red
@@ -53,10 +54,15 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func removeTag(index: Int) {
-        PFInstallation.current()?.remove(subscriptions[index], forKey: "channels")
         subscriptions.remove(at: index)
         tableView.reloadData()
-        
+        print(subscriptions, "setting to this")
+        PFInstallation.current()!.channels = subscriptions
+        PFInstallation.current()!.saveInBackground { (success, error) in
+            if error == nil {
+                print("Success: Removed the channel")
+            }
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

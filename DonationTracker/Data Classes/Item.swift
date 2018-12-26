@@ -100,7 +100,6 @@ class Item {
         var items = self.locationItemsDict[location]
         if items == nil {
             items = [item]
-            printItems(items: items!)
             print(item.name, location.name!)
             self.locationItemsDict.updateValue(items!, forKey: location)
         } else {
@@ -112,9 +111,28 @@ class Item {
         }
     }
     
-    func printItems(items: [Item]) {
-        for item in items {
-            print(item.name)
+    func queryRecommendedItems(query: PFQuery<PFObject>, completion: @escaping (_ result: [Item])->()) {
+        query.findObjectsInBackground { (objects, error) in
+            var recommendedItems = [Item]()
+            if error == nil {
+                if objects != nil && !(objects?.isEmpty)! {
+                    for object in objects! {
+                        print("FINAL OBJECTS Count", objects!.count)
+                        if let image = object["image"] as? PFFile {
+                            image.getDataInBackground {
+                                (imageData:Data?, error:Error?) -> Void in
+                                if let finalimage = UIImage(data: imageData!) {
+                                    recommendedItems.append(Item(object: object, image: finalimage))
+                                    print(recommendedItems.count)
+                                    if recommendedItems.count == objects?.count {
+                                        completion(recommendedItems)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

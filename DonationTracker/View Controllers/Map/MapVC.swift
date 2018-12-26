@@ -110,7 +110,40 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         locationServices()
         setupSearchBar()
         queryAllLocations()
+        
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        /*let otherVC = sb.instantiateViewController(withIdentifier: "ItemDetailsVC") as! ItemDetailsVC
+        let navController = sb.instantiateViewController(withIdentifier: "DetailsNav") as! UINavigationController
+        */
+        
+        
+        let itemVC : ItemDetailsVC = sb.instantiateViewController(withIdentifier: "ItemDetailsVC") as! ItemDetailsVC
+        let navigationController = UINavigationController(rootViewController: itemVC)
+        //self.present(navigationController, animated: true)
+        //window?.rootViewController = navigationController;
+        /*
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "ItemDetailsVC")
+        self.definesPresentationContext = true
+        newVC?.modalPresentationStyle = .overCurrentContext
+        self.present(newVC!, animated: true, completion: nil)*/
+        
     }
+    
+    func application(
+        _ application: UIApplication,
+        didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+        fetchCompletionHandler completionHandler:
+        @escaping (UIBackgroundFetchResult) -> Void) {
+        self.tabBarController?.selectedIndex = 1
+        print("made it inside here!!! got push")
+        //let vc = sb.instantiateViewController(withIdentifier: "ItemDetailsVC") as! ItemDetailsVC
+        //navigationController.pushViewController(vc, animated: true)
+        //tabBarVC.present(newVC, animated: true, completion: nil)
+        //self.present(navigationController, animated: true)
+        //window?.rootViewController = navigationController
+    }
+    
+    
     
     func cloudPush() {
         PFCloud.callFunction(inBackground: "pushToUser", withParameters: ["recipientId":"4GLzZP49bv", "message": "Message from \(PFUser.current()!.username!)"]){

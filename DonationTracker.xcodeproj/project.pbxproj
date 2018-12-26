@@ -37,6 +37,7 @@
 		8C90079A218909C200577A1C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C900799218909C200577A1C /* DataModel.swift */; };
 		8C90079C218958D200577A1C /* MoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90079B218958D200577A1C /* MoreVC.swift */; };
 		8C90079E2189F00500577A1C /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90079D2189F00500577A1C /* RegisterVC.swift */; };
+		8CA0E9C921D35C3000F471C1 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA0E9C821D35C3000F471C1 /* TabBarController.swift */; };
 		8CA7FDE621A1BBAD00DB7189 /* EmployeesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDE521A1BBAD00DB7189 /* EmployeesVC.swift */; };
 		8CA7FDE821A1C42600DB7189 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDE721A1C42600DB7189 /* CustomSegmentedControl.swift */; };
 		8CA7FDEC21A3736E00DB7189 /* ItemFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDEB21A3736E00DB7189 /* ItemFeedVC.swift */; };
@@ -109,6 +110,7 @@
 		8C900799218909C200577A1C /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		8C90079B218958D200577A1C /* MoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreVC.swift; sourceTree = "<group>"; };
 		8C90079D2189F00500577A1C /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		8CA0E9C821D35C3000F471C1 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		8CA7FDE521A1BBAD00DB7189 /* EmployeesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesVC.swift; sourceTree = "<group>"; };
 		8CA7FDE721A1C42600DB7189 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		8CA7FDEB21A3736E00DB7189 /* ItemFeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFeedVC.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				8CA7FDEB21A3736E00DB7189 /* ItemFeedVC.swift */,
+				8CA0E9C821D35C3000F471C1 /* TabBarController.swift */,
 				8C04B9AD21CC54A500235D67 /* ItemDetailsVC.swift */,
 			);
 			path = Items;
@@ -550,6 +553,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C3F1BC0216028A70028B7E2 /* RegistrationVC.swift in Sources */,
+				8CA0E9C921D35C3000F471C1 /* TabBarController.swift in Sources */,
 				8C10C39F218229BC00E2CC28 /* ProfileTableViewCell.swift in Sources */,
 				8C90079A218909C200577A1C /* DataModel.swift in Sources */,
 				8CB2639E21646B8500ADBE44 /* MapVC.swift in Sources */,

@@ -61,9 +61,58 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         fetchCompletionHandler completionHandler:
         @escaping (UIBackgroundFetchResult) -> Void) {
         print("Received a push")
+        
         if (application.applicationState == .active) {
             print("Received a push while the app is active")
+            print("Background!")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller1VC = storyboard.instantiateViewController(withIdentifier: "ItemDetailsVC") as! ItemDetailsVC
+            let nav = UINavigationController(rootViewController: controller1VC)
+            let rootVC = storyboard.instantiateViewController(withIdentifier: "TabBar") as! UITabBarController
+            
+            if PFUser.current() != nil {
+                if let info = userInfo["aps"] as? Dictionary <String, String> {
+                    let message = info["message"]! as String
+                    let objectId = info["objectId"]! as String
+                    print("This is the message:", message, objectId)
+                    DataModel.fromPush = true
+                    DataModel.pushObjectId = objectId
+                    rootVC.selectedIndex = 1
+                    rootVC.viewControllers![1] = nav
+                    self.window!.rootViewController = rootVC
+                }
+            }
+        } else {
+            print("Background!")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller1VC = storyboard.instantiateViewController(withIdentifier: "ItemDetailsVC") as! ItemDetailsVC
+            let nav = UINavigationController(rootViewController: controller1VC)
+            let rootVC = storyboard.instantiateViewController(withIdentifier: "TabBar") as! UITabBarController
+            
+            if PFUser.current() != nil {
+                if let info = userInfo["aps"] as? Dictionary <String, String> {
+                    let message = info["message"]! as String
+                    let objectId = info["objectId"]! as String
+                    print("This is the message:", message, objectId)
+                    DataModel.fromPush = true
+                    DataModel.pushObjectId = objectId
+                    rootVC.selectedIndex = 1
+                    rootVC.viewControllers![1] = nav
+                    self.window!.rootViewController = rootVC
+                }
+            }
+            
+            //Come back JSON to send
+            /*{
+                "aps": {
+                    "alert": "New Adidas",
+                    "sound": "",
+                    "message": "Message"
+                    "objectId": "22G74cxMSl"
+                }
+            }*/
         }
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

@@ -54,7 +54,7 @@ class ImageCaptureVC: UIViewController, AVCapturePhotoCaptureDelegate {
             let locationPointer = PFObject(withoutDataWithClassName: "Location", objectId: location.objectId)
             NewItem["location"] = locationPointer
         }
-        if let imageData = self.imageView.image!.jpegData(.low) {
+        if let imageData = self.imageView.image!.jpegData(.lowest) {
             let file = PFFile(name: "img.png", data: imageData)
             NewItem["image"] = file
         }
@@ -64,8 +64,9 @@ class ImageCaptureVC: UIViewController, AVCapturePhotoCaptureDelegate {
                 print("Success: Item saved.")
                 let channels = DataModel.tags;
                 let push = PFPush()
+                let data = [ "aps": [ "alert": "New item arrived " + results![0].name,"sound": "","message": "New item arrived " + results![0].name,"objectId": NewItem.objectId! ]]
+                push.setData(data)
                 push.setChannels(channels)
-                push.setMessage("New item arrived "  + results![0].name)
                 push.sendInBackground(block: { (success, error) in
                     if error == nil {
                         print("Success: Sent push notification to \(DataModel.tags) follower.")

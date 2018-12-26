@@ -30,9 +30,7 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     
     @IBAction func itemFeedUnwind(segue: UIStoryboardSegue) {
         print("filtering by", self.selectedFilter)
-        
         if segue.identifier == "itemFeedFilterUnwind" {
-            
             filterOutlet.image = UIImage(named: "FilterMinus")
             filteredItems.removeAll()
             filteredItems = items.filter { (Item) -> Bool in

@@ -32,6 +32,9 @@ struct DataModel {
     
     static var currentAddItemPage = "Name"
     
+    static var fromPush = false
+    static var pushObjectId = ""
+    
     static func resetAddData() {
         category = ""
         name = ""

@@ -48,8 +48,6 @@ class AddItemDetailsVC: UIViewController, UITextFieldDelegate {
         textField.becomeFirstResponder()
         self.buttonXMin = scrollView.frame.minX
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        
-       
     }
     
     override func viewWillAppear(_ animated: Bool) {
