@@ -153,7 +153,7 @@ class EmployeesVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     }
     
     @objc func acceptedUser(sender: UIButton) {
-        PFCloud.callFunction(inBackground: "registerEmployee", withParameters: ["userId": requests[sender.tag].objectId!]) {
+        PFCloud.callFunction(inBackground: "registerEmployee", withParameters: ["userId": requests[sender.tag].objectId!, "locationId": DataModel.employeeWorkPlace]) {
             (response, error) in
             if error == nil {
                 // Do something with response

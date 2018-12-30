@@ -22,7 +22,7 @@ struct DataModel {
     static var name = ""
     static var price = ""
     static var tags = [String]()
-    static var employeeWorkPlace = "M8zrpFJD8f"
+    static var employeeWorkPlace = ""
     
     static var employees: [PFUser]?
     static var requests: [PFUser]?
@@ -31,6 +31,7 @@ struct DataModel {
     static var placesRef = PlacesVC()
     
     static var currentAddItemPage = "Name"
+    static var deviceToken = Data()
     
     static var fromPush = false
     static var pushObjectId = ""

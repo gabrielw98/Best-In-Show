@@ -17,7 +17,10 @@ class Item {
     var category = ""
     var image = UIImage()
     var locationId = ""
-    
+    var objectId = ""
+        
+    var isLongPressed = false
+
     var locationItemsDict = [Location:[Item]]()
     
     init() {
@@ -25,11 +28,13 @@ class Item {
     }
     
     init(object: PFObject, image: UIImage) {
+        print(object.objectId, "id!!!!")
         name = object["name"] as! String
         price = object["itemPrice"] as! String
         tags = object["tags"] as! [String]
         category = object["itemCategory"] as! String
         locationId = object["locationId"] as! String
+        objectId = object.objectId!
         self.image = image
     }
     

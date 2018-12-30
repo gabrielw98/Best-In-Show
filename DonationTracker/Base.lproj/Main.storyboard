@@ -203,6 +203,7 @@
                         <outlet property="toggleLoginSignUpOutlet" destination="70h-Yb-nOR" id="OYD-I5-3Mh"/>
                         <outlet property="usernameTextField" destination="6uI-Uh-7Sh" id="06x-GG-D9F"/>
                         <segue destination="RtF-HI-qqT" kind="show" identifier="showMap" id="E1s-Kv-0QA"/>
+                        <segue destination="RtF-HI-qqT" kind="show" identifier="showItemFeed" id="9Y0-7P-PcB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -1666,6 +1667,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="XjC-bw-MLN"/>
         <segue reference="eyJ-FL-m8N"/>
+        <segue reference="9Y0-7P-PcB"/>
         <segue reference="uhp-lg-42z"/>
         <segue reference="iGb-Xr-rdD"/>
         <segue reference="Day-cy-DNa"/>

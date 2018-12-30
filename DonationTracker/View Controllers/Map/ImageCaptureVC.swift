@@ -64,28 +64,29 @@ class ImageCaptureVC: UIViewController, AVCapturePhotoCaptureDelegate {
                 print("Success: Item saved.")
                 let channels = DataModel.tags;
                 let push = PFPush()
-                let data = [ "aps": [ "alert": "New item arrived " + results![0].name,"sound": "","message": "New item arrived " + results![0].name,"objectId": NewItem.objectId! ]]
+                let data = [ "aps": [ "alert": "New item arrived " + results![0].name,"sound": "","message": "New item arrived " + results![0].name,"objectId": NewItem.objectId! ], "identifier": "newItem"] as [String : Any]
                 push.setData(data)
                 push.setChannels(channels)
                 push.sendInBackground(block: { (success, error) in
                     if error == nil {
                         print("Success: Sent push notification to \(DataModel.tags) follower.")
+                        DataModel.items.insert(Item(object: NewItem, image: self.imageView.image!), at: 0)
+                        DataModel.currentAddItemPage = "Name"
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let tabbarVC = storyboard.instantiateViewController(withIdentifier: "TabBar") as! UITabBarController
+                        if let vcs = tabbarVC.viewControllers,
+                            let nc = vcs[1] as? UINavigationController,
+                            let itemVC = nc.topViewController as? ItemFeedVC {
+                            itemVC.fromNewItem = true
+                        }
+                        self.present(tabbarVC, animated: false, completion: nil)
+                        tabbarVC.selectedIndex = 1
                     }
                 })
             }
         }
-        DataModel.items.insert(Item(object: NewItem, image: self.imageView.image!), at: 0)
-        DataModel.currentAddItemPage = "Name"
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let tabbarVC = storyboard.instantiateViewController(withIdentifier: "TabBar") as! UITabBarController
-        if let vcs = tabbarVC.viewControllers,
-            let nc = vcs[1] as? UINavigationController,
-            let itemVC = nc.topViewController as? ItemFeedVC {
-                itemVC.fromNewItem = true
-        }
-        self.present(tabbarVC, animated: false, completion: nil)
-        tabbarVC.selectedIndex = 1
     }
+    
     override func viewDidLoad() {
         print(DataModel.name, DataModel.tags, DataModel.price)
         print("in image capture")

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Parse
 
-class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
     
     
     @IBOutlet weak var filterOutlet: UIBarButtonItem!
@@ -56,13 +56,35 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
             collectionView.reloadData()
             fromNewItem = false
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = self.selectedFilter
     }
     
+    @objc func toggleEdit() {
+        if collectionView.allowsMultipleSelection {
+            if (self.navigationItem.rightBarButtonItems?.count)! > 1 {
+                self.navigationItem.rightBarButtonItems?.remove(at: 1)
+            }
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEdit))
+            collectionView.allowsMultipleSelection = false
+        } else {
+            let removeItems = UIBarButtonItem(title: "Remove", style: .plain, target: self, action: #selector(deleteItems))
+            removeItems.isEnabled = false
+            navigationItem.rightBarButtonItems?.append(removeItems)
+            
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(toggleEdit))
+            collectionView.allowsMultipleSelection = true
+        } 
+        
+    }
+    
     override func viewDidLoad() {
+        if DataModel.employeeStatus == "Registered" {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(toggleEdit))
+        }
         collectionView.delegate = self
         collectionView.dataSource = self
         if let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -85,6 +107,8 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
                 queryItems()
             }
         } else {
+            //Query items here...
+            print(DataModel.items.count, "counting items")
             items = DataModel.items
             collectionView.reloadData()
         }
@@ -165,15 +189,39 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ItemCell
         if self.selectedFilter == "" {
-            cell.priceLabel.text = items[indexPath.row].price
-            cell.imageView.image = items[indexPath.row].image
+            cell.priceLabel.text = items[indexPath.item].price
+            cell.imageView.image = items[indexPath.item].image
+            if items[indexPath.row].isLongPressed {
+                cell.imageView.alpha = 0.5
+            }
         } else { //show filtered items
-            cell.priceLabel.text = filteredItems[indexPath.row].price
-            cell.imageView.image = filteredItems[indexPath.row].image
+            cell.priceLabel.text = filteredItems[indexPath.item].price
+            cell.imageView.image = filteredItems[indexPath.item].image
+            if filteredItems[indexPath.item].isLongPressed {
+                cell.imageView.alpha = 0.5
+            }
         }
-        
+        /*let tapGR = CustomLongTapGestureRecongnizer(target: self, action: #selector(handleTap(sender:)))
+        tapGR.indexPath = indexPath
+        tapGR.delegate = self
+        cell.addGestureRecognizer(tapGR)*/
         cell.priceBackground.alpha = 0.6
         return cell
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    @objc func handleTap(sender: CustomLongTapGestureRecongnizer) {
+        print("long pressed")
+        if self.selectedFilter == "" {
+            items[sender.indexPath.item].isLongPressed = true
+        } else {
+            filteredItems[sender.indexPath.item].isLongPressed = true
+        }
+        self.collectionView.reloadItems(at: [sender.indexPath])
+        return
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -182,8 +230,45 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
         } else {
             selectedItem = filteredItems[indexPath.item]
         }
-        self.performSegue(withIdentifier: "showDetails", sender: nil)
-        
+        if !collectionView.allowsMultipleSelection {
+            self.performSegue(withIdentifier: "showDetails", sender: nil)
+            collectionView.deselectItem(at: indexPath, animated: true)
+        } else {
+            print("count:", collectionView.indexPathsForSelectedItems?.count)
+            if collectionView.allowsMultipleSelection && (collectionView.indexPathsForSelectedItems?.count)! >= 1 {
+                navigationItem.rightBarButtonItems![1].isEnabled = true
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if collectionView.allowsMultipleSelection && (collectionView.indexPathsForSelectedItems?.count)! == 0 {
+            navigationItem.rightBarButtonItems![1].isEnabled = false
+        }
+    }
+    
+    
+    @objc func deleteItems() {
+            print("trying to remove")
+            var idArray = [String]()
+            for indexPath in (collectionView!.indexPathsForSelectedItems as? [IndexPath])! {
+                idArray.append(items[indexPath.row].objectId)
+            }
+            let query = PFQuery(className: "Item")
+            query.whereKey("objectId", containedIn: idArray)
+            query.findObjectsInBackground {
+                (objects:[PFObject]?, error:Error?) -> Void in
+                PFObject.deleteAll(inBackground: objects, block: { (success:Bool, error:Error?) in
+                    if success {
+                        print("Success: Deleted the objects")
+                    }
+                })
+            }
+            items.removeAll { (Item) -> Bool in
+                idArray.contains(Item.objectId)
+            }
+            collectionView.reloadData()
+            toggleEdit()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -213,3 +298,6 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     
 }
 
+class CustomLongTapGestureRecongnizer: UITapGestureRecognizer {
+    var indexPath = IndexPath()
+}

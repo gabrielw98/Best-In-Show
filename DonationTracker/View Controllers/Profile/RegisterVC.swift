@@ -38,6 +38,17 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                             } else if success {
                                 print("Saved Employee status for user.")
                                 DataModel.employeeStatus = "Requested"
+                                print("requesting", self.selectedLocation.admin.objectId!)
+                                PFCloud.callFunction(inBackground: "pushToUser", withParameters: ["recipientId": self.selectedLocation.admin.objectId!, "recipientName": currentUser.username!, "message": "Please accept my request to be a registered employee at \(self.selectedLocation.name!)", "identifier" : "employeeToAdmin"]){
+                                    (response, error) in
+                                    if error == nil {
+                                        // Do something with response
+                                        print(response, "response")
+                                    } else {
+                                        // Handle with error
+                                        print(error?.localizedDescription, "Cloud Code Push Error")
+                                    }
+                                }
                             }
                         }
                     }
@@ -45,18 +56,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             }
         } else if identifier == "admin" {
             sendAdminRequestEmail()
-            if let currentUser = PFUser.current() {
-                currentUser["adminStatus"] = "Requested"
-                currentUser.saveInBackground { (success, error) in
-                    if let error = error {
-                        print("Error saving the location for user: \(error.localizedDescription)")
-                    } else if success {
-                        print("Saved Employee status for user.")
-                        DataModel.adminStatus = "Requested"
-                        self.saveLocation()
-                    }
-                }
-            }
+            self.saveLocation()
         }
     }
     
@@ -84,6 +84,18 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         location.saveInBackground { (success, error) in
             if success {
                 print("Location Saved")
+                if let currentUser = PFUser.current() {
+                    currentUser["adminStatus"] = "Requested"
+                    currentUser["locationId"] = location.objectId!
+                        currentUser.saveInBackground { (success, error) in
+                            if let error = error {
+                                print("Error saving the location for user: \(error.localizedDescription)")
+                            } else if success {
+                                print("Saved Employee status for user.")
+                                DataModel.adminStatus = "Requested"
+                            }
+                    }
+                }
             }
         }
     }
@@ -448,6 +460,8 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             present(suggestDomainAlertView, animated: true, completion: nil)
         } else if items[indexPath.section][indexPath.row] == "Admin Email" {
             self.self.showVerifyEmailAlertView()
+        } else if items[indexPath.section][indexPath.row] == "Verification Code" {
+            showVerifyEmailAlertView()
         } else if items[indexPath.section][indexPath.row] == self.suggestedDomain {
             self.fromEditingPhoneNumber = false
             self.performSegue(withIdentifier: "showChangeDomain", sender: nil)
@@ -703,6 +717,9 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     func matchesBusinessEmailDomain(emailString: String) -> Bool {
         if self.identifier == "employee" {
+            if self.selectedLocation.domain == "N/A" {
+                return true
+            }
             let range = emailString.lastIndex(of: "@")!..<emailString.endIndex
             let paramDomain = String(emailString[range])
             if paramDomain == selectedLocation.domain {

@@ -77,6 +77,9 @@ class RegistrationVC: UIViewController, UITextFieldDelegate, UNUserNotificationC
             print(object, "object")
             if let user = object as? PFUser {
                 print(user, "user")
+                if let workPlace = user["locationId"] as? String {
+                    DataModel.employeeWorkPlace = workPlace
+                }
                 if let employeeStatus = user["employeeStatus"] as? String {
                     print("emp status set", employeeStatus)
                     DataModel.employeeStatus = employeeStatus
@@ -85,7 +88,7 @@ class RegistrationVC: UIViewController, UITextFieldDelegate, UNUserNotificationC
                     print("admin status set", adminStatus)
                     DataModel.adminStatus = adminStatus
                 }
-                self.performSegue(withIdentifier: "showMap", sender: nil)
+                self.performSegue(withIdentifier: "showItemFeed", sender: nil)
             }
         }
     }
@@ -112,32 +115,14 @@ class RegistrationVC: UIViewController, UITextFieldDelegate, UNUserNotificationC
         user.password = passwordTextField.text
         user.signUpInBackground(block: { (success, error) in
             if success {
+                self.performSegue(withIdentifier: "showMap", sender: nil)
                 print("successfully signed up the user")
-                self.setupNotification()
+                self.createInstallationOnParse(deviceTokenData: DataModel.deviceToken)
             }
         })
     }
     
-    
-    //Come back here francis' device
-    func setupNotification() {
-        UNUserNotificationCenter.current().delegate = self
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .carPlay ]) {
-            (granted, error) in
-            print("Permission granted: \(granted)")
-            guard granted else { return }
-            self.getNotificationSettings()
-        }
-    }
-    func getNotificationSettings() {
-        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-            print("Notification settings: \(settings)")
-            guard settings.authorizationStatus == .authorized else { return }
-            UIApplication.shared.registerForRemoteNotifications()
-        }
-    }
-    
-    func createInstallationOnParse(deviceTokenData:Data){
+    func createInstallationOnParse(deviceTokenData:Data) {
         if let installation = PFInstallation.current(){
             installation.setDeviceTokenFrom(deviceTokenData)
             installation.setObject(PFUser.current()!, forKey: "user")
@@ -163,6 +148,7 @@ class RegistrationVC: UIViewController, UITextFieldDelegate, UNUserNotificationC
                 self.usernameTextField.text = ""
                 self.passwordTextField.text = ""
                 self.refreshCurrentUserData()
+                self.createInstallationOnParse(deviceTokenData: DataModel.deviceToken)
             } else {
                 // No, User Doesn't Exist
             }
@@ -194,6 +180,21 @@ class RegistrationVC: UIViewController, UITextFieldDelegate, UNUserNotificationC
         } else {
             submitLoginSignUpOutlet.alpha = 0.5
             submitLoginSignUpOutlet.isEnabled = false
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showMap" {
+            let barViewControllers = segue.destination as! UITabBarController
+            let nav = barViewControllers.viewControllers![0] as! UINavigationController
+            let destinationViewController = nav.topViewController as! MapVC
+            destinationViewController.firstTimeUser = true
+        } else if segue.identifier == "showItemFeed" {
+            let barViewControllers = segue.destination as! UITabBarController
+            let nav = barViewControllers.viewControllers![0] as! UINavigationController
+            let destinationViewController = nav.topViewController as! MapVC
+            destinationViewController.showItemFeedVC = true
+            print("showing item feed")
         }
     }
     

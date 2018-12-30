@@ -31,16 +31,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 $0.clientKey = (keys!["parseClientKey"] as! String)
                 $0.server = keys!["parseServer"] as! String
             }
-            
         }
-        
         Parse.initialize(with: configuration)
-        
+        //setupNotification()
+        if #available(iOS 10.0, *) {
+            let center = UNUserNotificationCenter.current()
+            center.delegate = self
+            center.requestAuthorization(options:[.alert,.sound,.badge]) { (granted, error) in
+                if granted{
+                    UIApplication.shared.registerForRemoteNotifications()
+                }else{
+                    print("Notification permission denied.")
+                }
+            }
+            
+        } else {
+            // For ios 9 and below
+            let type: UIUserNotificationType = [.alert,.sound,.badge];
+            let setting = UIUserNotificationSettings(types: type, categories: nil);
+            UIApplication.shared.registerUserNotificationSettings(setting);
+            UIApplication.shared.registerForRemoteNotifications()
+        }
         /*if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
             let keys = NSDictionary(contentsOfFile: path)
             GMSPlacesClient.provideAPIKey(keys!["googleKey"] as! String)
         }*/
-        
         return true
     }
     
@@ -49,11 +64,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         completionHandler([.alert,.sound])
     }
     
+    //Come back here francis' device
+    func setupNotification() {
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .carPlay ]) {
+            (granted, error) in
+            print("Permission granted: \(granted)")
+            guard granted else { return }
+            self.getNotificationSettings()
+        }
+    }
+    func getNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            print("Notification settings: \(settings)")
+            guard settings.authorizationStatus == .authorized else { return }
+            DispatchQueue.main.async {
+                print("trying to register")
+                UIApplication.shared.registerForRemoteNotifications()
+                
+            }
+        }
+    }
+    
     func application(_ application: UIApplication,
                      didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Failed to register: \(error)")
     }
     
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("in delegate method.")
+        DataModel.deviceToken = deviceToken
+    }
     
     func application(
         _ application: UIApplication,
@@ -69,19 +110,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let controller1VC = storyboard.instantiateViewController(withIdentifier: "ItemDetailsVC") as! ItemDetailsVC
             let nav = UINavigationController(rootViewController: controller1VC)
             let rootVC = storyboard.instantiateViewController(withIdentifier: "TabBar") as! UITabBarController
-            
-            if PFUser.current() != nil {
-                if let info = userInfo["aps"] as? Dictionary <String, String> {
-                    let message = info["message"]! as String
-                    let objectId = info["objectId"]! as String
-                    print("This is the message:", message, objectId)
-                    DataModel.fromPush = true
-                    DataModel.pushObjectId = objectId
-                    rootVC.selectedIndex = 1
-                    rootVC.viewControllers![1] = nav
-                    self.window!.rootViewController = rootVC
-                }
-            }
         } else {
             print("Background!")
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -90,16 +118,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let rootVC = storyboard.instantiateViewController(withIdentifier: "TabBar") as! UITabBarController
             
             if PFUser.current() != nil {
-                if let info = userInfo["aps"] as? Dictionary <String, String> {
-                    let message = info["message"]! as String
-                    let objectId = info["objectId"]! as String
-                    print("This is the message:", message, objectId)
-                    DataModel.fromPush = true
-                    DataModel.pushObjectId = objectId
-                    rootVC.selectedIndex = 1
-                    rootVC.viewControllers![1] = nav
-                    self.window!.rootViewController = rootVC
+                print(userInfo, "this is the user info")
+                if let identifier = userInfo["identifier"] as? String {
+                    print("this far")
+                    if identifier == "employeeToAdmin" {
+                        print("CHECK HERE GOT A REQUEST FROM EMPLOYEE")
+                        //next show the employees vc.
+                    } else if identifier == "newItem" {
+                        if let info = userInfo["aps"] as? Dictionary <String, String> {
+                            print(userInfo)
+                            let message = info["message"]! as String
+                            let objectId = info["objectId"]! as String
+                            print("This is the message:", message, objectId)
+                            DataModel.fromPush = true
+                            DataModel.pushObjectId = objectId
+                            rootVC.selectedIndex = 1
+                            rootVC.viewControllers![1] = nav
+                            self.window!.rootViewController = rootVC
+                        }
+                    }
                 }
+                
             }
             
             //Come back JSON to send

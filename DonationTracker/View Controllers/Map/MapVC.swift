@@ -38,20 +38,25 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         self.performSegue(withIdentifier: "toCollectionView", sender: nil)
     }
     @IBAction func searchItemAction(_ sender: Any) {
+        print(searchItemOutlet.tintColor == UIColor.lightGray, searchItemOutlet.tintColor == UIColor.white, "color")
         if isLocationSearch {
-            navigationItem.searchController = self.searchController
             isLocationSearch = false
-            navigationItem.searchController = searchController
-            
             self.searchController.isActive = true
             navigationItem.searchController?.searchBar.placeholder = "Search Items"
             searchItemOutlet.tintColor = UIColor.white
             searchLocationOutlet.tintColor = UIColor.lightGray
-        } else if searchItemOutlet.tintColor == UIColor.lightGray && !isLocationSearch {
-            navigationItem.searchController = self.searchController
+            DispatchQueue.main.async {
+                self.searchController.isActive = true
+                self.searchController.searchBar.becomeFirstResponder()
+            }
+        } else if searchItemOutlet.tintColor == UIColor.lightGray {
             searchItemOutlet.tintColor = UIColor.white
+            DispatchQueue.main.async {
+                self.searchController.isActive = true
+                self.searchController.searchBar.becomeFirstResponder()
+            }
             
-        } else if !isLocationSearch {
+        } else if searchItemOutlet.tintColor == UIColor.white {
             searchItemOutlet.tintColor = UIColor.lightGray
             showOriginalLocations()
         }
@@ -88,10 +93,21 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
     var searchController: UISearchController!
     var selectedLocation: Location!
     var isLocationSearch = true
+    var firstTimeUser = false
+    var currentLocation = CLLocationCoordinate2D()
     
     //Filter Fields
     var mapToFilterItemCategory = false
     var mapToNewItemCategory = false
+    
+    var showItemFeedVC = false
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if showItemFeedVC {
+            self.tabBarController?.selectedIndex = 1
+        }
+        showItemFeedVC = false
+    }
     
     override func viewDidLoad() {
         //showPush()
@@ -101,16 +117,19 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             let keys = NSDictionary(contentsOfFile: path)
             print(keys!["sendGridKey"] as! String)
         }
+        if DataModel.employeeWorkPlace == "" {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+        
         var userNotificationTypes : UIUserNotificationType
         userNotificationTypes = [.alert , .badge , .sound]
         let notificationSettings = UIUserNotificationSettings.init(types: userNotificationTypes, categories: nil)
         UIApplication.shared.registerUserNotificationSettings(notificationSettings)
         UIApplication.shared.registerForRemoteNotifications()
         mapView.delegate = self
+        searchItemOutlet.tintColor = UIColor.lightGray
         locationServices()
         setupSearchBar()
-        queryAllLocations()
-        
         let sb = UIStoryboard(name: "Main", bundle: nil)
         /*let otherVC = sb.instantiateViewController(withIdentifier: "ItemDetailsVC") as! ItemDetailsVC
         let navController = sb.instantiateViewController(withIdentifier: "DetailsNav") as! UINavigationController
@@ -126,7 +145,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         self.definesPresentationContext = true
         newVC?.modalPresentationStyle = .overCurrentContext
         self.present(newVC!, animated: true, completion: nil)*/
-        
     }
     
     func application(
@@ -142,8 +160,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         //self.present(navigationController, animated: true)
         //window?.rootViewController = navigationController
     }
-    
-    
     
     func cloudPush() {
         PFCloud.callFunction(inBackground: "pushToUser", withParameters: ["recipientId":"4GLzZP49bv", "message": "Message from \(PFUser.current()!.username!)"]){
@@ -198,7 +214,15 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 500, 500)
         mapView.setRegion(coordinateRegion, animated: false)
         mapView.showsUserLocation = true
+        currentLocation = (locations.first?.coordinate)!
         locationManager.stopUpdatingLocation()
+        if firstTimeUser {
+            print("querying follow nearby")
+            queryAndFollowNearyby()
+            firstTimeUser = false
+        } else {
+            queryAllLocations()
+        }
     }
     
     func setupSearchBar() {
@@ -213,17 +237,11 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
                 textfield.textColor = mapView.tintColor
                 if let backgroundview = textfield.subviews.first {
-                    
-                    // Background color
                     backgroundview.backgroundColor = UIColor.white
-                    
-                    // Rounded corner
-                    backgroundview.layer.cornerRadius = 10;
-                    backgroundview.clipsToBounds = true;
-                    
+                    backgroundview.layer.cornerRadius = 10
+                    backgroundview.clipsToBounds = true
                 }
             }
-            
             if let navigationbar = self.navigationController?.navigationBar {
                 navigationbar.barTintColor = mapView.tintColor
             }
@@ -308,26 +326,51 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
     }
     
     func queryAllLocations() {
-        //Come back
-        // This query gets all of the locations the user is subscribed to
-        // Instead of querying all the locations in the map vc,
-        // query all locations in the map vc and for those that the user is subscribed to,
-        // get the items. put them in the DataModel.items to show in ItemsVC.
-        // Otherwise, only show items from locations when the user selects ()
-        // Thus, don't use do an additional query when showing a location that the user
-        // is registered to.
         let query = PFQuery(className: "Location")
         //query.whereKey("coordinate", nearGeoPoint: PFGeoPoint(latitude: self.mapView.userLocation.coordinate.latitude, longitude: self.mapView.userLocation.coordinate.longitude) , withinMiles: 10.0)
+        query.whereKey("subscribers", contains: PFUser.current()?.objectId!)
+        getItems(query: query, firstTime: false)
+    }
+    
+    func queryAndFollowNearyby() {
+        print("querying nearby", self.currentLocation)
+        //Come back - get the items and populate
+        let query = PFQuery(className: "Location")
+        query.limit = 3
+        let userLocationGp = PFGeoPoint(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
+        query.whereKey("coordinate", nearGeoPoint: userLocationGp, withinMiles: 20.0)
+        query.whereKey("status", equalTo: "Registered")
+        getItems(query: query, firstTime: true)
+    }
+        
+    func getItems(query:PFQuery<PFObject>, firstTime: Bool) {
         Location().getLocations(query: query, completion: { (locationObjects) in
             DataModel.locations = locationObjects
+            if firstTime {
+                var locationsAsPFObject = [PFObject]()
+                for l in locationObjects {
+                    print("object:", l.name!)
+                    let locationObject = PFObject(withoutDataWithClassName: "Location", objectId: l.objectId)
+                    locationObject.add(PFUser.current()!.objectId!, forKey: "subscribers")
+                    locationsAsPFObject.append(locationObject)
+                    if l.objectId == locationObjects.last!.objectId {
+                        print("object Id's are equal try to save")
+                        PFObject.saveAll(inBackground: locationsAsPFObject, block: { (success, error) in
+                            if error == nil {
+                                print("Success: Saved nearby locations")
+                            }
+                        })
+                    }
+                }
+            }
             self.locationDict.removeAll()
             if let locations = DataModel.locations {
                 var ids = [String]()
                 for location in locations {
                     self.locationDict.updateValue(location, forKey: location.address)
-                    if location.isCurrentUserSubscribed {
+                    //if location.isCurrentUserSubscribed {
                         ids.append(location.objectId)
-                    }
+                    //}
                     if location == locations.last {
                         let query = PFQuery(className: "Item")
                         print("these are the ids", ids)
@@ -372,6 +415,10 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         })
     }
     
+    
+    
+    
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if mapView.selectedAnnotations[0] is MKUserLocation == false {
             self.selectedLocation = view.annotation as? Location
@@ -388,7 +435,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         var annotationView = MKMarkerAnnotationView()
         if let dequedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView {
             annotationView = dequedView
-        } else{
+        } else {
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
         }
         if let location = annotation as? Location {
