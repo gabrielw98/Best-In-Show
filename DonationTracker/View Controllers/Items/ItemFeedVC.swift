@@ -107,10 +107,23 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
                 queryItems()
             }
         } else {
-            //Query items here...
-            print(DataModel.items.count, "counting items")
-            items = DataModel.items
-            collectionView.reloadData()
+            if DataModel.firstTimeUser {
+                print("first time user found")
+                self.items = DataModel.items
+            } else {
+                print("not first time user found")
+                for item in DataModel.subscribedLocations {
+                    print("item:", item.name!)
+                }
+                DataModel.getItemsFromSubscribedLocation()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { // change 2 to desired number of seconds
+                    self.items = DataModel.subscribedItems
+                    self.collectionView.reloadData()
+                }
+                
+            }
+            //Come back
+            //Query items here... FOR FIRST TIME USER
         }
     }
     

@@ -50,7 +50,13 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
                 self.searchController.searchBar.becomeFirstResponder()
             }
         } else if searchItemOutlet.tintColor == UIColor.lightGray {
+            navigationItem.searchController = self.searchController
+            print("in here but not working")
+            isLocationSearch = false
+            self.searchController.isActive = true
+            navigationItem.searchController?.searchBar.placeholder = "Search Items"
             searchItemOutlet.tintColor = UIColor.white
+            searchLocationOutlet.tintColor = UIColor.lightGray
             DispatchQueue.main.async {
                 self.searchController.isActive = true
                 self.searchController.searchBar.becomeFirstResponder()
@@ -338,7 +344,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
         let query = PFQuery(className: "Location")
         query.limit = 3
         let userLocationGp = PFGeoPoint(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
-        query.whereKey("coordinate", nearGeoPoint: userLocationGp, withinMiles: 20.0)
+        query.whereKey("coordinate", nearGeoPoint: userLocationGp, withinMiles: 30.0)
         query.whereKey("status", equalTo: "Registered")
         getItems(query: query, firstTime: true)
     }
@@ -350,6 +356,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
                 var locationsAsPFObject = [PFObject]()
                 for l in locationObjects {
                     print("object:", l.name!)
+                    l.isCurrentUserSubscribed = true
                     let locationObject = PFObject(withoutDataWithClassName: "Location", objectId: l.objectId)
                     locationObject.add(PFUser.current()!.objectId!, forKey: "subscribers")
                     locationsAsPFObject.append(locationObject)
@@ -367,6 +374,9 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             if let locations = DataModel.locations {
                 var ids = [String]()
                 for location in locations {
+                    if firstTime {
+                        location.isCurrentUserSubscribed = true
+                    }
                     self.locationDict.updateValue(location, forKey: location.address)
                     //if location.isCurrentUserSubscribed {
                         ids.append(location.objectId)
@@ -391,12 +401,14 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
                                                 if error == nil  {
                                                     if let finalimage = UIImage(data: imageData!) {
                                                         if object["itemPrice"] != nil {
-                                                            print("items found2")
                                                             //Put into sqlite
-                                                            DataModel.items.append(Item(object: object, image: finalimage))
-                                                            print(DataModel.items.count)
+                                                           let newItem = Item(object: object, image: finalimage)
+                                                            self.locationDict[object.objectId!]?.items.append(newItem)
+                                                            DataModel.items.append(newItem)
                                                             if DataModel.items.count == objects.count {
                                                                 DataModel.createItemsPerLocationDict()
+                                                                self.mapView.addAnnotations(self.locationDict.compactMap(){ $0.1 }  )
+                                                                self.mapView.showAnnotations(self.locationDict.compactMap(){ $0.1 }, animated: true)
                                                             }
                                                         }
                                                     }
@@ -407,17 +419,12 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
                                 }
                             }
                         })
-                        self.mapView.addAnnotations(self.locationDict.compactMap(){ $0.1 }  )
-                        self.mapView.showAnnotations(self.locationDict.compactMap(){ $0.1 }, animated: false)
+                        
                     }
                 }
             }
         })
     }
-    
-    
-    
-    
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if mapView.selectedAnnotations[0] is MKUserLocation == false {
@@ -442,12 +449,11 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             print("found a registered ")
             if (DataModel.locations?.contains(location))! && location.registrationStatus == "Requested" {
                 annotationView.markerTintColor = UIColor.lightGray
-            } else if (DataModel.getSubscribedLocations().contains(location)) {
-                annotationView.markerTintColor = UIColor(red: 135.0/255.0, green: 206.0/255.0, blue: 235.0/255.0, alpha: 1.0)
-            } else if (DataModel.locations?.contains(location))!  {
+            } else if (DataModel.getSubscribedLocations().contains(location)) || self.firstTimeUser {
                 annotationView.markerTintColor = UIColor(red: 0, green: 51/255, blue: 102/255, alpha: 1)
+            } else if (DataModel.locations?.contains(location))!  {
+                annotationView.markerTintColor = UIColor(red: 135.0/255.0, green: 206.0/255.0, blue: 235.0/255.0, alpha: 1.0)
             }
-            
             annotationView.canShowCallout = true
             let infoButton = Sender(type: .infoLight)
             annotationView.rightCalloutAccessoryView = infoButton
@@ -489,6 +495,8 @@ class MapVC: UIViewController, CLLocationManagerDelegate, UISearchControllerDele
             let targetVC = segue.destination as! PlacesVC
             if self.chosenFilter == "" {
                 if let shownLocations = DataModel.locations {
+                    print("these are the locations i am passing")
+                    print(shownLocations[0].items, shownLocations[0].items.count)
                     targetVC.locations = shownLocations
                     targetVC.selectedLocationIndex = shownLocations.firstIndex(of: selectedLocation)!
                 }

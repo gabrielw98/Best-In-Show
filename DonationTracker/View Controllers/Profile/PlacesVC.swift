@@ -71,7 +71,6 @@ class PlacesVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-
             self.view.isHidden = true
             switch swipeGesture.direction {
                 

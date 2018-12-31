@@ -88,7 +88,43 @@ class RegistrationVC: UIViewController, UITextFieldDelegate, UNUserNotificationC
                     print("admin status set", adminStatus)
                     DataModel.adminStatus = adminStatus
                 }
-                self.performSegue(withIdentifier: "showItemFeed", sender: nil)
+                var counter = 0
+                let locationQuery = PFQuery(className: "Location")
+                locationQuery.whereKey("subscribers", contains: PFUser.current()?.objectId!)
+                locationQuery.findObjectsInBackground(block: { (objects, error) in
+                    if error == nil {
+                        if objects != nil && objects!.count > 0 {
+                            for object in objects! {
+                                if let image = object["image"] as? PFFile {
+                                    image.getDataInBackground {
+                                        (imageData:Data?, error:Error?) -> Void in
+                                        if error == nil  {
+                                            if let finalimage = UIImage(data: imageData!) {
+                                                print("now with image data")
+                                                DataModel.subscribedLocations.append(Location(object: object, image: finalimage))
+                                                counter += 1
+                                                if counter == (objects?.count)! {
+                                                    print("now returning data")
+                                                    self.performSegue(withIdentifier: "showItemFeed", sender: nil)
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    DataModel.subscribedLocations.append(Location(object: object, image: UIImage(named: "AppIconLocation")!))
+                                    counter += 1
+                                    if counter == objects?.count {
+                                        print("now returning data")
+                                        self.performSegue(withIdentifier: "showItemFeed", sender: nil)
+                                    }
+                                }
+                                
+                            }
+                        }
+                    } else {
+                        self.performSegue(withIdentifier: "showItemFeed", sender: nil)
+                    }
+                })
             }
         }
     }
@@ -113,13 +149,27 @@ class RegistrationVC: UIViewController, UITextFieldDelegate, UNUserNotificationC
         let user = PFUser()
         user.username = usernameTextField.text
         user.password = passwordTextField.text
-        user.signUpInBackground(block: { (success, error) in
-            if success {
-                self.performSegue(withIdentifier: "showMap", sender: nil)
-                print("successfully signed up the user")
-                self.createInstallationOnParse(deviceTokenData: DataModel.deviceToken)
-            }
-        })
+        if confirmPasswordTextfield.text == passwordTextField.text {
+            user.signUpInBackground(block: { (success, error) in
+                if success {
+                    self.performSegue(withIdentifier: "showMap", sender: nil)
+                    DataModel.firstTimeUser = true
+                    print("successfully signed up the user")
+                    self.createInstallationOnParse(deviceTokenData: DataModel.deviceToken)
+                } else {
+                    let signUpErrorAlertView = UIAlertController(title: "Notice", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                    signUpErrorAlertView.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in
+                    }))
+                    self.present(signUpErrorAlertView, animated: true, completion: nil)
+                }
+            })
+        } else {
+            let signUpErrorAlertView = UIAlertController(title: "Notice", message: "The passwords you entered do not match", preferredStyle: UIAlertControllerStyle.alert)
+            signUpErrorAlertView.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in
+            }))
+            self.present(signUpErrorAlertView, animated: true, completion: nil)
+        }
+        
     }
     
     func createInstallationOnParse(deviceTokenData:Data) {
