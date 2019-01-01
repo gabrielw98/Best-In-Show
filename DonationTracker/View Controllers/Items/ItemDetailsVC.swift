@@ -63,7 +63,7 @@ class ItemDetailsVC: UIViewController {
         let query = PFQuery(className: "Item")
         query.getObjectInBackground(withId: DataModel.pushObjectId) { (object, error) in
             if error == nil {
-                if let image = object!["image"] as? PFFile {
+                if let image = object!["image"] as? PFFileObject {
                     image.getDataInBackground {
                         (imageData:Data?, error:Error?) -> Void in
                         if error == nil  {

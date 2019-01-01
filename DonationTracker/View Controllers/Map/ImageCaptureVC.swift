@@ -55,7 +55,7 @@ class ImageCaptureVC: UIViewController, AVCapturePhotoCaptureDelegate {
             NewItem["location"] = locationPointer
         }
         if let imageData = self.imageView.image!.jpegData(.lowest) {
-            let file = PFFile(name: "img.png", data: imageData)
+            let file = PFFileObject(name: "img.png", data: imageData)
             NewItem["image"] = file
         }
         NewItem.saveInBackground { (success, error) in

@@ -494,6 +494,7 @@
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/SendGrid-Swift/SendGrid_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/XXXRoundMenuButton/XXXRoundMenuButton.framework",
 				"${BUILT_PRODUCTS_DIR}/YelpAPI/YelpAPI.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -502,6 +503,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SendGrid_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XXXRoundMenuButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YelpAPI.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

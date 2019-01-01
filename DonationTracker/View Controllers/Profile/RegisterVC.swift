@@ -77,7 +77,7 @@ class RegisterVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         location["website"] = self.selectedLocation.website
         if self.queriedBusinessImage != UIImage(named: "DefaultLocation") {
             if let imageData = self.queriedBusinessImage.jpegData(.lowest) {
-                let file = PFFile(name: "img.png", data: imageData)
+                let file = PFFileObject(name: "img.png", data: imageData)
                 location["image"] = file
             }
         }

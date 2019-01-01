@@ -51,7 +51,7 @@ class Item {
                 }
                 print(objects?.count, "objects count")
                 for object in objects! {
-                    if let image = object["image"] as? PFFile {
+                    if let image = object["image"] as? PFFileObject {
                         image.getDataInBackground {
                             (imageData:Data?, error:Error?) -> Void in
                             if error == nil  {
@@ -59,7 +59,7 @@ class Item {
                                     if object["itemPrice"] != nil {
                                         //Come back take the point and make it into a Location Object.
                                         var location: Location!
-                                        if let image = (object["location"] as! PFObject)["image"] as? PFFile {
+                                        if let image = (object["location"] as! PFObject)["image"] as? PFFileObject {
                                             image.getDataInBackground {
                                                 (imageData:Data?, error:Error?) -> Void in
                                                 location = Location(object: object["location"] as! PFObject, image: UIImage(named: "AppIconLocation")!)
@@ -123,7 +123,7 @@ class Item {
                 if objects != nil && !(objects?.isEmpty)! {
                     for object in objects! {
                         print("FINAL OBJECTS Count", objects!.count)
-                        if let image = object["image"] as? PFFile {
+                        if let image = object["image"] as? PFFileObject {
                             image.getDataInBackground {
                                 (imageData:Data?, error:Error?) -> Void in
                                 if let finalimage = UIImage(data: imageData!) {

@@ -56,8 +56,10 @@ struct DataModel {
                         itemsAtLocation.append(item)
                         self.itemsPerLocation.updateValue(itemsAtLocation, forKey: location)
                     } else { //empty item array
-                        self.itemsPerLocation.updateValue([Item](), forKey: location)
-                        itemsPerLocation[location]?.append(item)
+                        if !self.itemsPerLocation.keys.contains(location) {
+                            self.itemsPerLocation.updateValue([Item](), forKey: location)
+                            itemsPerLocation[location]?.append(item)
+                        }
                     }
                 }
             }
@@ -84,7 +86,7 @@ struct DataModel {
                 } else {
                     print(objects.count, "this is the count of the objects!")
                     for object : PFObject in objects {
-                        if let image = object["image"] as? PFFile {
+                        if let image = object["image"] as? PFFileObject {
                             image.getDataInBackground {
                                 (imageData:Data?, error:Error?) -> Void in
                                 if error == nil  {

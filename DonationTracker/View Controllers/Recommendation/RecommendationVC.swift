@@ -9,14 +9,19 @@
 import Foundation
 import UIKit
 import Parse
+import XXXRoundMenuButton
 
 class RecommendationVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var roundMenu: XXXRoundMenuButton!
+    @IBOutlet weak var noItemsView: UIView!
     
     @IBAction func addAction(_ sender: Any) {
         self.performSegue(withIdentifier: "showTags", sender: nil)
     }
+    
+    var roundMenuButton = XXXRoundMenuButton()
     
     var items = [Item]()
     var currentTime = Date()
@@ -24,13 +29,31 @@ class RecommendationVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     var selectedItem = Item()
     
     override func viewDidLoad() {
+        self.noItemsView.isHidden = true
         print("In Subscription")
         self.currentTime = Calendar.current.date(byAdding: .weekOfYear, value: -4, to: Date())!
         self.tableView.addSubview(self.refreshControl)
         tableView.separatorInset = UIEdgeInsetsMake(0, 3, 0, 11);
         tableView.dataSource = self
         tableView.delegate = self
+        
+        showNoItemsView()
         refreshData()
+    }
+    
+    func showNoItemsView() {
+        self.noItemsView.isHidden = false
+        let buttonMenu = XXXRoundMenuButton()
+        self.view.addSubview(buttonMenu)
+        buttonMenu.frame = CGRect(x: self.view.frame.size.width/2 - 100, y: (self.view.frame.size.height - ((self.tabBarController?.tabBar.frame.height)! + 150)), width: 200, height: 200)
+        buttonMenu.mainColor = UIColor(red: 0, green: 51/255, blue: 102/255, alpha: 1)
+        buttonMenu.centerButtonSize = CGSize(width: 44, height: 44)
+        buttonMenu.tintColor = UIColor.white
+        buttonMenu.jumpOutButtonOnebyOne = true
+        buttonMenu.load(withIcons: [UIImage(named: "Items")!,UIImage(named: "Icon")!,UIImage(named: "ProfileIconSubscriptions")!], startDegree: Float(-Double.pi), layoutDegree: Float(Double.pi/2));
+        buttonMenu.buttonClickBlock =  {(idx:NSInteger)-> Void in
+            print("%d", idx);
+        };
     }
     
     lazy var refreshControl: UIRefreshControl = {

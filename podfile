@@ -8,6 +8,7 @@ target 'DonationTracker' do
   # Pods for DonationTracker
   pod 'SendGrid-Swift'
   pod 'DropDown'
+  pod 'XXXRoundMenuButton'
   pod 'YelpAPI'
   pod 'Parse'
   target 'DonationTrackerTests' do

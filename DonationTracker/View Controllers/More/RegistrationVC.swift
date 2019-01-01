@@ -95,7 +95,7 @@ class RegistrationVC: UIViewController, UITextFieldDelegate, UNUserNotificationC
                     if error == nil {
                         if objects != nil && objects!.count > 0 {
                             for object in objects! {
-                                if let image = object["image"] as? PFFile {
+                                if let image = object["image"] as? PFFileObject {
                                     image.getDataInBackground {
                                         (imageData:Data?, error:Error?) -> Void in
                                         if error == nil  {

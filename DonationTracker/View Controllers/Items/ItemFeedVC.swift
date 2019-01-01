@@ -141,7 +141,7 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
                     return
                 }
                 for object in objects! {
-                    if let image = object["image"] as? PFFile {
+                    if let image = object["image"] as? PFFileObject {
                         image.getDataInBackground {
                             (imageData:Data?, error:Error?) -> Void in
                             if error == nil  {
