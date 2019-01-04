@@ -9,6 +9,7 @@ target 'DonationTracker' do
   pod 'SendGrid-Swift'
   pod 'DropDown'
   pod 'XXXRoundMenuButton'
+  pod 'SCLAlertView'
   pod 'YelpAPI'
   pod 'Parse'
   target 'DonationTrackerTests' do

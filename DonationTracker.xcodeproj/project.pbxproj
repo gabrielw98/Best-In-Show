@@ -32,6 +32,8 @@
 		8C49CD5C21C1BD58003C73CC /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49CD5B21C1BD58003C73CC /* Utilities.swift */; };
 		8C49CD5E21C331A9003C73CC /* ChangeDomainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49CD5D21C331A9003C73CC /* ChangeDomainVC.swift */; };
 		8C4B10442162ADFC00A3B012 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4B10432162ADFC00A3B012 /* Location.swift */; };
+		8C5DB0C021DC4885009E3C77 /* SubscriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DB0BF21DC4885009E3C77 /* SubscriptionCell.swift */; };
+		8C5DB0C221DE72CF009E3C77 /* CustomSizesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DB0C121DE72CF009E3C77 /* CustomSizesVC.swift */; };
 		8C74790821A4964B00EDC48E /* ImageCaptureVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C74790721A4964B00EDC48E /* ImageCaptureVC.swift */; };
 		8C74790A21A4E1BC00EDC48E /* AddItemDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C74790921A4E1BC00EDC48E /* AddItemDetailsVC.swift */; };
 		8C90079A218909C200577A1C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C900799218909C200577A1C /* DataModel.swift */; };
@@ -105,6 +107,8 @@
 		8C49CD5B21C1BD58003C73CC /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		8C49CD5D21C331A9003C73CC /* ChangeDomainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeDomainVC.swift; sourceTree = "<group>"; };
 		8C4B10432162ADFC00A3B012 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		8C5DB0BF21DC4885009E3C77 /* SubscriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionCell.swift; sourceTree = "<group>"; };
+		8C5DB0C121DE72CF009E3C77 /* CustomSizesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSizesVC.swift; sourceTree = "<group>"; };
 		8C74790721A4964B00EDC48E /* ImageCaptureVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCaptureVC.swift; sourceTree = "<group>"; };
 		8C74790921A4E1BC00EDC48E /* AddItemDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemDetailsVC.swift; sourceTree = "<group>"; };
 		8C900799218909C200577A1C /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
@@ -263,6 +267,7 @@
 			children = (
 				8C900799218909C200577A1C /* DataModel.swift */,
 				8CA7FDED21A373C600DB7189 /* ItemCell.swift */,
+				8C5DB0BF21DC4885009E3C77 /* SubscriptionCell.swift */,
 				8C49CD5B21C1BD58003C73CC /* Utilities.swift */,
 				8C4B10432162ADFC00A3B012 /* Location.swift */,
 				8CC7643221A72C0A00E11FB9 /* Item.swift */,
@@ -297,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				8C04B9B121D0949300235D67 /* RecommendationVC.swift */,
+				8C5DB0C121DE72CF009E3C77 /* CustomSizesVC.swift */,
 			);
 			path = Recommendation;
 			sourceTree = "<group>";
@@ -564,6 +570,7 @@
 				8C04B9AE21CC54A500235D67 /* ItemDetailsVC.swift in Sources */,
 				8C49CD5C21C1BD58003C73CC /* Utilities.swift in Sources */,
 				8CC7643321A72C0A00E11FB9 /* Item.swift in Sources */,
+				8C5DB0C021DC4885009E3C77 /* SubscriptionCell.swift in Sources */,
 				8CA7FDEE21A373C600DB7189 /* ItemCell.swift in Sources */,
 				8C3F1BBE216028A70028B7E2 /* AppDelegate.swift in Sources */,
 				8C10C3A221822A8700E2CC28 /* ProfileVC.swift in Sources */,
@@ -571,6 +578,7 @@
 				8CA7FDE821A1C42600DB7189 /* CustomSegmentedControl.swift in Sources */,
 				8C90079C218958D200577A1C /* MoreVC.swift in Sources */,
 				8C49CD5E21C331A9003C73CC /* ChangeDomainVC.swift in Sources */,
+				8C5DB0C221DE72CF009E3C77 /* CustomSizesVC.swift in Sources */,
 				8C90079E2189F00500577A1C /* RegisterVC.swift in Sources */,
 				8C04B9B821D15A4F00235D67 /* SubscriptionVC.swift in Sources */,
 				8C11D978217C2424000FD62E /* LocationInventoryVC.swift in Sources */,

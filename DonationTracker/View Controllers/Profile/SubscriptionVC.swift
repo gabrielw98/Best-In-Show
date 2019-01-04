@@ -36,8 +36,6 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAddVC))
     }
     
-    
-    
     @objc func showAddVC() {
         self.performSegue(withIdentifier: "showAdd", sender: nil)
     }
