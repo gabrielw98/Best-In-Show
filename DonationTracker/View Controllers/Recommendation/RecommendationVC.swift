@@ -68,7 +68,6 @@ class RecommendationVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     @objc func handleTap() {
-        // handling code
         print("print tapped")
         textField.resignFirstResponder()
     }

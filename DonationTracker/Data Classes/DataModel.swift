@@ -17,6 +17,9 @@ struct DataModel {
     static var adminStatus = ""
     static var itemsPerLocation = [Location:[Item]]()
     static var firstTimeUser = false
+    static var sizes: [String: [Any]] = ["Shirts": ["Size"], "Pants" : ["Length","Width","Style"], "Shoes": ["Size"]]
+    
+    static var customSizes = ["Size", "Length", "Width", "Style", "Size"]
 
     //Add Item data
     static var category = ""
@@ -57,6 +60,7 @@ struct DataModel {
                         self.itemsPerLocation.updateValue(itemsAtLocation, forKey: location)
                     } else { //empty item array
                         if !self.itemsPerLocation.keys.contains(location) {
+                            print(location == nil)
                             self.itemsPerLocation.updateValue([Item](), forKey: location)
                             itemsPerLocation[location]?.append(item)
                         }

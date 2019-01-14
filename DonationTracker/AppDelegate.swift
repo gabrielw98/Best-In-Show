@@ -9,6 +9,8 @@
 import UIKit
 import Parse
 import UserNotifications
+import AWSS3
+import AWSCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -21,9 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UINavigationBar.appearance().barTintColor = UIColor(red: 0, green: 51/255, blue: 102/255, alpha: 1)
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
-        
         let configuration = ParseClientConfiguration {
-            
             if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
                 let keys = NSDictionary(contentsOfFile: path)
                 print(keys!["sendGridKey"] as! String)
@@ -32,6 +32,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 $0.server = keys!["parseServer"] as! String
             }
         }
+        //7C597q7LCCOeeGumHMdMAeaIAAz9whQmyjmxcL7E
+        let accessKey = "AKIAIR76KKS3FMRBQLNA"
+        let secretKey = "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"
+        
+        /*let S3BucketName = "donation-tracker-bucket"
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
+                                                                identityPoolId:"us-east-1:816a224f-f440-4ad0-a342-39b6e2712e2c")
+        let configuration2 = AWSServiceConfiguration(region:.USEast1, credentialsProvider:credentialsProvider)
+        AWSServiceManager.default().defaultServiceConfiguration = configuration2
+        let ext = "jpg"
+        let imageURL = Bundle.main.path(forResource: "test", ofType: ext)!
+        let localImageURL = URL(fileURLWithPath: imageURL)
+        let uploadRequest = AWSS3TransferManagerUploadRequest()
+        uploadRequest!.body = localImageURL
+        uploadRequest!.key = ProcessInfo.processInfo.globallyUniqueString + "." + ext
+        uploadRequest!.bucket = S3BucketName
+        uploadRequest!.contentType = "image/" + ext
+        
+        
+        let transferManager = AWSS3TransferManager.default()
+        transferManager.upload(uploadRequest!).continueWith { (task) -> AnyObject! in
+            if let error = task.error {
+                print("Upload failed ❌ (\(error))")
+            }
+            if task.result != nil {
+                let s3URL = NSURL(string: "http://s3.amazonaws.com/\(S3BucketName)/\(uploadRequest!.key!)")!
+                print("Uploaded to:\n\(s3URL)")
+            }
+            else {
+                print("Unexpected empty result.")
+            }
+            return nil
+        }*/
+        
         Parse.initialize(with: configuration)
         //setupNotification()
         if #available(iOS 10.0, *) {
@@ -56,6 +90,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let keys = NSDictionary(contentsOfFile: path)
             GMSPlacesClient.provideAPIKey(keys!["googleKey"] as! String)
         }*/
+        /*let resource = "test"
+        let type = "jpg"
+        let key = "\(resource).\(type)"
+        let localImagePath = Bundle.main.path(forResource: resource, ofType: type)
+        let localImageURL = URL(fileURLWithPath: localImagePath!)
+        
+        let remoteName = "test.jpg"
+        
+        let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(remoteName)
+        let S3BucketName = "uswestvillagelync-deployments-mobilehub-918807125"
+        /*let uploadRequest = AWSS3TransferManagerUploadRequest()
+        uploadRequest.body = localImageURL
+        uploadRequest.key = key
+        uploadRequest.bucket = S3BucketName
+        //uploadRequest.contentType = "image/jpeg"
+        uploadRequest.acl = .publicReadWrite*/
+        let transferManager = AWSS3TransferManager.default()
+        transferManager.upload(uploadRequest).continueWith(block: { (task: AWSTask) -> Any? in
+            if let error = task.error {
+                print("Upload failed with error: (\(error.localizedDescription))")
+            }
+            if task.result != nil {
+                let url = AWSS3.default().configuration.endpoint.url
+                let publicURL = url?.appendingPathComponent(uploadRequest.bucket!).appendingPathComponent(uploadRequest.key!)
+                print("Uploaded to:\(publicURL)")
+            }
+            return nil
+        })*/
         return true
     }
     

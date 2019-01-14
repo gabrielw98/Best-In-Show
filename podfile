@@ -6,6 +6,7 @@ target 'DonationTracker' do
   use_frameworks!
 
   # Pods for DonationTracker
+  pod 'AWSS3'
   pod 'SendGrid-Swift'
   pod 'DropDown'
   pod 'XXXRoundMenuButton'

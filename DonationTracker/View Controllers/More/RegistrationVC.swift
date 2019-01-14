@@ -88,6 +88,10 @@ class RegistrationVC: UIViewController, UITextFieldDelegate, UNUserNotificationC
                     print("admin status set", adminStatus)
                     DataModel.adminStatus = adminStatus
                 }
+                if let sizes = user["sizes"] as? [String] {
+                    print("made it to custom sizes")
+                    DataModel.customSizes = sizes
+                }
                 var counter = 0
                 let locationQuery = PFQuery(className: "Location")
                 locationQuery.whereKey("subscribers", contains: PFUser.current()?.objectId!)

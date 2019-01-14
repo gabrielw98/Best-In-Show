@@ -46,6 +46,7 @@
 		8CA7FDEE21A373C600DB7189 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDED21A373C600DB7189 /* ItemCell.swift */; };
 		8CA7FDF021A4451000DB7189 /* AddItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA7FDEF21A4451000DB7189 /* AddItemVC.swift */; };
 		8CB2639E21646B8500ADBE44 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB2639D21646B8500ADBE44 /* MapVC.swift */; };
+		8CC3BD6A21E67AF300F904C6 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8CC3BD6921E67AF300F904C6 /* test.jpg */; };
 		8CC7643321A72C0A00E11FB9 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC7643221A72C0A00E11FB9 /* Item.swift */; };
 		8CF6450421936EF000ADFADA /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CF6450321936EF000ADFADA /* keys.plist */; };
 		A101A674B0E1BF2CEB9A1206 /* Pods_DonationTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB0447E5C24E1E6D4D859B5 /* Pods_DonationTrackerUITests.framework */; };
@@ -122,6 +123,7 @@
 		8CA7FDEF21A4451000DB7189 /* AddItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemVC.swift; sourceTree = "<group>"; };
 		8CB2639D21646B8500ADBE44 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		8CBFA05C219612160016B3F5 /* DonationTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DonationTracker.entitlements; sourceTree = "<group>"; };
+		8CC3BD6921E67AF300F904C6 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = test.jpg; path = ../../../../Downloads/test.jpg; sourceTree = "<group>"; };
 		8CC7643221A72C0A00E11FB9 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		8CF6450321936EF000ADFADA /* keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
 		ADB0447E5C24E1E6D4D859B5 /* Pods_DonationTrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DonationTrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,6 +194,7 @@
 		8C3F1BBC216028A70028B7E2 /* DonationTracker */ = {
 			isa = PBXGroup;
 			children = (
+				8CC3BD6921E67AF300F904C6 /* test.jpg */,
 				8CBFA05C219612160016B3F5 /* DonationTracker.entitlements */,
 				8C3F1BBD216028A70028B7E2 /* AppDelegate.swift */,
 				8C10C3A021822A5200E2CC28 /* View */,
@@ -448,6 +451,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CF6450421936EF000ADFADA /* keys.plist in Resources */,
+				8CC3BD6A21E67AF300F904C6 /* test.jpg in Resources */,
 				8C3F1BC8216028A90028B7E2 /* LaunchScreen.storyboard in Resources */,
 				8C3F1BC5216028A90028B7E2 /* Assets.xcassets in Resources */,
 				8C3F1BC3216028A70028B7E2 /* Main.storyboard in Resources */,
@@ -496,18 +500,24 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DonationTracker/Pods-DonationTracker-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSS3/AWSS3.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/SCLAlertView/SCLAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/SendGrid-Swift/SendGrid_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/XXXRoundMenuButton/XXXRoundMenuButton.framework",
 				"${BUILT_PRODUCTS_DIR}/YelpAPI/YelpAPI.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSS3.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCLAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SendGrid_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XXXRoundMenuButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YelpAPI.framework",

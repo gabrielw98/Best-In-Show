@@ -1,38 +1,50 @@
 PODS:
+  - AWSCore (2.8.1)
+  - AWSS3 (2.8.1):
+    - AWSCore (= 2.8.1)
   - Bolts/Tasks (1.9.0)
   - DropDown (2.3.12)
   - Parse (1.17.2):
     - Parse/Core (= 1.17.2)
   - Parse/Core (1.17.2):
     - Bolts/Tasks (~> 1.9)
+  - SCLAlertView (0.8)
   - SendGrid-Swift (0.1.2)
   - XXXRoundMenuButton (1.0.2)
   - YelpAPI (3.0.0)
 
 DEPENDENCIES:
+  - AWSS3
   - DropDown
   - Parse
+  - SCLAlertView
   - SendGrid-Swift
   - XXXRoundMenuButton
   - YelpAPI
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AWSCore
+    - AWSS3
     - Bolts
     - DropDown
     - Parse
+    - SCLAlertView
     - SendGrid-Swift
     - XXXRoundMenuButton
     - YelpAPI
 
 SPEC CHECKSUMS:
+  AWSCore: f17db38a5f8bceb217a19d58d8755bbb6f5ddb3c
+  AWSS3: 7b92a900fa54ce386e562d81c9d51724e70178a0
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   DropDown: 0bcc278799ec11a3d34ce1aac9367fbbaf5423d9
   Parse: 3b31a3dd1777b07ee7f0caee32fafbff544483a5
+  SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
   SendGrid-Swift: ac2a563f564d95e9c8e069db337279b442bed67e
   XXXRoundMenuButton: 15e6c376b0587eceea1edf182883ab00e64155e1
   YelpAPI: 9ae0ee45b998d306c1aff9b2d966dc23121f191e
 
-PODFILE CHECKSUM: 18e673b654220f4523ac309ab113e15001921efa
+PODFILE CHECKSUM: eb97ffdcf67a67f45f217361a530e216f416c4d4
 
 COCOAPODS: 1.5.3
