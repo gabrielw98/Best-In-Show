@@ -1,6 +1,17 @@
 PODS:
+  - AWSAuthCore (2.8.1):
+    - AWSCore (= 2.8.1)
+  - AWSCognitoIdentityProvider (2.8.1):
+    - AWSCognitoIdentityProviderASF (= 1.0.1)
+    - AWSCore (= 2.8.1)
+  - AWSCognitoIdentityProviderASF (1.0.1)
   - AWSCore (2.8.1)
+  - AWSMobileClient (2.8.1):
+    - AWSAuthCore (= 2.8.1)
+    - AWSCognitoIdentityProvider (= 2.8.1)
   - AWSS3 (2.8.1):
+    - AWSCore (= 2.8.1)
+  - AWSSQS (2.8.1):
     - AWSCore (= 2.8.1)
   - Bolts/Tasks (1.9.0)
   - DropDown (2.3.12)
@@ -14,7 +25,9 @@ PODS:
   - YelpAPI (3.0.0)
 
 DEPENDENCIES:
+  - AWSMobileClient
   - AWSS3
+  - AWSSQS
   - DropDown
   - Parse
   - SCLAlertView
@@ -23,9 +36,14 @@ DEPENDENCIES:
   - YelpAPI
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
+    - AWSAuthCore
+    - AWSCognitoIdentityProvider
+    - AWSCognitoIdentityProviderASF
     - AWSCore
+    - AWSMobileClient
     - AWSS3
+    - AWSSQS
     - Bolts
     - DropDown
     - Parse
@@ -35,8 +53,13 @@ SPEC REPOS:
     - YelpAPI
 
 SPEC CHECKSUMS:
+  AWSAuthCore: 4c1e754823ea60fc6f8f1716da5bda598a252829
+  AWSCognitoIdentityProvider: 31885b28f77955ed30b29b57bc658f170bdc44da
+  AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
   AWSCore: f17db38a5f8bceb217a19d58d8755bbb6f5ddb3c
+  AWSMobileClient: 1b617ea32f91d0d9922679581eb9aebaea94801e
   AWSS3: 7b92a900fa54ce386e562d81c9d51724e70178a0
+  AWSSQS: 89fe647a415dc066128c8d0c7eb41dd79efc8a1a
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   DropDown: 0bcc278799ec11a3d34ce1aac9367fbbaf5423d9
   Parse: 3b31a3dd1777b07ee7f0caee32fafbff544483a5
@@ -45,6 +68,6 @@ SPEC CHECKSUMS:
   XXXRoundMenuButton: 15e6c376b0587eceea1edf182883ab00e64155e1
   YelpAPI: 9ae0ee45b998d306c1aff9b2d966dc23121f191e
 
-PODFILE CHECKSUM: eb97ffdcf67a67f45f217361a530e216f416c4d4
+PODFILE CHECKSUM: f0db478dd79d89d305e84ae77bfb171b73ebb909
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.3
