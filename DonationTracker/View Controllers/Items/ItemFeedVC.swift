@@ -203,7 +203,7 @@ class ItemFeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ItemCell
         if self.selectedFilter == "" {
             cell.priceLabel.text = items[indexPath.item].price
-            cell.imageView.image = items[indexPath.item].image
+            cell.imageView.image = DataModel.s3Image
             if items[indexPath.row].isLongPressed {
                 cell.imageView.alpha = 0.5
             }

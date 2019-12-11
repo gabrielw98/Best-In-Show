@@ -146,21 +146,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         
         //self.uploadToS3()
-        self.getS3Object()
+        //self.getS3Object()
         
-        /*let S3BucketName = "village-lync"
-        let accessKey = "AKIAIR76KKS3FMRBQLNA"
-        let secretKey = "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"
+        let S3BucketName = "village-lync"
+        let accessKey = "AKIAIOTX5KV5XDDLKYCQ"
+        let secretKey = "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"
         let cp = AWSStaticCredentialsProvider(accessKey: accessKey, secretKey: secretKey)
         let config = AWSServiceConfiguration(region: AWSRegionType.USWest2, credentialsProvider: credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = config
         let ext = "jpg"
-        let url = Bundle.main.path(forResource: "test-1", ofType: ext)!
+        let url = Bundle.main.path(forResource: "landscape", ofType: ext)!
         
         let uploadRequest = AWSS3TransferManagerUploadRequest()!
         
         uploadRequest.body = URL(fileURLWithPath: url)
-        uploadRequest.key = "image"
+        uploadRequest.key = "landscape.jpg"
         uploadRequest.bucket = S3BucketName
         uploadRequest.contentType = "image/jpeg"
         uploadRequest.acl = .publicRead
@@ -178,7 +178,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 print("Unexpected empty result.")
             }
             return nil
-        }*/
+        }
 
         
         
@@ -324,7 +324,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let controller1VC = storyboard.instantiateViewController(withIdentifier: "ItemDetailsVC") as! ItemDetailsVC
             let nav = UINavigationController(rootViewController: controller1VC)
             let rootVC = storyboard.instantiateViewController(withIdentifier: "TabBar") as! UITabBarController
-            
+             
             if PFUser.current() != nil {
                 print(userInfo, "this is the user info")
                 if let identifier = userInfo["identifier"] as? String {
@@ -371,7 +371,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         if let downloadRequest = AWSS3TransferManagerDownloadRequest(){
             downloadRequest.bucket = S3BucketName
-            downloadRequest.key = "325029D2-1127-4CAF-9264-4FDA4CFA0144-8260-0000043E10686E3A.jpg"
+            downloadRequest.key = "91313086-A94D-4211-9F09-81CA6E650B41-65019-000121D7950EE0BD.jpg"
             downloadRequest.downloadingFileURL = downloadingFileURL
             
             transferManager.download(downloadRequest).continueWith(executor: AWSExecutor.default(), block: { (task: AWSTask<AnyObject>) -> Any? in
@@ -387,6 +387,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 if let data = NSData(contentsOf: downloadingFileURL) {
                     DispatchQueue.main.async(execute: { () -> Void in
                         print("Got the data", data)
+                        DataModel.s3Image = UIImage(data: data as Data)!
                     })
                 }
             return nil
@@ -399,16 +400,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let S3BucketName = "village-lync"
 
         // configure authentication with Cognito
-        let CognitoPoolID = "us-west-2:52ef1f93-439d-4c8c-a793-54ba31e3b965"
+        let CognitoPoolID = "us-west-2:230c87c6-319e-4cff-bb33-2ed89be3615a"
         let Region = AWSRegionType.USWest2
         let credentialsProvider = AWSCognitoCredentialsProvider(regionType:Region,
             identityPoolId:CognitoPoolID)
         let configuration = AWSServiceConfiguration(region:Region, credentialsProvider:credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
+        
+        
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
         let uploadRequest = AWSS3TransferManagerUploadRequest()!
+        //uploadRequest.acl = .publicRead
         
         let ext = "jpg"
-        let imageURL = Bundle.main.path(forResource: "test-1", ofType: ext)!
+        let imageURL = Bundle.main.path(forResource: "landscape", ofType: ext)!
         let localImageURL = URL(fileURLWithPath: imageURL)
         
         uploadRequest.body = localImageURL

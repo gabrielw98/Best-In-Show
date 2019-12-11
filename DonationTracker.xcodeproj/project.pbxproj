@@ -21,7 +21,7 @@
 		8C10C3A421835C7300E2CC28 /* PlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10C3A321835C7300E2CC28 /* PlacesVC.swift */; };
 		8C11D978217C2424000FD62E /* LocationInventoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11D977217C2424000FD62E /* LocationInventoryVC.swift */; };
 		8C11D97A217E5EC8000FD62E /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C11D979217E5EC8000FD62E /* ItemTableViewCell.swift */; };
-		8C17BC3D239893490042C9A8 /* test-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8C17BC3C239893490042C9A8 /* test-1.jpg */; };
+		8C17BC3D239893490042C9A8 /* test2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8C17BC3C239893490042C9A8 /* test2.jpg */; };
 		8C3D965D2187FE5B0072F500 /* PlacesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3D965C2187FE5B0072F500 /* PlacesCollectionViewCell.swift */; };
 		8C3F1BBE216028A70028B7E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F1BBD216028A70028B7E2 /* AppDelegate.swift */; };
 		8C3F1BC0216028A70028B7E2 /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F1BBF216028A70028B7E2 /* RegistrationVC.swift */; };
@@ -40,6 +40,7 @@
 		8C5DB0C221DE72CF009E3C77 /* CustomSizesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DB0C121DE72CF009E3C77 /* CustomSizesVC.swift */; };
 		8C74790821A4964B00EDC48E /* ImageCaptureVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C74790721A4964B00EDC48E /* ImageCaptureVC.swift */; };
 		8C74790A21A4E1BC00EDC48E /* AddItemDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C74790921A4E1BC00EDC48E /* AddItemDetailsVC.swift */; };
+		8C766B4D23A0177200642D36 /* landscape.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8C766B4C23A0177200642D36 /* landscape.jpg */; };
 		8C90079A218909C200577A1C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C900799218909C200577A1C /* DataModel.swift */; };
 		8C90079C218958D200577A1C /* MoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90079B218958D200577A1C /* MoreVC.swift */; };
 		8C90079E2189F00500577A1C /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90079D2189F00500577A1C /* RegisterVC.swift */; };
@@ -93,7 +94,7 @@
 		8C10C3A321835C7300E2CC28 /* PlacesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesVC.swift; sourceTree = "<group>"; };
 		8C11D977217C2424000FD62E /* LocationInventoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInventoryVC.swift; sourceTree = "<group>"; };
 		8C11D979217E5EC8000FD62E /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
-		8C17BC3C239893490042C9A8 /* test-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "test-1.jpg"; path = "Assets.xcassets/test.jpg.imageset/test-1.jpg"; sourceTree = "<group>"; };
+		8C17BC3C239893490042C9A8 /* test2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = test2.jpg; path = Assets.xcassets/test.jpg.imageset/test2.jpg; sourceTree = "<group>"; };
 		8C3D965C2187FE5B0072F500 /* PlacesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesCollectionViewCell.swift; sourceTree = "<group>"; };
 		8C3F1BBA216028A70028B7E2 /* DonationTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DonationTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C3F1BBD216028A70028B7E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +119,7 @@
 		8C5DB0C121DE72CF009E3C77 /* CustomSizesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSizesVC.swift; sourceTree = "<group>"; };
 		8C74790721A4964B00EDC48E /* ImageCaptureVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCaptureVC.swift; sourceTree = "<group>"; };
 		8C74790921A4E1BC00EDC48E /* AddItemDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemDetailsVC.swift; sourceTree = "<group>"; };
+		8C766B4C23A0177200642D36 /* landscape.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = landscape.jpg; path = ../../../../Downloads/landscape.jpg; sourceTree = "<group>"; };
 		8C900799218909C200577A1C /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		8C90079B218958D200577A1C /* MoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreVC.swift; sourceTree = "<group>"; };
 		8C90079D2189F00500577A1C /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
@@ -198,9 +200,10 @@
 		8C3F1BBC216028A70028B7E2 /* DonationTracker */ = {
 			isa = PBXGroup;
 			children = (
-				8C17BC3C239893490042C9A8 /* test-1.jpg */,
+				8C17BC3C239893490042C9A8 /* test2.jpg */,
 				8C4FB19723750D9D001FA751 /* awsconfiguration.json */,
 				8C442F8B23524D8A0054E6AD /* keys.plist */,
+				8C766B4C23A0177200642D36 /* landscape.jpg */,
 				8CBFA05C219612160016B3F5 /* DonationTracker.entitlements */,
 				8C3F1BBD216028A70028B7E2 /* AppDelegate.swift */,
 				8C4FB19523750C92001FA751 /* SQS.swift */,
@@ -458,8 +461,9 @@
 			files = (
 				8C4FB19823750D9D001FA751 /* awsconfiguration.json in Resources */,
 				8C442F8C23524D8A0054E6AD /* keys.plist in Resources */,
+				8C766B4D23A0177200642D36 /* landscape.jpg in Resources */,
 				8C3F1BC8216028A90028B7E2 /* LaunchScreen.storyboard in Resources */,
-				8C17BC3D239893490042C9A8 /* test-1.jpg in Resources */,
+				8C17BC3D239893490042C9A8 /* test2.jpg in Resources */,
 				8C3F1BC5216028A90028B7E2 /* Assets.xcassets in Resources */,
 				8C3F1BC3216028A70028B7E2 /* Main.storyboard in Resources */,
 			);

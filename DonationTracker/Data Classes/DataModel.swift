@@ -15,6 +15,7 @@ struct DataModel {
     static var currentUserType = userType.user
     static var employeeStatus = ""
     static var adminStatus = ""
+    static var s3Image = UIImage()
     static var itemsPerLocation = [Location:[Item]]()
     static var firstTimeUser = false
     static var sizes: [String: [Any]] = ["Shirts": ["Size"], "Pants" : ["Length","Width","Style"], "Shoes": ["Size"]]
